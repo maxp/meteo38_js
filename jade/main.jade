@@ -1,0 +1,15 @@
+extends layout
+
+append head_scripts
+    script(src="/inc/objs.js")
+
+block content
+
+    | content    
+
+    script.
+        $(objs.init)
+        window.ymaps_onload = objs.ymaps_onload
+        $(util.ymaps_load);
+
+//-

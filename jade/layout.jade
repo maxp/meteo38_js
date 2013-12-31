@@ -1,0 +1,99 @@
+doctype html
+html
+    head
+        title
+            | meteo38.ru
+            - if(title)
+                = ": "+title
+
+        block head
+            meta(charset="utf-8")
+            meta(http-equiv="X-UA-Compatible", content="IE=edge")
+            meta(name="viewport", content="width=device-width,initial-scale=1.0")
+
+            block head_css
+                link(href="/inc/css/bootstrap.min.css",rel="stylesheet")
+                link(href="/inc/main.css",rel="stylesheet")
+
+            //-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+            //-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+            //-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+            //-  <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+            //-  <link rel="shortcut icon" href="../assets/ico/favicon.png">
+
+            block head_scripts
+                script(src="/inc/js/jquery.min.js")
+                script(src="/inc/js/bootstrap.min.js")
+                script(src="/inc/util.js")
+            //- block head_csrf
+                != _csrf_token()
+
+    body
+        .navbar.navbar-default.navbar-static-top(role="navigation")
+            .container
+                .navbar-header
+                    button.navbar-toggle(type="button",
+                        data-toggle="collapse",data-target=".navbar-collapse")
+                            span.sr-only nav
+                            span.icon-bar
+                            span.icon-bar
+                            span.icon-bar
+                    a.navbar-brand(href="http://meteo38.ru/") meteo38.ru
+        
+                .navbar-collapse.collapse
+                    ul.nav.navbar-nav.pull-right
+                        //- li: a(href="/") Объекты
+                        li: a(href="/info") Информация
+                        //- li.dropdown
+                            a.dropdown-toggle(href="#",data-toggle="dropdown")
+                                | Dropdown 
+                                b.caret
+                            ul.dropdown-menu
+                                li: a(href="#") Action
+                                li: a(href="#") Action 1
+                                li: a(href="#") Action 2
+                                li.divider
+                                li.dropdown-header Nav Header
+                                li: a(href="#") Link 1
+                                li: a(href="#") Link 2
+                    //-
+        //-
+
+        .container.page
+
+            block content
+
+
+        block footer 
+            .footer
+                hr
+                .container
+
+        //- update metrika_id
+        
+        block bottom_script
+            script.
+                (function (d, w, c) { (w[c] = w[c] || []).push(function() {
+                        try {
+                            w.yaCounter21864346 = new Ya.Metrika({id:21864346,
+                                clickmap:true,
+                                trackLinks:true,
+                                accurateTrackBounce:true,
+                                trackHash:true
+                            });
+                        } catch(e) { }
+                    });
+
+                    var n = d.getElementsByTagName("script")[0],
+                        s = d.createElement("script"),
+                        f = function () { n.parentNode.insertBefore(s, n); };
+                        s.type = "text/javascript";
+                        s.async = true;
+                        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                    if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } 
+                    else { f(); }
+                })(document, window, "yandex_metrika_callbacks");
+            //-
+
+//-

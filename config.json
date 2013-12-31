@@ -1,0 +1,15 @@
+{
+    "__db": {
+        "url": "mongodb://localhost/meteo?auto_reconnect=true&poolSize=10"
+    },
+
+    "logger": {
+        "all": "/var/log/www/meteo38.log",
+        "err": "/var/log/www/meteo38-err.log"
+    },
+
+    "server": {
+        "host": "127.0.0.1",
+        "port": 8038
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "env": "development",
+    "logger": {
+        "all": "./tmp/logger-all.log",
+        "err": "./tmp/logger-err.log"
+    }
+}

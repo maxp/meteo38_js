@@ -1,5 +1,5 @@
 doctype html
-html
+html.no-js
     head
         title
             | meteo38.ru
@@ -12,7 +12,7 @@ html
             meta(name="viewport", content="width=device-width,initial-scale=1.0")
 
             block head_css
-                link(href="/inc/css/bootstrap.min.css",rel="stylesheet")
+                link(href="/inc/css/foundation.min.css",rel="stylesheet")
                 link(href="/inc/main.css",rel="stylesheet")
 
             //-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
@@ -22,14 +22,17 @@ html
             //-  <link rel="shortcut icon" href="../assets/ico/favicon.png">
 
             block head_scripts
-                script(src="/inc/js/jquery.min.js")
-                script(src="/inc/js/bootstrap.min.js")
-                script(src="/inc/util.js")
+                script(src="/inc/js/modernizr.js")
+
+                //- script(src="/inc/js/jquery.min.js")
+                //- script(src="/inc/js/bootstrap.min.js")
+                //- script(src="/inc/util.js")
             //- block head_csrf
                 != _csrf_token()
 
     body
-        .navbar.navbar-default.navbar-static-top(role="navigation")
+
+        //- .navbar.navbar-default.navbar-static-top(role="navigation")
             .container
                 .navbar-header
                     button.navbar-toggle(type="button",
@@ -69,17 +72,22 @@ html
                 hr
                 .container
 
-        //- update metrika_id
-        
-        block bottom_script
+        block page_scripts
+            script(src="/inc/js/jquery.min.js")
+            script(src="/inc/js/foundation.min.js")
+            script $(document).foundation();
+            //- script(src="/inc/util.js")
+
+        block counters
             script.
                 (function (d, w, c) { (w[c] = w[c] || []).push(function() {
                         try {
-                            w.yaCounter21864346 = new Ya.Metrika({id:21864346,
+                            w.yaCounter23638075 = new Ya.Metrika({
+                                id:23638075,
                                 clickmap:true,
                                 trackLinks:true,
-                                accurateTrackBounce:true,
-                                trackHash:true
+                                trackHash:true,
+                                accurateTrackBounce:true
                             });
                         } catch(e) { }
                     });

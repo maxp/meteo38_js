@@ -1,5 +1,5 @@
 #
-#   openirk.ru: main
+#   meteo38.ru: main
 #
 
 config = require './lib/config'
@@ -58,7 +58,7 @@ app.configure ->
 #
 
 app.get '/', (req, res) ->
-    res.render "main", title: "Main Page Title"
+    res.render "app/main", title: "Main Page Title"
 #-
 
 # app.all "/_trace", (req, res) ->

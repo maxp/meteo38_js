@@ -4,14 +4,21 @@ a:hover{text-decoration:underline;color:#008afa}
 a:active{text-decoration:underline;color:#a00}
 .page .obj_list .loading{color:#99b;margin:8px 12px}
 .navbar-static-top{margin-bottom:16px;background-color:#f2f6ff;}
-.navbar-static-top .navbar-brand,.navbar-static-top .navbar-brand:hover{font-weight:bold;font-size:34px;font-family:'Verdana',sans-serif;font-style:italic;color:#04b;margin-right:10px;margin-top:1px;text-shadow:1px 1px 2px rgba(0,0,0,0.4);}
+.navbar-static-top .navbar-brand,.navbar-static-top .navbar-brand:hover{font-weight:bold;font-size:34px;font-family:'Verdana',sans-serif;font-style:italic;color:#04b;margin:1px 10px 2px 2px;text-shadow:1px 1px 2px rgba(0,0,0,0.4);}
 .navbar-static-top .navbar-brand b,.navbar-static-top .navbar-brand:hover b{color:#a00;font-weight:inherit;font-style:italic}
+.page .favs{margin:0 auto 8px auto;}
+.page .favs .item{margin-bottom:4px;}
+.page .favs .item .data{font-size:20px;}
+.page .favs .item .data .t{color:#999;position:relative}
+.page .favs .item .data i{font-style:inherit;margin-left:2px;margin-right:1px}
+.page .favs .item .pos{color:#a40}
+.page .favs .item .zer{color:#555}
+.page .favs .item .neg{color:#04d}
+.page .favs .item .arr{font-size:15px;position:relative;top:-3px}
+.page .favs .item .text .title{font-size:22px}
+.page .favs .item .text .addr{color:#888}
 .page .map{border:1px solid #ccc;background-color:#f6f6f6;height:400px;border-radius:2px;padding:1px;margin-top:10px;margin-bottom:10px;position:relative;}
 .page .map .loading{position:absolute;top:8px;left:12px;color:#99b}
 .page .map .map_coords{position:absolute;bottom:8px;left:14px;z-index:100;font-size:12px}
 .page .map .map_center{position:absolute;margin-left:-16px;margin-top:-16px;top:50%;left:50%;z-index:100;color:#a22;opacity:.7;font-size:32px}
-.marker-info{background:#fafafa;padding:2px 6px;font-size:13px;line-height:16px;}
-.marker-info .nick{font-weight:bold;color:#00a}
-.marker-info .dt{color:#600}
-.marker-info .save{margin:4px;text-align:center}
 .clr{clear:both}

@@ -41,7 +41,7 @@
 
   app.get('/', function(req, res) {
     return res.render("app/main", {
-      title: "Main Page Title"
+      title: "Погода в Иркутске и области"
     });
   });
 

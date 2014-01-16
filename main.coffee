@@ -58,7 +58,7 @@ app.configure ->
 #
 
 app.get '/', (req, res) ->
-    res.render "app/main", title: "Main Page Title"
+    res.render "app/main", title: "Погода в Иркутске и области"
 #-
 
 # app.all "/_trace", (req, res) ->

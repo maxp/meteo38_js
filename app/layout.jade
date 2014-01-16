@@ -12,7 +12,7 @@ html.no-js
             meta(name="viewport", content="width=device-width,initial-scale=1.0")
 
             block head_css
-                link(href="/inc/css/foundation.min.css",rel="stylesheet")
+                link(href="/inc/css/bootstrap.min.css",rel="stylesheet")
                 link(href="/inc/main.css",rel="stylesheet")
 
             //-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
@@ -22,7 +22,7 @@ html.no-js
             //-  <link rel="shortcut icon" href="../assets/ico/favicon.png">
 
             block head_scripts
-                script(src="/inc/js/modernizr.js")
+                //- script(src="/inc/js/modernizr.js")
 
                 //- script(src="/inc/js/jquery.min.js")
                 //- script(src="/inc/js/bootstrap.min.js")
@@ -32,7 +32,7 @@ html.no-js
 
     body
 
-        //- .navbar.navbar-default.navbar-static-top(role="navigation")
+        .navbar.navbar-default.navbar-static-top(role="navigation")
             .container
                 .navbar-header
                     button.navbar-toggle(type="button",
@@ -41,25 +41,13 @@ html.no-js
                             span.icon-bar
                             span.icon-bar
                             span.icon-bar
-                    a.navbar-brand(href="http://meteo38.ru/") meteo38.ru
+                    a.navbar-brand(href="http://meteo38.ru/") Meteo38<b>.ru</b>
         
                 .navbar-collapse.collapse
                     ul.nav.navbar-nav.pull-right
-                        //- li: a(href="/") Объекты
-                        li: a(href="/info") Информация
-                        //- li.dropdown
-                            a.dropdown-toggle(href="#",data-toggle="dropdown")
-                                | Dropdown 
-                                b.caret
-                            ul.dropdown-menu
-                                li: a(href="#") Action
-                                li: a(href="#") Action 1
-                                li: a(href="#") Action 2
-                                li.divider
-                                li.dropdown-header Nav Header
-                                li: a(href="#") Link 1
-                                li: a(href="#") Link 2
-                    //-
+                        li: img(src="/inc/img/suncloud-48.png", 
+                                style="border: 1px solid #cdf; margin: 2px; border-radius: 3px;"
+                                )
         //-
 
         .container.page
@@ -74,8 +62,7 @@ html.no-js
 
         block page_scripts
             script(src="/inc/js/jquery.min.js")
-            script(src="/inc/js/foundation.min.js")
-            script $(document).foundation();
+            script(src="/inc/js/bootstrap.min.js")
             //- script(src="/inc/util.js")
 
         block counters

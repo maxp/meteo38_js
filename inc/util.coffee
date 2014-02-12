@@ -51,8 +51,8 @@ x.str = (s) -> if (not s?) or (typeof s == "number" and isNaN(s)) then "" else "
 
 x.randInt = (n)-> Math.floor(Math.random()*n)
 
-x.htmlq = (s) -> s.replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+x.htmlq = (s) -> 
+    s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 #-
 
 htmlq_chars = '&':'&amp;', '<':'&lt;', '>':'&gt;', '"': '&quot;'
@@ -63,23 +63,23 @@ x.htmlq_re = (s) -> s.replace(htmlq_regex, (c)-> htmlq_chars[c] or c)
 x.trim = (s) -> s.replace(/^\s+/g, "").replace(/\s+$/g, "")
 
 x.local_get = (key) ->
-  try
-    return localStorage[key]
-  catch e
-    # no localStorage
+    try
+        return localStorage[key]
+    catch e
+        # no localStorage
 #-
 
 x.local_set = (key, val) ->
-  try
-    return localStorage[key] = val
-  catch e
-    # no localStorage 
+    try
+        return localStorage[key] = val
+    catch e
+        # no localStorage 
 #-    
 
 x.truncate = (s, n) ->
-  return "" if not s
-  return s.slice(0, n)+" ..." if s.length > n
-  return s
+    return "" if not s
+    return s.slice(0, n)+" ..." if s.length > n
+    return s
 #-  
 
 
@@ -90,8 +90,8 @@ x.latlng2 = (lat, lng) -> [lat, lng]
 d02 = (d) -> if d < 10 then "0"+d else ""+d
 
 x.ddmmyyyy = (date) ->
-      return "??.??.????" if not date
-      d02(date.getDate())+"."+d02(date.getMonth()+1)+"."+date.getFullYear()
+    return "??.??.????" if not date
+    return d02(date.getDate())+"."+d02(date.getMonth()+1)+"."+date.getFullYear()
 #-
 
 x.hhmm = (date) ->

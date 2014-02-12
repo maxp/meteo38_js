@@ -28,6 +28,7 @@
         "deploy": "./deploy.sh",
         "stylus": "stylus --include-css -c -w inc",
         "coffee": "coffee -cw .",
+        "dbtun":  "ssh -fNL 22017:localhost:27017 mph",
         "devs": "while : ; do node main; sleep 1; done"
     },
     "engine": {

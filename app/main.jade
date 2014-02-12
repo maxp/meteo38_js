@@ -25,6 +25,13 @@ block content
                 .title Аэропорт
                 .addr ул. Ширямова
 
+        each st in sts_data
+            .item
+                .data.pull-right!= format_t(st.last.t)
+                .text
+                    .title #{st.title}
+                    .addr #{st.descr || st.addr}
+
     .buttons
         | show map
 

@@ -18,3 +18,7 @@ http://m.rp5.ru/Weather_in_Irkutsk
 
 http://www.gismeteo.ru/city/daily/4787/
 http://beta.gismeteo.ru/city/hourly/4787/weather/wind/2014-01-16/
+
+    code
+    block
+

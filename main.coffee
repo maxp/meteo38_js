@@ -10,6 +10,8 @@ lib = require './lib'
 #
 {debug, info, warn} = require './lib/logger'
 
+{st_list_cleanup, fetch_sts} = require './app'
+
 # db   = require './lib/db'
 # sess = require './lib/sess'
 # auth = require './app/auth'
@@ -53,13 +55,58 @@ app.configure ->
     #
 #-
 
+ST_LIST_COOKIE = "st_list"
+ST_LIST_DEFAULT = ["uiii","poml","olha","olha2"]
+
+#ST_LIST_MAX    = 20
+
 #
 #   urls
 #
 
 app.get '/', (req, res) ->
-    res.render "app/main", title: "Погода в Иркутске и области"
+
+    st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
+    if not st_list.length
+        st_list = ST_LIST_DEFAULT 
+        res.cookie ST_LIST_COOKIE, st_list, {expires: new Date("2101-01-01"), httponly: false}
+    #
+    fetch_sts( st_list, (data) ->
+        res.render "app/main", {
+            title: "Погода в Иркутске и области"
+            sts_data: data
+            format_t: (t) ->
+                t = Math.round(t)
+                [cls,sign] = if t > 0 then ["pos","+"] else if t < 0 then ["neg","-"] else ["zer",""]
+                t = -t if t < 0 
+                "<span class='#{cls}'>#{sign}<i>#{t}</i></span>&deg;"
+                # <span class="arr pos">&uarr;</span>"
+        }
+    )
 #-
+
+app.get '/st_list', (req, res) ->
+    # st.find(pub:1) ?location
+    #
+    # 
+    res.json {err:"nimp"}
+#-
+
+app.get '/st_data', (req, res) ->
+    # req.query.st_list
+    # ? req.query.ts
+    #
+    res.json {err:"nimp"}
+#-
+
+app.get '/st_graph', (req, res) ->
+    # req.query.st
+    # ? req.query.ts
+    #
+    # graph_data
+    res.json {err:"nimp"}
+#-
+
 
 # app.all "/_trace", (req, res) ->
 #     t = {ips: req.ips, ua: req.headers['user-agent'] or "?"}

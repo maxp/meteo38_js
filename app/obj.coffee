@@ -1,5 +1,5 @@
 #
-#   openirk.ru: obj
+#   meteo38.ru: obj
 #
 
 x = exports ? this

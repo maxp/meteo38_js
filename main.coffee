@@ -3,8 +3,9 @@
 #
 
 config = require './lib/config'
-
 lib = require './lib'
+
+TRENDS_INTERVAL = 60*60*1000
 
 # init logging and database
 #
@@ -75,12 +76,22 @@ app.get '/', (req, res) ->
         res.render "app/main", {
             title: "Погода в Иркутске и области"
             sts_data: data
-            format_t: (t) ->
-                t = Math.round(t)
+            format_t: (last, trends) ->
+                return "" if not last.t?
+                t = Math.round(last.t)
                 [cls,sign] = if t > 0 then ["pos","+"] else if t < 0 then ["neg","-"] else ["zer",""]
                 t = -t if t < 0 
-                "<span class='#{cls}'>#{sign}<i>#{t}</i></span>&deg;"
-                # <span class="arr pos">&uarr;</span>"
+                
+                tr = " &nbsp;"
+                if trends?.t
+                    tts = new Date(trends.ts).getTime()
+                    if tts > lib.now() - TRENDS_INTERVAL
+                        tr = "&uarr;" if trends.t.last >= trends.t.avg + 1
+                        tr = "&darr;" if trends.t.last <= trends.t.avg - 1
+                    #
+                #
+                return " <span class='#{cls}'>#{sign}<i>#{t}</i></span>&deg;"+
+                        "<span class='arr #{cls}'>#{tr}</span>"
         }
     )
 #-

@@ -30,13 +30,11 @@ a:active
 // @import url(http://fonts.googleapis.com/css?family=Belgrano)
 // @import url(http://fonts.googleapis.com/css?family=Courgette)
 
-.page
-    .obj_list
-
-        .loading
-            color: #99b
-            margin: 8px 12px
-
+//.page
+//    .obj_list
+//      .loading
+//            color: #99b
+//            margin: 8px 12px
 
 
 
@@ -69,18 +67,37 @@ a:active
             font-weight: inherit
             font-style: italic
 
+// footer
 
+.footer
+    margin-top: 10px
+    border-top: 1px solid #dadada
+    padding-top: 4px
+
+    .github
+        font-size: 14px
+
+        .link
+            color: #669
+        .issues
+            font-size: 13px
 
 // page
 
 .page
     .favs
+        margin-top: 6px
 
         .item
-            margin-bottom: 4px 
+            margin-bottom: 4px
+            background-color: #fbfbfb
+            border-radius: 4px
+            padding: 1px 10px 2px 10px
+            cursor: pointer
 
             .data
                 font-size: 20px
+                margin-top: 4px
                 .t
                     color: #999
                     position: relative
@@ -100,15 +117,17 @@ a:active
                 font-size: 15px
                 position: relative
                 top: -3px
-                // display: inline-block
-                // margin-top: -4px
+                margin-left: 2px
 
             .text
                 .title
                     font-size: 22px
                 .addr
                     color: #888
+                    margin-left: 16px
 
+        .item:hover
+            background-color: #f0f4ff
 .page
     .map
         border: 1px solid #ccc

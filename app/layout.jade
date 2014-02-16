@@ -57,8 +57,18 @@ html.no-js
 
         block footer 
             .footer
-                hr
                 .container
+                    div.github(style="text-align: right")
+                        a.link(
+                            href="https://github.com/maxp/meteo38"
+                            target="_blank"
+                            ) github.com/maxp/meteo38
+                        div.issues Замечания и пожелания
+                            br
+                            a.link.issues(
+                                href="https://github.com/maxp/meteo38/issues"
+                                target="_blank"
+                                ) оставляйте здесь
 
         block page_scripts
             script(src="/inc/js/jquery.min.js")

@@ -27,9 +27,9 @@ block content
                     .addr ул. Ширямова
 
             each st in sts_data
-                .item
+                .item(id="fav_stid_#{st._id}")
                     .data.pull-right
-                        .t!= format_t(st.last.t)
+                        .t!= format_t(st.last, st.trends)
                     .text
                         .title #{st.title}
                         .addr #{st.descr || st.addr}
@@ -41,7 +41,9 @@ block content
 
     //- .mapblock
 
+    hr 
+    
     .stations
-
+        button.btn.btn-primary.btn-sm Список станций
 
 //-

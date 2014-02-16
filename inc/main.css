@@ -5,9 +5,8 @@ a:active{text-decoration:underline;color:#a00}
 .page .obj_list .loading{color:#99b;margin:8px 12px}
 .navbar-static-top{margin-bottom:16px;background-color:#f2f6ff;}
 .navbar-static-top .navbar-brand{margin:0 10px 2px 2px;text-shadow:1px 1px 2px rgba(0,0,0,0.4)}
-.navbar-static-top .navbar-brand,.navbar-static-top .navbar-brand:hover{font-weight:bold;font-size:34px;font-family:'Verdana',sans-serif;font-style:italic;color:#04b;}
-.navbar-static-top .navbar-brand b,.navbar-static-top .navbar-brand:hover b{color:#a00;font-weight:inherit;font-style:italic}
-.page .favs{margin:0 auto 8px auto;}
+.navbar-static-top .navbar-brand,.navbar-static-top .navbar-brand:hover{font-weight:bold;font-size:34px;font-family:'Verdana',sans-serif;font-style:italic;color:#26e;}
+.navbar-static-top .navbar-brand b,.navbar-static-top .navbar-brand:hover b{color:#d42;font-weight:inherit;font-style:italic}
 .page .favs .item{margin-bottom:4px;}
 .page .favs .item .data{font-size:20px;}
 .page .favs .item .data .t{color:#999;position:relative}

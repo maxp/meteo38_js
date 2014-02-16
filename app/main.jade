@@ -9,35 +9,37 @@ append page_scripts
 
 block content
 
-    .favs
-        .item
-            .data.pull-right
-                .t
-                    | <span class='neg'>-<i>6</i></span>&deg; <span class="arr pos">&uarr;</span>
-            .text
-                .title Помяловского
-                .addr ул. Помяловского, д. 1"Б"
-        .item
-            .data.pull-right
-                .t
-                    | <span class='pos'>+<i>2</i></span>&deg; <span class="arr neg">&darr;</span>
-            .text
-                .title Аэропорт
-                .addr ул. Ширямова
-
-        each st in sts_data
-            .item
-                .data.pull-right!= format_t(st.last.t)
+    .row
+        .favs.col-md-8.col-md-offset-2
+            //- .item
+                .data.pull-right
+                    .t
+                        | <span class='neg'>-<i>6</i></span>&deg; <span class="arr pos">&uarr;</span>
                 .text
-                    .title #{st.title}
-                    .addr #{st.descr || st.addr}
+                    .title Помяловского
+                    .addr ул. Помяловского, д. 1"Б"
+            //- .item
+                .data.pull-right
+                    .t
+                        | <span class='pos'>+<i>2</i></span>&deg; <span class="arr neg">&darr;</span>
+                .text
+                    .title Аэропорт
+                    .addr ул. Ширямова
 
-    .buttons
+            each st in sts_data
+                .item
+                    .data.pull-right
+                        .t!= format_t(st.last.t)
+                    .text
+                        .title #{st.title}
+                        .addr #{st.descr || st.addr}
+
+    //- .buttons
         | show map
 
-    .adv
+    //- .adv
 
-    .mapblock
+    //- .mapblock
 
     .stations
 

@@ -46,6 +46,8 @@
       descr: 1,
       addr: 1,
       ll: 1
+    }).sort({
+      title: 1
     }).toArray(function(err, data) {
       if (err) {
         warn("app.fetch_sts:", err);

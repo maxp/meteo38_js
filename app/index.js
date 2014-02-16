@@ -4,7 +4,7 @@
 
   x = typeof exports !== "undefined" && exports !== null ? exports : this;
 
-  ST_LIST_MAX = 20;
+  ST_LIST_MAX = 30;
 
   ST_ID_MAX_LEN = 64;
 

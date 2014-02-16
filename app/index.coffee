@@ -4,7 +4,7 @@
 
 x = exports ? this
 
-ST_LIST_MAX    = 20
+ST_LIST_MAX    = 30
 ST_ID_MAX_LEN  = 64
 
 ST_FRESH = 7 * 24*3600*1000    # last refresh interval

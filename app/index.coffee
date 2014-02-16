@@ -7,6 +7,8 @@ x = exports ? this
 ST_LIST_MAX    = 20
 ST_ID_MAX_LEN  = 64
 
+ST_FRESH = 7 * 24*3600*1000    # last refresh interval
+
 {isArray} = require 'util'
 
 # config = require '../lib/config'
@@ -37,5 +39,18 @@ x.fetch_sts = (st_list, cb) ->
 #-
 
 
+x.get_stlist = (cb) ->
+    fresh = lib.now() - ST_FRESH
+    db.coll_st().find(
+            {pub:1, ts:{$gte: new Date(fresh)}}
+            {_id:1,title:1,addr:1,descr:1,ll:1}
+        ).sort({title:1}).toArray (err, data) ->
+            if err 
+                warn "app.st_list:", err
+                return cb([])
+            #
+            cb(data)
+    #-
+#-
 
 #.

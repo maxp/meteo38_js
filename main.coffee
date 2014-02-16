@@ -11,7 +11,7 @@ TRENDS_INTERVAL = 60*60*1000
 #
 {debug, info, warn} = require './lib/logger'
 
-{st_list_cleanup, fetch_sts} = require './app'
+{st_list_cleanup, fetch_sts, get_stlist} = require './app'
 
 # db   = require './lib/db'
 # sess = require './lib/sess'
@@ -57,7 +57,7 @@ app.configure ->
 #-
 
 ST_LIST_COOKIE = "st_list"
-ST_LIST_DEFAULT = ["uiii","poml","olha","olha2"]
+ST_LIST_DEFAULT = ["sokr","irgp","uiii","poml","lerm263","olha","olha2"]
 
 #ST_LIST_MAX    = 20
 
@@ -97,10 +97,9 @@ app.get '/', (req, res) ->
 #-
 
 app.get '/st_list', (req, res) ->
-    # st.find(pub:1) ?location
-    #
-    # 
-    res.json {err:"nimp"}
+    # ?filter by ll
+    st_fav = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
+    get_stlist( (data) -> res.json {ok:1, st_fav:st_fav, st_list:data} )
 #-
 
 app.get '/st_data', (req, res) ->

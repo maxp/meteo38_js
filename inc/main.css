@@ -11,8 +11,8 @@ a:active{text-decoration:underline;color:#a00}
 .footer .github .link{color:#669}
 .footer .github .issues{font-size:13px}
 .page .favs{margin-top:6px;}
-.page .favs .item{margin-bottom:4px;background-color:#fbfbfb;border-radius:4px;padding:1px 10px 2px 10px;cursor:pointer;}
-.page .favs .item .data{font-size:20px;margin-top:4px;}
+.page .favs .item{margin-bottom:4px;background-color:#f9fafc;border-radius:4px;padding:1px 10px 2px 10px;cursor:pointer;}
+.page .favs .item .data{font-size:20px;margin-top:4px;margin-left:6px;}
 .page .favs .item .data .t{color:#999;position:relative}
 .page .favs .item .data i{font-style:inherit;margin-left:2px;margin-right:1px}
 .page .favs .item .pos{color:#a40}
@@ -22,6 +22,11 @@ a:active{text-decoration:underline;color:#a00}
 .page .favs .item .text .title{font-size:22px}
 .page .favs .item .text .addr{color:#888;margin-left:16px}
 .page .favs .item:hover{background-color:#f0f4ff}
+.page .b-stations .stlist{margin-top:16px;maring-bottom:12px;}
+.page .b-stations .stlist .item{margin-bottom:4px;background-color:#f9fafc;border-radius:4px;padding:1px 10px 2px 10px;cursor:pointer;}
+.page .b-stations .stlist .item .title{font-size:22px}
+.page .b-stations .stlist .item .addr{color:#888;margin-left:16px}
+.page .b-stations .stlist .item:hover{background-color:#f0f4ff}
 .page .map{border:1px solid #ccc;background-color:#f6f6f6;height:400px;border-radius:2px;padding:1px;margin-top:10px;margin-bottom:10px;position:relative;}
 .page .map .loading{position:absolute;top:8px;left:12px;color:#99b}
 .page .map .map_coords{position:absolute;bottom:8px;left:14px;z-index:100;font-size:12px}

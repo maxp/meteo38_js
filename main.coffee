@@ -102,6 +102,12 @@ app.get '/st_list', (req, res) ->
     get_stlist( (data) -> res.json {ok:1, st_fav:st_fav, st_list:data} )
 #-
 
+app.post '/st_favs', (req, res) ->
+    favs = st_list_cleanup(req.body.favs)
+    res.cookie ST_LIST_COOKIE, favs, {expires: new Date("2101-01-01"), httponly: false}
+    res.json {ok:1, fav_num:favs.length}
+#-
+
 app.get '/st_data', (req, res) ->
     # req.query.st_list
     # ? req.query.ts

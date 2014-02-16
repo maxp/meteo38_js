@@ -10,7 +10,7 @@ append page_scripts
 block content
 
     .row
-        .favs.col-md-8.col-md-offset-2
+        .favs.col-md-8.col-md-offset-2#fav_items
             //- .item
                 .data.pull-right
                     .t
@@ -26,13 +26,18 @@ block content
                     .title Аэропорт
                     .addr ул. Ширямова
 
+            - var fav_ids = []
             each st in sts_data
-                .item(id="fav_stid_#{st._id}")
+                - fav_ids.push(st._id)
+                //- duplicated in inc/front.coffee
+                .item(id="favst_#{st._id}")
                     .data.pull-right
                         .t!= format_t(st.last, st.trends)
                     .text
                         .title #{st.title}
                         .addr #{st.descr || st.addr}
+            script.
+                window.fav_ids = !{JSON.stringify(fav_ids)};
 
     //- .buttons
         | show map

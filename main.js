@@ -101,6 +101,19 @@
     });
   });
 
+  app.post('/st_favs', function(req, res) {
+    var favs;
+    favs = st_list_cleanup(req.body.favs);
+    res.cookie(ST_LIST_COOKIE, favs, {
+      expires: new Date("2101-01-01"),
+      httponly: false
+    });
+    return res.json({
+      ok: 1,
+      fav_num: favs.length
+    });
+  });
+
   app.get('/st_data', function(req, res) {
     return res.json({
       err: "nimp"

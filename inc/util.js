@@ -26,6 +26,21 @@
     };
   }
 
+  if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function(obj, start) {
+      var i, n;
+      i = start || 0;
+      n = this.length;
+      while (i < n) {
+        if (this[i] === obj) {
+          return i;
+        }
+        i++;
+      }
+      return -1;
+    };
+  }
+
   x.post = function(url, data, success, error, complete) {
     var xhr;
     xhr = $.ajax({

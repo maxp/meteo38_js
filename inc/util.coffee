@@ -15,6 +15,14 @@ unless Array::forEach then Array::forEach = (action, that) ->
     return null
 #-
 
+unless Array::indexOf then Array::indexOf = (obj, start) ->
+    i = start or 0; n = this.length
+    while i < n
+        return i if this[i] is obj
+        i++
+    return -1
+#-
+
 
 x.post = (url, data, success, error, complete)->
     xhr = $.ajax {

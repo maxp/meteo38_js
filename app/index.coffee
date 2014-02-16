@@ -8,6 +8,7 @@ ST_LIST_MAX    = 20
 ST_ID_MAX_LEN  = 64
 
 ST_FRESH = 7 * 24*3600*1000    # last refresh interval
+DATA_FRESH = 2 * 3600*1000
 
 {isArray} = require 'util'
 
@@ -32,6 +33,19 @@ x.fetch_sts = (st_list, cb) ->
         ).sort({title:1}).toArray (err, data) ->
             if err
                 warn "app.fetch_sts:", err
+                return cb([])
+            #
+            cb(data)
+    #-
+#-
+
+x.fetch_data = (st_list, cb) ->
+    db.coll_st().find(
+            {_id:{$in:st_list}, pub:1, ts:{$gte:new Date(lib.now()-DATA_FRESH)}},
+            {_id:1,last:1,trends:1} 
+        ).toArray (err, data) ->
+            if err
+                warn "app.fetch_data:", err
                 return cb([])
             #
             cb(data)

@@ -1,5 +1,5 @@
 #
-#	generic gitignore
+#	meteo38.ru gitignore
 #
 
 *.class
@@ -8,6 +8,7 @@
 *.bak
 *.old
 *.py[co]
+*.log
 
 # ide
 .settings

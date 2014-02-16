@@ -1,6 +1,6 @@
 {
     "env": "production",
     "db": {
-        "url": "mongodb://localhost:27017/meteo?auto_reconnect=true,pool_size=10"
+        "url": "mongodb://localhost:27017/meteo?auto_reconnect=true,pool_size=50"
     }
 }

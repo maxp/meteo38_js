@@ -59,6 +59,8 @@ x.str = (s) -> if (not s?) or (typeof s == "number" and isNaN(s)) then "" else "
 
 x.randInt = (n)-> Math.floor(Math.random()*n)
 
+x.now = () -> new Date().getTime()
+
 x.htmlq = (s) -> 
     s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 #-

@@ -11,7 +11,7 @@ TRENDS_INTERVAL = 60*60*1000
 #
 {debug, info, warn} = require './lib/logger'
 
-{st_list_cleanup, fetch_sts, get_stlist} = require './app'
+{st_list_cleanup, fetch_sts, get_stlist, fetch_data} = require './app'
 
 # db   = require './lib/db'
 # sess = require './lib/sess'
@@ -109,10 +109,9 @@ app.post '/st_favs', (req, res) ->
 #-
 
 app.get '/st_data', (req, res) ->
-    # req.query.st_list
-    # ? req.query.ts
-    #
-    res.json {err:"nimp"}
+    st_list = st_list_cleanup((req.query.st_list or "").split(','))
+    return {err:"badreq"} if not st_list.length
+    fetch_data( st_list, (data) -> return res.json {ok:1, data:data} )
 #-
 
 app.get '/st_graph', (req, res) ->

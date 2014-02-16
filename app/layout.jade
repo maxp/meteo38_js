@@ -63,11 +63,17 @@ html.no-js
                             href="https://github.com/maxp/meteo38"
                             target="_blank"
                             ) github.com/maxp/meteo38
-                        div.issues 
-                            a.link.issues(
-                                href="https://github.com/maxp/meteo38/issues"
-                                target="_blank"
-                                ) Замечания и пожелания ...&raquo;&raquo;
+                    div.about
+                        | Вашие предложения и замечания можете заносить
+                        = " "
+                        a.link(
+                            href="https://github.com/maxp/meteo38/issues"
+                            target="_blank"
+                            ) в трекер
+                        = " "
+                        | или слать на e-mail:
+                        = " "
+                        a.link(href="mailto:m@penzin.ru") m@penzin.ru
 
         block page_scripts
             script(src="/inc/js/jquery.min.js")

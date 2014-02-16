@@ -105,6 +105,10 @@
     return Math.floor(Math.random() * n);
   };
 
+  x.now = function() {
+    return new Date().getTime();
+  };
+
   x.htmlq = function(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   };

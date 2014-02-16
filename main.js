@@ -126,6 +126,10 @@
     });
   });
 
+  app.get('/yandex_6f489466c2955c1a.txt', function(req, res) {
+    return res.send("ok");
+  });
+
   info("Listen - " + config.server.host + ":" + config.server.port);
 
   app.listen(config.server.port, config.server.host);

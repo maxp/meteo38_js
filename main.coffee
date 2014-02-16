@@ -123,6 +123,8 @@ app.get '/st_graph', (req, res) ->
     res.json {err:"nimp"}
 #-
 
+app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
+
 
 # app.all "/_trace", (req, res) ->
 #     t = {ips: req.ips, ua: req.headers['user-agent'] or "?"}

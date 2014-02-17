@@ -13,13 +13,19 @@ $(function() {
         VK.Widgets.Like("vk_like", {type: "mini", height: 20});
     });
 
-    window.___gcfg = {lang: 'ru'};
-    (function() {
-        var po = document.createElement('script'); 
-        po.type = 'text/javascript'; po.async = true;
-        po.src = 'https://apis.google.com/js/platform.js';
-        var s = document.getElementsByTagName('script')[0]; 
-        s.parentNode.insertBefore(po, s);
-    })();
+    !function(d, id, did, st) {
+        var js = d.createElement("script");
+        js.src = "http://connect.ok.ru/connect.js";
+        js.onload = js.onreadystatechange = function () {
+            if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+                if (!this.executed) {
+                    this.executed = true;
+                    setTimeout(function () {
+                        OK.CONNECT.insertShareWidget(id,did,st);
+                    }, 0);
+                }
+        }};
+        d.documentElement.appendChild(js);
+    }(document,"ok_shareWidget","http://meteo38.ru/","{width:145,height:30,st:'rounded',sz:20,ck:1}");
 
 });

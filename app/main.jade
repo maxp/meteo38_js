@@ -35,11 +35,19 @@ block content
             //- https://developers.facebook.com/docs/plugins/like-button/
             //- https://vk.com/dev/Like
             //- https://developers.google.com/+/web/+1button/
+            //- http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656#
 
-            .pull-right(style="margin-left: 10px;")
-                .g-plusone(data-size="medium")
-            
-            .pull-right
+            //- .pull-right(style="margin-left: 10px;"): .g-plusone(data-size="medium")
+                // window.___gcfg = {lang: 'ru'};
+                // (function(){
+                //   var po = document.createElement('script'); 
+                //    po.type = 'text/javascript'; po.async = true;
+                //    po.src = 'https://apis.google.com/js/platform.js';
+                //    var s = document.getElementsByTagName('script')[0]; 
+                //    s.parentNode.insertBefore(po, s);
+                // })();
+
+            .pull-right(style="margin-left: 10px")
                 #fb-root
                 .fb-like(
                     data-href="http://meteo38.ru/"
@@ -48,6 +56,8 @@ block content
                     data-show-faces="true" 
                     data-share="false"
                 )
+
+            .pull-right: #ok_shareWidget
 
             .pull-right
                 #vk_like

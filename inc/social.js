@@ -13,6 +13,7 @@ $(function() {
         VK.Widgets.Like("vk_like", {type: "mini", height: 20});
     });
 
+    /*
     !function(d, id, did, st) {
         var js = d.createElement("script");
         js.src = "http://connect.ok.ru/connect.js";
@@ -26,6 +27,8 @@ $(function() {
                 }
         }};
         d.documentElement.appendChild(js);
-    }(document,"ok_shareWidget","http://meteo38.ru/","{width:145,height:30,st:'rounded',sz:20,ck:1}");
-
+    }(document,"ok_shareWidget","http://meteo38.ru/",
+        "{width:145,height:30,st:'rounded',sz:20,ck:1}"
+    );
+    */
 });

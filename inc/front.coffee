@@ -17,23 +17,29 @@ format_t = (last, trends) ->
     t = Math.round(last.t)
     [cls,sign] = if t > 0 then ["pos","+"] else if t < 0 then ["neg","-"] else ["zer",""]
     t = -t if t < 0 
-    
+
     tr = " &nbsp;"
+    acls = ""
     if trends?.t
         tts = new Date(trends.ts).getTime()
         if tts > lib.now() - TRENDS_INTERVAL
-            tr = "&uarr;" if trends.t.last >= trends.t.avg + 1
-            tr = "&darr;" if trends.t.last <= trends.t.avg - 1
+            if trends.t.last >= trends.t.avg + 1
+                tr = "&uarr;" 
+                acls = "pos"
+            if trends.t.last <= trends.t.avg - 1
+                tr = "&darr;" 
+                acls = "neg"
         #
     #
     return " <span class='#{cls}'>#{sign}<i>#{t}</i></span>&deg;"+
-            "<span class='arr #{cls}'>#{tr}</span>"
+            "<span class='arr #{acls}'>#{tr}</span>"
 #-
 
-refresh_data = (delay=REFRESH_INTERVAL) ->
+refresh_data = (delay) ->
     clearTimeout(window.refresh_tout) if window.refresh_tout
     window.refresh_tout = setTimeout(
         () ->
+            $("#btn_refresh").prop("disabled", 1)
             $.getJSON( "/st_data", 
                 {st_list:window.fav_ids.join(','),ts:lib.now()}
                 (resp) ->
@@ -45,7 +51,9 @@ refresh_data = (delay=REFRESH_INTERVAL) ->
                         $("#favst_#{d._id} .data").html(
                             format_t(d.last, d.trends)                            
                         )
-                    refresh_data()
+                    $("#btn_refresh").children(".hhmm").text(resp.hhmm or "??:??")
+                    $("#btn_refresh").removeProp("disabled")
+                    refresh_data(REFRESH_INTERVAL)
                 #-
             )
         #-
@@ -120,8 +128,19 @@ load_stlist = () ->
     ).always () -> $btn_stlist.removeProp("disabled")
 #-
 
-$btn_stlist.click(load_stlist)
+$("#btn_refresh").click () -> refresh_data(0)
 
-$(refresh_data)
+$btn_stlist.click (evt) ->
+    $b = $(evt.target)
+    if $b.data("open")
+        $b.data("open", 0)
+        $("#stlist").html("")      
+    else
+        $b.data("open", 1)
+        load_stlist()
+    #
+#-    
+
+$( () -> refresh_data(REFRESH_INTERVAL) )
 
 #.

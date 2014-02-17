@@ -34,13 +34,7 @@ html.no-js
 
         .navbar.navbar-default.navbar-static-top(role="navigation")
             .container
-                .navbar-header
-                    //- button.navbar-toggle(type="button",
-                        data-toggle="collapse",data-target=".navbar-collapse")
-                            span.sr-only nav
-                            span.icon-bar
-                            span.icon-bar
-                            span.icon-bar
+                .col-md-offset-2(style="padding-left: 8px;")
                     a.navbar-brand(href="http://meteo38.ru/") Meteo38<b>.ru</b>
         
                 //- .navbar-collapse.collapse
@@ -58,12 +52,12 @@ html.no-js
         block footer 
             .footer
                 .container
-                    div.github(style="text-align: right")
+                    div.about
                         a.link(
                             href="https://github.com/maxp/meteo38"
                             target="_blank"
                             ) github.com/maxp/meteo38
-                    div.about
+                        br                        
                         | Вашие предложения и замечания можете заносить
                         = " "
                         a.link(

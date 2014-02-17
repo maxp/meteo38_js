@@ -61,8 +61,9 @@
       return res.render("app/main", {
         title: "Погода в Иркутске и области",
         sts_data: data,
+        hhmm: lib.hhmm(new Date()),
         format_t: function(last, trends) {
-          var cls, sign, t, tr, tts, _ref2;
+          var acls, cls, sign, t, tr, tts, _ref2;
           if (last.t == null) {
             return "";
           }
@@ -72,18 +73,21 @@
             t = -t;
           }
           tr = " &nbsp;";
+          acls = "";
           if (trends != null ? trends.t : void 0) {
             tts = new Date(trends.ts).getTime();
             if (tts > lib.now() - TRENDS_INTERVAL) {
               if (trends.t.last >= trends.t.avg + 1) {
                 tr = "&uarr;";
+                acls = "pos";
               }
               if (trends.t.last <= trends.t.avg - 1) {
                 tr = "&darr;";
+                acls = "neg";
               }
             }
           }
-          return (" <span class='" + cls + "'>" + sign + "<i>" + t + "</i></span>&deg;") + ("<span class='arr " + cls + "'>" + tr + "</span>");
+          return (" <span class='" + cls + "'>" + sign + "<i>" + t + "</i></span>&deg;") + ("<span class='arr " + acls + "'>" + tr + "</span>");
         }
       });
     });
@@ -125,7 +129,8 @@
     return fetch_data(st_list, function(data) {
       return res.json({
         ok: 1,
-        data: data
+        data: data,
+        hhmm: lib.hhmm(new Date())
       });
     });
   });

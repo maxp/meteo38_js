@@ -10,6 +10,12 @@ append page_scripts
 block content
 
     .row
+        .col-md-10
+            button.pull-right.btn.btn-default.btn-xs.btn_refresh#btn_refresh
+                span.glyphicon.glyphicon-refresh(
+                    style="margin: 0 6px 0 1px; position: relative; top: 2px;" )
+                span.hhmm #{hhmm}
+
         .favs.col-md-8.col-md-offset-2#fav_items
             //- .item
                 .data.pull-right
@@ -50,7 +56,9 @@ block content
 
     .row
         .b-stations.col-md-8.col-md-offset-2
-            button.btn.btn-primary.btn-sm(id="btn_stlist") Список станций
+            button.btn.btn-primary.btn-sm(id="btn_stlist") Метеостанции
+                span.glyphicon.glyphicon-cog(
+                    style="margin-left: 9px; position: relative; top: 2px;" )
 
             .stlist(id="stlist")
 

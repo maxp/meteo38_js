@@ -76,22 +76,28 @@ app.get '/', (req, res) ->
         res.render "app/main", {
             title: "Погода в Иркутске и области"
             sts_data: data
+            hhmm: lib.hhmm(new Date())
             format_t: (last, trends) ->
                 return "" if not last.t?
                 t = Math.round(last.t)
                 [cls,sign] = if t > 0 then ["pos","+"] else if t < 0 then ["neg","-"] else ["zer",""]
                 t = -t if t < 0 
-                
+
                 tr = " &nbsp;"
+                acls = ""
                 if trends?.t
                     tts = new Date(trends.ts).getTime()
                     if tts > lib.now() - TRENDS_INTERVAL
-                        tr = "&uarr;" if trends.t.last >= trends.t.avg + 1
-                        tr = "&darr;" if trends.t.last <= trends.t.avg - 1
+                        if trends.t.last >= trends.t.avg + 1
+                            tr = "&uarr;" 
+                            acls = "pos"
+                        if trends.t.last <= trends.t.avg - 1
+                            tr = "&darr;" 
+                            acls = "neg"
                     #
                 #
                 return " <span class='#{cls}'>#{sign}<i>#{t}</i></span>&deg;"+
-                        "<span class='arr #{cls}'>#{tr}</span>"
+                        "<span class='arr #{acls}'>#{tr}</span>"
         }
     )
 #-
@@ -111,7 +117,9 @@ app.post '/st_favs', (req, res) ->
 app.get '/st_data', (req, res) ->
     st_list = st_list_cleanup((req.query.st_list or "").split(','))
     return {err:"badreq"} if not st_list.length
-    fetch_data( st_list, (data) -> return res.json {ok:1, data:data} )
+    fetch_data( st_list, (data) -> 
+        return res.json {ok:1, data:data, hhmm:lib.hhmm(new Date())} 
+    )
 #-
 
 app.get '/st_graph', (req, res) ->

@@ -12,7 +12,7 @@
   TRENDS_INTERVAL = 60 * 60 * 1000;
 
   format_t = function(last, trends) {
-    var cls, sign, t, tr, tts, _ref;
+    var acls, cls, sign, t, tr, tts, _ref;
     if (last.t == null) {
       return "";
     }
@@ -22,28 +22,29 @@
       t = -t;
     }
     tr = " &nbsp;";
+    acls = "";
     if (trends != null ? trends.t : void 0) {
       tts = new Date(trends.ts).getTime();
       if (tts > lib.now() - TRENDS_INTERVAL) {
         if (trends.t.last >= trends.t.avg + 1) {
           tr = "&uarr;";
+          acls = "pos";
         }
         if (trends.t.last <= trends.t.avg - 1) {
           tr = "&darr;";
+          acls = "neg";
         }
       }
     }
-    return (" <span class='" + cls + "'>" + sign + "<i>" + t + "</i></span>&deg;") + ("<span class='arr " + cls + "'>" + tr + "</span>");
+    return (" <span class='" + cls + "'>" + sign + "<i>" + t + "</i></span>&deg;") + ("<span class='arr " + acls + "'>" + tr + "</span>");
   };
 
   refresh_data = function(delay) {
-    if (delay == null) {
-      delay = REFRESH_INTERVAL;
-    }
     if (window.refresh_tout) {
       clearTimeout(window.refresh_tout);
     }
     return window.refresh_tout = setTimeout(function() {
+      $("#btn_refresh").prop("disabled", 1);
       return $.getJSON("/st_data", {
         st_list: window.fav_ids.join(','),
         ts: lib.now()
@@ -58,7 +59,9 @@
           d = _ref[_i];
           $("#favst_" + d._id + " .data").html(format_t(d.last, d.trends));
         }
-        return refresh_data();
+        $("#btn_refresh").children(".hhmm").text(resp.hhmm || "??:??");
+        $("#btn_refresh").removeProp("disabled");
+        return refresh_data(REFRESH_INTERVAL);
       });
     }, delay);
   };
@@ -144,8 +147,24 @@
     });
   };
 
-  $btn_stlist.click(load_stlist);
+  $("#btn_refresh").click(function() {
+    return refresh_data(0);
+  });
 
-  $(refresh_data);
+  $btn_stlist.click(function(evt) {
+    var $b;
+    $b = $(evt.target);
+    if ($b.data("open")) {
+      $b.data("open", 0);
+      return $("#stlist").html("");
+    } else {
+      $b.data("open", 1);
+      return load_stlist();
+    }
+  });
+
+  $(function() {
+    return refresh_data(REFRESH_INTERVAL);
+  });
 
 }).call(this);

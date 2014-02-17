@@ -8,11 +8,18 @@ $(function() {
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-
     $.getScript("//vk.com/js/api/openapi.js?105", function(){
         VK.init({apiId: 4193529, onlyWidgets: true});
         VK.Widgets.Like("vk_like", {type: "mini", height: 20});
     });
 
+    window.___gcfg = {lang: 'ru'};
+    (function() {
+        var po = document.createElement('script'); 
+        po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/platform.js';
+        var s = document.getElementsByTagName('script')[0]; 
+        s.parentNode.insertBefore(po, s);
+    })();
 
 });

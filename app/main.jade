@@ -34,18 +34,24 @@ block content
         .social.col-md-8.col-md-offset-2
             //- https://developers.facebook.com/docs/plugins/like-button/
             //- https://vk.com/dev/Like
+            //- https://developers.google.com/+/web/+1button/
 
-            div#fb-root
+            .pull-right(style="margin-left: 10px;")
+                .g-plusone(data-size="medium")
+            
             .pull-right
+                #fb-root
                 .fb-like(
                     data-href="http://meteo38.ru/"
-                    data-layout="button" 
+                    data-layout="button_count" 
                     data-action="like" 
                     data-show-faces="true" 
                     data-share="false"
                 )
+
             .pull-right
-                div#vk_like
+                #vk_like
+
             .clearfix
 
     //- .buttons

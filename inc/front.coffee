@@ -40,17 +40,18 @@ refresh_data = (delay) ->
     window.refresh_tout = setTimeout(
         () ->
             $("#btn_refresh").prop("disabled", 1)
+            st_list = window.fav_ids
             $.getJSON( "/st_data", 
-                {st_list:window.fav_ids.join(','),ts:lib.now()}
+                {st_list:st_list.join(','), ts:lib.now()}
                 (resp) ->
                     if not resp.ok
                         alert "Ошибка при обращении к серверу."
                         return
                     #
-                    for d in resp.data
-                        $("#favst_#{d._id} .data").html(
-                            format_t(d.last, d.trends)                            
-                        )
+                    for s in st_list
+                        d = resp.data[s]
+                        $("#favst_#{d._id} .data").html(format_t(d.last, d.trends)) if d 
+                    #
                     $("#btn_refresh").children(".hhmm").text(resp.hhmm or "??:??")
                     $("#btn_refresh").removeProp("disabled")
                     refresh_data(REFRESH_INTERVAL)

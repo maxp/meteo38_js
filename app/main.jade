@@ -18,33 +18,17 @@ block content
             .clearfix
 
         .favs.col-md-8.col-md-offset-2#fav_items
-            //- .item
-                .data.pull-right
-                    .t
-                        | <span class='neg'>-<i>6</i></span>&deg; <span class="arr pos">&uarr;</span>
-                .text
-                    .title Помяловского
-                    .addr ул. Помяловского, д. 1"Б"
-            //- .item
-                .data.pull-right
-                    .t
-                        | <span class='pos'>+<i>2</i></span>&deg; <span class="arr neg">&darr;</span>
-                .text
-                    .title Аэропорт
-                    .addr ул. Ширямова
-
-            - var fav_ids = []
-            each st in sts_data
-                - fav_ids.push(st._id)
-                //- duplicated in inc/front.coffee
-                .item(id="favst_#{st._id}")
-                    .data.pull-right
-                        .t!= format_t(st.last, st.trends)
-                    .text
-                        .title #{st.title}
-                        .addr #{st.descr || st.addr}
-            script.
-                window.fav_ids = !{JSON.stringify(fav_ids)};
+            each s in st_list
+                - var st = data[s];
+                if st
+                    //- duplicated in inc/front.coffee
+                    .item(id="favst_#{st._id}")
+                        .data.pull-right
+                            .t!= format_t(st.last, st.trends)
+                        .text
+                            .title #{st.title}
+                            .addr #{st.descr || st.addr}
+            script window.fav_ids = !{JSON.stringify(st_list)};
 
     //- .buttons
         | show map

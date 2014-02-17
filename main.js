@@ -45,7 +45,7 @@
 
   ST_LIST_COOKIE = "st_list";
 
-  ST_LIST_DEFAULT = ["sokr", "irgp", "uiii", "poml", "lerm263", "olha", "olha2"];
+  ST_LIST_DEFAULT = ["asbtv", "sokr", "irgp", "uiii", "poml", "lerm263", "npsd", "iood", "rlux120", "markova"];
 
   app.get('/', function(req, res) {
     var st_list;
@@ -60,7 +60,8 @@
     return fetch_sts(st_list, function(data) {
       return res.render("app/main", {
         title: "Погода в Иркутске и области",
-        sts_data: data,
+        st_list: st_list,
+        data: data,
         hhmm: lib.hhmm(new Date()),
         format_t: function(last, trends) {
           var acls, cls, sign, t, tr, tts, _ref2;

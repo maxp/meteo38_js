@@ -27,28 +27,26 @@ x.st_list_cleanup = (s) ->
 
 
 x.fetch_sts = (st_list, cb) ->
+    res = {}
     db.coll_st().find(
             {_id:{$in:st_list}, pub:1},
             {_id:1,title:1,last:1,descr:1,addr:1,ll:1,trends:1} 
-        ).sort({title:1}).toArray (err, data) ->
-            if err
-                warn "app.fetch_sts:", err
-                return cb([])
-            #
-            cb(data)
+        ).each (err, item) ->
+            warn "app.fetch_sts:", err if err
+            return cb(res) if not item
+            res[item._id] = item
     #-
 #-
 
 x.fetch_data = (st_list, cb) ->
+    res = {}
     db.coll_st().find(
             {_id:{$in:st_list}, pub:1, ts:{$gte:new Date(lib.now()-DATA_FRESH)}},
             {_id:1,last:1,trends:1} 
-        ).toArray (err, data) ->
-            if err
-                warn "app.fetch_data:", err
-                return cb([])
-            #
-            cb(data)
+        ).each (err, item) ->
+            warn "app.fetch_data:", err if err
+            return cb(res) if not item
+            res[item._id] = item
     #-
 #-
 

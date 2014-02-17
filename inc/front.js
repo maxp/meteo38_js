@@ -44,20 +44,24 @@
       clearTimeout(window.refresh_tout);
     }
     return window.refresh_tout = setTimeout(function() {
+      var st_list;
       $("#btn_refresh").prop("disabled", 1);
+      st_list = window.fav_ids;
       return $.getJSON("/st_data", {
-        st_list: window.fav_ids.join(','),
+        st_list: st_list.join(','),
         ts: lib.now()
       }, function(resp) {
-        var d, _i, _len, _ref;
+        var d, s, _i, _len;
         if (!resp.ok) {
           alert("Ошибка при обращении к серверу.");
           return;
         }
-        _ref = resp.data;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          d = _ref[_i];
-          $("#favst_" + d._id + " .data").html(format_t(d.last, d.trends));
+        for (_i = 0, _len = st_list.length; _i < _len; _i++) {
+          s = st_list[_i];
+          d = resp.data[s];
+          if (d) {
+            $("#favst_" + d._id + " .data").html(format_t(d.last, d.trends));
+          }
         }
         $("#btn_refresh").children(".hhmm").text(resp.hhmm || "??:??");
         $("#btn_refresh").removeProp("disabled");

@@ -57,7 +57,10 @@ app.configure ->
 #-
 
 ST_LIST_COOKIE = "st_list"
-ST_LIST_DEFAULT = ["sokr","irgp","uiii","poml","lerm263","olha","olha2"]
+ST_LIST_DEFAULT = [
+    "asbtv", "sokr", "irgp", "uiii", "poml", "lerm263", "npsd", "iood",
+    "rlux120", "markova"
+]
 
 #ST_LIST_MAX    = 20
 
@@ -75,7 +78,8 @@ app.get '/', (req, res) ->
     fetch_sts( st_list, (data) ->
         res.render "app/main", {
             title: "Погода в Иркутске и области"
-            sts_data: data
+            st_list: st_list
+            data: data
             hhmm: lib.hhmm(new Date())
             format_t: (last, trends) ->
                 return "" if not last.t?

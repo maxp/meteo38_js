@@ -38,6 +38,8 @@
   };
 
   x.fetch_sts = function(st_list, cb) {
+    var res;
+    res = {};
     return db.coll_st().find({
       _id: {
         $in: st_list
@@ -51,18 +53,20 @@
       addr: 1,
       ll: 1,
       trends: 1
-    }).sort({
-      title: 1
-    }).toArray(function(err, data) {
+    }).each(function(err, item) {
       if (err) {
         warn("app.fetch_sts:", err);
-        return cb([]);
       }
-      return cb(data);
+      if (!item) {
+        return cb(res);
+      }
+      return res[item._id] = item;
     });
   };
 
   x.fetch_data = function(st_list, cb) {
+    var res;
+    res = {};
     return db.coll_st().find({
       _id: {
         $in: st_list
@@ -75,12 +79,14 @@
       _id: 1,
       last: 1,
       trends: 1
-    }).toArray(function(err, data) {
+    }).each(function(err, item) {
       if (err) {
         warn("app.fetch_data:", err);
-        return cb([]);
       }
-      return cb(data);
+      if (!item) {
+        return cb(res);
+      }
+      return res[item._id] = item;
     });
   };
 

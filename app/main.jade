@@ -6,6 +6,7 @@ append head_scripts
 append page_scripts
     script(src="/inc/util.js")
     script(src="/inc/front.js")
+    script(src="/inc/social.js")
 
 block content
 
@@ -30,6 +31,23 @@ block content
                             .addr #{st.descr || st.addr}
             script window.fav_ids = !{JSON.stringify(st_list)};
 
+        .social.col-md-8.col-md-offset-2
+            //- https://developers.facebook.com/docs/plugins/like-button/
+            //- https://vk.com/dev/Like
+
+            div#fb-root
+            .pull-right
+                .fb-like(
+                    data-href="http://meteo38.ru/"
+                    data-layout="button" 
+                    data-action="like" 
+                    data-show-faces="true" 
+                    data-share="false"
+                )
+            .pull-right
+                div#vk_like
+            .clearfix
+
     //- .buttons
         | show map
 
@@ -37,7 +55,7 @@ block content
 
     //- .mapblock
 
-    hr 
+    hr(style="margin: 9px 0 12px 0") 
 
     .row
         .b-stations.col-md-8.col-md-offset-2

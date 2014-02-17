@@ -22,6 +22,7 @@ a:active{text-decoration:underline;color:#a00}
 .page .favs .item .text .title{font-size:22px}
 .page .favs .item .text .addr{color:#888;margin-left:16px}
 .page .favs .item:hover{background-color:#f0f4ff}
+.page .social{margin-top:8px}
 .page .b-stations .stlist{margin-top:16px;maring-bottom:16px;}
 .page .b-stations .stlist .star{margin:12px 2px 0 6px;float:right;cursor:pointer;font-size:22px;}
 .page .b-stations .stlist .star .glyphicon-star{color:#fa2;text-shadow:1px 1px 1px rgba(0,0,0,0.3)}

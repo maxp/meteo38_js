@@ -53,7 +53,7 @@ refresh_data = (delay) ->
                         if d 
                             $("#favst_#{d._id} .data").html(format_t(d.last, d.trends)) 
                         else
-                            $("#favst_#{d._id} .data").html("")
+                            $("#favst_#{s} .data").html("")
                     #
                     $("#btn_refresh").children(".hhmm").text(resp.hhmm or "??:??")
                     $("#btn_refresh").removeProp("disabled")

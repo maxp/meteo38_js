@@ -133,6 +133,8 @@ app.get '/st_graph', (req, res) ->
     res.json {err:"nimp"}
 #-
 
+app.get "/help", (req, res) -> res.render "app/help"
+
 app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
 
 

@@ -1,5 +1,5 @@
 doctype html
-html.no-js
+html
     head
         title
             | meteo38.ru
@@ -10,7 +10,9 @@ html.no-js
             meta(charset="utf-8")
             meta(http-equiv="X-UA-Compatible", content="IE=edge")
             meta(name="viewport", content="width=device-width,initial-scale=1.0")
-
+            meta(property="description", 
+                content="Актуальная температура в разных точках Иркутска и области в реальном времени")
+    
             meta(property="og:title", content="Meteo38: Погода в Иркутске и области")
             //- meta(property="og:image" content="...")
             meta(property="og:description", 
@@ -39,14 +41,8 @@ html.no-js
 
         .navbar.navbar-default.navbar-static-top(role="navigation")
             .container
-                .col-md-offset-2(style="padding-left: 8px;")
+                .col-md-offset-2
                     a.navbar-brand(href="http://meteo38.ru/") Meteo38<b>.ru</b>
-        
-                //- .navbar-collapse.collapse
-                    ul.nav.navbar-nav.pull-right
-                        li: img(src="/inc/img/suncloud-48.png", 
-                                style="border: 1px solid #cdf; margin: 2px; border-radius: 3px;"
-                                )
         //-
 
         .container.page
@@ -62,17 +58,17 @@ html.no-js
                             href="https://github.com/maxp/meteo38"
                             target="_blank"
                             ) github.com/maxp/meteo38
-                        br                        
-                        | Вашие предложения и замечания можете заносить
-                        = " "
-                        a.link(
-                            href="https://github.com/maxp/meteo38/issues"
-                            target="_blank"
-                            ) в трекер
-                        = " "
-                        | или слать на e-mail:
-                        = " "
-                        a.link(href="mailto:m@penzin.ru") m@penzin.ru
+                        //- br                        
+                        //- | Вашие предложения и замечания можете заносить
+                        //- = " "
+                        //- a.link(
+                        //-     href="https://github.com/maxp/meteo38/issues"
+                        //-     target="_blank"
+                        //-     ) в трекер
+                        //- = " "
+                        //- | или слать на e-mail:
+                        //- = " "
+                        //- a.link(href="mailto:m@penzin.ru") m@penzin.ru
 
         block page_scripts
             script(src="/inc/js/jquery.min.js")

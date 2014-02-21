@@ -23,10 +23,10 @@ format_t = (last, trends) ->
     if trends?.t
         tts = new Date(trends.ts).getTime()
         if tts > lib.now() - TRENDS_INTERVAL
-            if trends.t.last >= trends.t.avg + 1
+            if trends.t.last >= (trends.t.avg + 1)
                 tr = "&uarr;" 
                 acls = "pos"
-            if trends.t.last <= trends.t.avg - 1
+            if trends.t.last <= (trends.t.avg - 1)
                 tr = "&darr;" 
                 acls = "neg"
         #
@@ -50,7 +50,10 @@ refresh_data = (delay) ->
                     #
                     for s in st_list
                         d = resp.data[s]
-                        $("#favst_#{d._id} .data").html(format_t(d.last, d.trends)) if d 
+                        if d 
+                            $("#favst_#{d._id} .data").html(format_t(d.last, d.trends)) 
+                        else
+                            $("#favst_#{d._id} .data").html("")
                     #
                     $("#btn_refresh").children(".hhmm").text(resp.hhmm or "??:??")
                     $("#btn_refresh").removeProp("disabled")
@@ -73,11 +76,11 @@ favs_add = (st, title, addr) ->
         window.fav_ids.push(st)
 
         # duplicated in main.jade
-        $item = $("<div class='item'>").attr("id", "favst_"+st)
-        $item.append( "<div class='data pull-right'>" )
-        $item.append( $("<div class='text'>")
-            .append( $("<div class='title'>").text(title) )
-            .append( $("<div class='addr'>").text(addr) )
+        $item = $("<div class='item'></div>").attr("id", "favst_"+st)
+        $item.append( "<div class='data pull-right'></div>" )
+        $item.append( $("<div class='text'></div>")
+            .append( $("<div class='title'></div>").text(title) )
+            .append( $("<div class='addr'></div>").text(addr) )
         )
         $("#fav_items").append($item)
         save_favs(window.fav_ids)
@@ -111,8 +114,8 @@ load_stlist = () ->
         return alert("Ошибка при загрузке данных!") if not data.st_list
         $("#stlist").html("")
         $.each( data.st_list, (i,v) ->
-            item = $("<div class='item'>")  #.attr("id",v._id)
-            $star = $("<div class='star'>").click(star_click)
+            item = $("<div class='item'></div>")  #.attr("id",v._id)
+            $star = $("<div class='star'></div>").click(star_click)
                 .data({st:v._id, title:v.title, addr:v.addr or v.descr})
             if v._id in window.fav_ids
                 $star.data("fav",1).append(
@@ -122,8 +125,8 @@ load_stlist = () ->
                     "<span class='glyphicon glyphicon-star-empty'></span>")
             #
             item.append( $star )
-            item.append( $("<div class='title'>").text(v.title) )
-            item.append( $("<div class='addr'>").text(v.addr or v.descr) )
+            item.append( $("<div class='title'></div>").text(v.title) )
+            item.append( $("<div class='addr'></div>").text(v.addr or v.descr) )
             $("#stlist").append(item)
         )
     ).always () -> $btn_stlist.removeProp("disabled")
@@ -139,6 +142,17 @@ $btn_stlist.click (evt) ->
     else
         $b.data("open", 1)
         load_stlist()
+    #
+#-    
+
+$("#btn_help").click (evt) ->
+    $b = $(evt.target)
+    if $b.data("open")
+        $b.data("open", 0)
+        $("#help-text").html("")      
+    else
+        $b.data("open", 1)
+        $("#help-text").load("/help")
     #
 #-    
 

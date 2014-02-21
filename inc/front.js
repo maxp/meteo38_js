@@ -26,11 +26,11 @@
     if (trends != null ? trends.t : void 0) {
       tts = new Date(trends.ts).getTime();
       if (tts > lib.now() - TRENDS_INTERVAL) {
-        if (trends.t.last >= trends.t.avg + 1) {
+        if (trends.t.last >= (trends.t.avg + 1)) {
           tr = "&uarr;";
           acls = "pos";
         }
-        if (trends.t.last <= trends.t.avg - 1) {
+        if (trends.t.last <= (trends.t.avg - 1)) {
           tr = "&darr;";
           acls = "neg";
         }
@@ -61,6 +61,8 @@
           d = resp.data[s];
           if (d) {
             $("#favst_" + d._id + " .data").html(format_t(d.last, d.trends));
+          } else {
+            $("#favst_" + d._id + " .data").html("");
           }
         }
         $("#btn_refresh").children(".hhmm").text(resp.hhmm || "??:??");
@@ -81,9 +83,9 @@
     var $item;
     if (__indexOf.call(window.fav_ids, st) < 0) {
       window.fav_ids.push(st);
-      $item = $("<div class='item'>").attr("id", "favst_" + st);
-      $item.append("<div class='data pull-right'>");
-      $item.append($("<div class='text'>").append($("<div class='title'>").text(title)).append($("<div class='addr'>").text(addr)));
+      $item = $("<div class='item'></div>").attr("id", "favst_" + st);
+      $item.append("<div class='data pull-right'></div>");
+      $item.append($("<div class='text'></div>").append($("<div class='title'></div>").text(title)).append($("<div class='addr'></div>").text(addr)));
       $("#fav_items").append($item);
       return save_favs(window.fav_ids);
     }
@@ -130,8 +132,8 @@
       $("#stlist").html("");
       return $.each(data.st_list, function(i, v) {
         var $star, item, _ref;
-        item = $("<div class='item'>");
-        $star = $("<div class='star'>").click(star_click).data({
+        item = $("<div class='item'></div>");
+        $star = $("<div class='star'></div>").click(star_click).data({
           st: v._id,
           title: v.title,
           addr: v.addr || v.descr
@@ -142,8 +144,8 @@
           $star.data("fav", 0).append("<span class='glyphicon glyphicon-star-empty'></span>");
         }
         item.append($star);
-        item.append($("<div class='title'>").text(v.title));
-        item.append($("<div class='addr'>").text(v.addr || v.descr));
+        item.append($("<div class='title'></div>").text(v.title));
+        item.append($("<div class='addr'></div>").text(v.addr || v.descr));
         return $("#stlist").append(item);
       });
     }).always(function() {
@@ -164,6 +166,18 @@
     } else {
       $b.data("open", 1);
       return load_stlist();
+    }
+  });
+
+  $("#btn_help").click(function(evt) {
+    var $b;
+    $b = $(evt.target);
+    if ($b.data("open")) {
+      $b.data("open", 0);
+      return $("#help-text").html("");
+    } else {
+      $b.data("open", 1);
+      return $("#help-text").load("/help");
     }
   });
 

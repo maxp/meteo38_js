@@ -80,10 +80,17 @@ block content
 
     .row
         .b-stations.col-md-8.col-md-offset-2
-            button.btn.btn-primary.btn-sm(id="btn_stlist") Метеостанции
+            button.btn.btn-primary.btn-sm#btn_stlist Метеостанции
                 span.glyphicon.glyphicon-cog(
                     style="margin-left: 9px; position: relative; top: 2px;" )
 
             .stlist(id="stlist")
+
+    .row
+        .col-md-8.col-md-offset-2
+            button.btn.btn-primary.btn-sm#btn_help Помощь
+                span.glyphicon.glyphicon-question-sign(
+                    style="margin-left: 9px; position: relative; top: 2px;" )
+            div#help-text
 
 //-

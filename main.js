@@ -142,6 +142,10 @@
     });
   });
 
+  app.get("/help", function(req, res) {
+    return res.render("app/help");
+  });
+
   app.get('/yandex_6f489466c2955c1a.txt', function(req, res) {
     return res.send("ok");
   });

@@ -45,7 +45,7 @@
 
   ST_LIST_COOKIE = "st_list";
 
-  ST_LIST_DEFAULT = ["asbtv", "sokr", "irgp", "uiii", "poml", "lerm263", "npsd", "iood", "rlux120", "markova"];
+  ST_LIST_DEFAULT = ["asbtv", "irgp", "poml", "lerm263", "npsd", "iood", "rlux120", "uiii"];
 
   app.get('/', function(req, res) {
     var st_list;

@@ -44,7 +44,10 @@
       _id: {
         $in: st_list
       },
-      pub: 1
+      pub: 1,
+      ts: {
+        $gte: new Date(lib.now() - DATA_FRESH)
+      }
     }, {
       _id: 1,
       title: 1,

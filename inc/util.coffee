@@ -5,12 +5,12 @@
 window.util = x = {}
 
 # ES5 emulation
-unless String::trim then String::trim = -> @replace /^\s+|\s+$/g, ""
+unless String::trim then String::trim = -> @replace(/^\s+|\s+$/g, "")
 
 unless Array::forEach then Array::forEach = (action, that) ->
     i = 0; n = this.length
     while i < n
-        action.call(that, this[i], i, this) if i in this
+        action.call(that, this[i], i, this)
         i++
     return null
 #-

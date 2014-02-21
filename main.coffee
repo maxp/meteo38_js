@@ -58,8 +58,7 @@ app.configure ->
 
 ST_LIST_COOKIE = "st_list"
 ST_LIST_DEFAULT = [
-    "asbtv", "sokr", "irgp", "uiii", "poml", "lerm263", "npsd", "iood",
-    "rlux120", "markova"
+    "asbtv", "irgp", "poml", "lerm263", "npsd", "iood", "rlux120", "uiii"
 ]
 
 #ST_LIST_MAX    = 20

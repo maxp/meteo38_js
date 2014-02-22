@@ -135,7 +135,11 @@ app.get '/st_graph', (req, res) ->
 
 app.get "/help", (req, res) -> res.render "app/help"
 
+# app.get "/ico", (req, res) -> res.render "app/ico"
+
 app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
+
+
 
 
 # app.all "/_trace", (req, res) ->

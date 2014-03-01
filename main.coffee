@@ -32,9 +32,7 @@ app.configure ->
 
     app.enable "trust proxy"
 
-    # if node_env is "development"
-    #   app.use express.favicon __dirname + '/inc/img/favicon.ico'
-    # app.use express.favicon()
+    app.use express.favicon(__dirname+'/inc/img/favicon.ico')
 
     app.use express.compress()
     app.use express.cookieParser()
@@ -152,7 +150,6 @@ app.get "/help", (req, res) -> res.render "app/help"
 
 # app.get "/ico", (req, res) -> res.render "app/ico"
 
-app.get "/favicon.ico", (req, res) -> res.redirect "/inc/img/favicon.ico"
 app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
 
 

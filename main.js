@@ -22,6 +22,7 @@
     app.set("views", __dirname);
     app.set("view engine", 'jade');
     app.enable("trust proxy");
+    app.use(express.favicon(__dirname + '/inc/img/favicon.ico'));
     app.use(express.compress());
     app.use(express.cookieParser());
     app.use(express.json());
@@ -160,10 +161,6 @@
 
   app.get("/help", function(req, res) {
     return res.render("app/help");
-  });
-
-  app.get("/favicon.ico", function(req, res) {
-    return res.redirect("/inc/img/favicon.ico");
   });
 
   app.get('/yandex_6f489466c2955c1a.txt', function(req, res) {

@@ -34,7 +34,7 @@ app.configure ->
 
     # if node_env is "development"
     #   app.use express.favicon __dirname + '/inc/img/favicon.ico'
-    app.use express.favicon()
+    # app.use express.favicon()
 
     app.use express.compress()
     app.use express.cookieParser()

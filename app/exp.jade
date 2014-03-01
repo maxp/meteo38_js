@@ -27,6 +27,7 @@ block content
 
             div(style="text-align: center;")
                 | Выберите станцию
+                = " "
                 select#st_sel
                     each st in st_list
                         option(value="#{st._id}") #{st.title}

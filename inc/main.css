@@ -25,7 +25,7 @@ a:active{text-decoration:underline;color:#a00}
 .page .favs .item .text .title{font-size:22px}
 .page .favs .item .text .addr{color:#888;margin-left:16px}
 .page .favs .item:hover{background-color:#f0f4ff}
-.page .social{margin-top:8px}
+.page .social{margin-top:8px;overflow-y:hidden;overflow-x:hidden;height:25px}
 .page .b-stations .stlist{margin-top:12px;margin-bottom:12px;}
 .page .b-stations .stlist .star{margin:12px 2px 0 6px;float:right;cursor:pointer;font-size:22px;}
 .page .b-stations .stlist .star .glyphicon-star{color:#fa2;text-shadow:1px 1px 1px rgba(0,0,0,0.3)}
@@ -38,4 +38,5 @@ a:active{text-decoration:underline;color:#a00}
 .page .map .loading{position:absolute;top:8px;left:12px;color:#99b}
 .page .map .map_coords{position:absolute;bottom:8px;left:14px;z-index:100;font-size:12px}
 .page .map .map_center{position:absolute;margin-left:-16px;margin-top:-16px;top:50%;left:50%;z-index:100;color:#a22;opacity:.7;font-size:32px}
+.page .code{margin:4px auto;padding:4px 8px;background-color:#fafafa;border:1px solid #dadada;border-radius:2px}
 .clr{clear:both}

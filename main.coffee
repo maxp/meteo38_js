@@ -13,6 +13,9 @@ TRENDS_INTERVAL = 60*60*1000
 
 {st_list_cleanup, fetch_sts, get_stlist, fetch_data} = require './app'
 
+exp = require "./app/exp"
+
+
 # db   = require './lib/db'
 # sess = require './lib/sess'
 # auth = require './app/auth'
@@ -132,6 +135,11 @@ app.get '/st_graph', (req, res) ->
     # graph_data
     res.json {err:"nimp"}
 #-
+
+app.get "/exp/t.js", exp.t_js
+app.get "/exp/", (req, res) -> 
+    res.render "app/exp", title: "Как установить информер на свой сайт"
+app.get "/exp", (req, res) -> res.redirect "/exp/"
 
 app.get "/help", (req, res) -> res.render "app/help"
 

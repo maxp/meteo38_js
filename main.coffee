@@ -138,7 +138,14 @@ app.get '/st_graph', (req, res) ->
 
 app.get "/exp/t.js", exp.t_js
 app.get "/exp/", (req, res) -> 
-    res.render "app/exp", title: "Как установить информер на свой сайт"
+    get_stlist( (data) ->
+        res.render "app/exp", {
+            title: "Как установить информер на свой сайт"
+            st_list: data
+        }
+    )
+#-
+    
 app.get "/exp", (req, res) -> res.redirect "/exp/"
 
 app.get "/help", (req, res) -> res.render "app/help"

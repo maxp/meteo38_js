@@ -7,29 +7,47 @@ append page_scripts
     //- script(src="/inc/util.js")
     //- script(src="/inc/front.js")
     //- script(src="/inc/social.js")
+    script.
+        function set_tjs_src() { 
+            $("#tjs_place").text(' id="meteo38_t_'+$("#st_sel").val()+'"'); 
+            $("#tjs_src").text('    src="http://meteo38.ru/exp/t.js?st='+$("#st_sel").val()+'"'); 
+        }
+        $("#st_sel").change(set_tjs_src);
+        set_tjs_src();
+    //-
 
 block content
 
     .row
         .col-md-8.col-md-offset-2
 
-            h2 Как установить информер на свой сайт
+            h2(style="text-align: center;") Как установить информер на свой сайт
 
             br
 
-            p.
-                Выберите станцию: 
-                <select>
-                    <option value="bgkgs2">Гора Соболиная</option>
-                </select>
-
-            p.
-                и скопируйте этот код себе на страницу:
+            div(style="text-align: center;")
+                | Выберите станцию
+                select#st_sel
+                    each st in st_list
+                        option(value="#{st._id}") #{st.title}
+                = " "
+                | и скопируйте HTML код себе на страницу:
 
             pre.code
-                = "<script type=\"text/javascript\""
+                | &lt;span
+                span#tjs_place  id="meteo38_t_##st_id##"
+                | &gt;&lt;/span&gt;
                 br
-                = "    src=\"http://meteo38.ru/exp/t.js?st=\"></script>"
+                | &lt;script type="text/javascript" async="1"
+                br
+                span#tjs_src    src="http://meteo38.ru/exp/t.js?st=##st_id##"
+                | &gt;&lt;/script&gt;
 
+            br
+
+
+    .row
+        span(id="meteo38_t_uiii")
+        script(async,src="/exp/t.js?st=uiii")
 
 //-

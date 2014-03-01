@@ -38,5 +38,5 @@ a:active{text-decoration:underline;color:#a00}
 .page .map .loading{position:absolute;top:8px;left:12px;color:#99b}
 .page .map .map_coords{position:absolute;bottom:8px;left:14px;z-index:100;font-size:12px}
 .page .map .map_center{position:absolute;margin-left:-16px;margin-top:-16px;top:50%;left:50%;z-index:100;color:#a22;opacity:.7;font-size:32px}
-.page .code{margin:4px auto;padding:4px 8px;background-color:#fafafa;border:1px solid #dadada;border-radius:2px}
+.page .code{margin:10px 10px 12px 10px;padding:8px 16px}
 .clr{clear:both}

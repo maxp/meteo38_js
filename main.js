@@ -147,8 +147,11 @@
   app.get("/exp/t.js", exp.t_js);
 
   app.get("/exp/", function(req, res) {
-    return res.render("app/exp", {
-      title: "Как установить информер на свой сайт"
+    return get_stlist(function(data) {
+      return res.render("app/exp", {
+        title: "Как установить информер на свой сайт",
+        st_list: data
+      });
     });
   });
 

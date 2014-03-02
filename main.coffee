@@ -73,7 +73,7 @@ app.get '/', (req, res) ->
     st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
     if not st_list.length
         st_list = ST_LIST_DEFAULT 
-        res.cookie ST_LIST_COOKIE, st_list, {expires: new Date("2101-01-01"), httponly: false}
+        # res.cookie ST_LIST_COOKIE, st_list, {expires: new Date("2101-01-01"), httponly: false}
     #
     fetch_sts( st_list, (data) ->
         res.render "app/main", {

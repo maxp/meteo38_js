@@ -11,11 +11,15 @@ append page_scripts
 block content
 
     .row
-        .col-md-10
+        .col-md-8.col-md-offset-2
             button.pull-right.btn.btn-default.btn-xs.btn_refresh#btn_refresh
                 span.glyphicon.glyphicon-refresh(
                     style="margin: 0 6px 0 1px; position: relative; top: 2px;" )
                 span.hhmm #{hhmm}
+
+            button.pull-left.btn.btn-info.btn-xs.btn_help(onclick="window.location.href='/help'")
+                span.glyphicon.glyphicon-question-sign(
+                    style="margin: 0 6px 0 6px; position: relative; top: 2px;" )
             .clearfix
 
         .favs.col-md-8.col-md-offset-2#fav_items
@@ -31,43 +35,6 @@ block content
                             .addr #{st.descr || st.addr}
             script window.fav_ids = !{JSON.stringify(st_list)};
 
-        .social.col-md-8.col-md-offset-2
-            //- https://developers.facebook.com/docs/plugins/like-button/
-            //- https://vk.com/dev/Like
-            //- https://developers.google.com/+/web/+1button/
-            //- http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656#
-
-            //- .pull-right(style="margin-left: 10px;"): .g-plusone(data-size="medium")
-                // window.___gcfg = {lang: 'ru'};
-                // (function(){
-                //   var po = document.createElement('script'); 
-                //    po.type = 'text/javascript'; po.async = true;
-                //    po.src = 'https://apis.google.com/js/platform.js';
-                //    var s = document.getElementsByTagName('script')[0]; 
-                //    s.parentNode.insertBefore(po, s);
-                // })();
-
-            
-            .pull-right(style="margin-right: 4px")
-                #fb-root
-                .fb-like(
-                    data-href="http://meteo38.ru/"
-                    data-layout="button_count" 
-                    data-action="like" 
-                    data-show-faces="true" 
-                    data-share="false"
-                )
-
-            //- .pull-right: #ok_shareWidget
-
-            .pull-right
-                #vk_like
-
-            .pull-right
-                a(href="https://twitter.com/share" class="twitter-share-button" 
-                    data-via="mpenzin" data-hashtags="meteo38") Tweet
-
-            .clearfix
 
     //- .buttons
         | show map
@@ -86,11 +53,54 @@ block content
 
             .stlist(id="stlist")
 
-    .row
+    //- .row
         .col-md-8.col-md-offset-2
             button.btn.btn-primary.btn-sm#btn_help Информация
                 span.glyphicon.glyphicon-question-sign(
                     style="margin-left: 9px; position: relative; top: 2px;" )
             div#help-text
+
+    hr(style="margin: 0 0 12px 0") 
+
+    .social.col-md-8.col-md-offset-2
+        //- https://developers.facebook.com/docs/plugins/like-button/
+        //- https://vk.com/dev/Like
+        //- https://developers.google.com/+/web/+1button/
+        //- http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656#
+
+        //- .pull-right(style="margin-left: 10px;"): .g-plusone(data-size="medium")
+            // window.___gcfg = {lang: 'ru'};
+            // (function(){
+            //   var po = document.createElement('script'); 
+            //    po.type = 'text/javascript'; po.async = true;
+            //    po.src = 'https://apis.google.com/js/platform.js';
+            //    var s = document.getElementsByTagName('script')[0]; 
+            //    s.parentNode.insertBefore(po, s);
+            // })();
+
+        table(style="margin: 0 auto;"): tr
+            td.socbtn
+                #fb-root
+                .fb-like(
+                    data-href="http://meteo38.ru/"
+                    data-layout="button_count" 
+                    data-action="like" 
+                    data-show-faces="true" 
+                    data-share="false"
+                )
+
+                
+
+            td.socbtn
+                #vk_like
+
+            td.socbtn
+                a(href="https://twitter.com/share" class="twitter-share-button" 
+                    data-via="mpenzin" data-hashtags="meteo38") Tweet
+
+        .clearfix
+
+    //- social
+
 
 //-

@@ -169,18 +169,6 @@
     }
   });
 
-  $("#btn_help").click(function(evt) {
-    var $b;
-    $b = $(evt.target);
-    if ($b.data("open")) {
-      $b.data("open", 0);
-      return $("#help-text").html("");
-    } else {
-      $b.data("open", 1);
-      return $("#help-text").load("/help");
-    }
-  });
-
   $(function() {
     return refresh_data(REFRESH_INTERVAL);
   });

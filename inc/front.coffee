@@ -145,16 +145,16 @@ $btn_stlist.click (evt) ->
     #
 #-    
 
-$("#btn_help").click (evt) ->
-    $b = $(evt.target)
-    if $b.data("open")
-        $b.data("open", 0)
-        $("#help-text").html("")      
-    else
-        $b.data("open", 1)
-        $("#help-text").load("/help")
-    #
-#-    
+# $("#btn_help").click (evt) ->
+#     $b = $(evt.target)
+#     if $b.data("open")
+#         $b.data("open", 0)
+#         $("#help-text").html("")      
+#     else
+#         $b.data("open", 1)
+#         $("#help-text").load("/help")
+#     #
+# #-    
 
 $( () -> refresh_data(REFRESH_INTERVAL) )
 

@@ -156,7 +156,9 @@
   });
 
   app.get("/help", function(req, res) {
-    return res.render("app/help");
+    return res.render("app/help", {
+      title: "Вопросы и ответы"
+    });
   });
 
   app.get('/yandex_6f489466c2955c1a.txt', function(req, res) {

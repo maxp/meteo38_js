@@ -9,10 +9,11 @@ a:active{text-decoration:underline;color:#a00}
 .footer{margin-top:12px;margin-bottom:8px;border-top:1px solid #dadada;padding-top:6px;color:#555;}
 .footer .link{color:#47c}
 .footer .about{text-align:center;font-size:13px}
-.page .help{border:1px solid #eee;border-radius:4px;padding:4px 10px;margin:12px 0;background-color:#fffded;}
-.page .help h4{color:#004}
-.page .help p{margin-left:2ex}
+.page .help h2{margin-top:10px}
+.page .help h4{color:#006;margin-bottom:4px}
+.page .help p{margin-left:2ex;margin-bottom:4px}
 .page .btn_refresh{margin-right:8px}
+.page .btn_help{margin-left:8px}
 .page .favs{margin-top:10px;}
 .page .favs .item{margin-bottom:4px;background-color:#f9fafc;border-radius:4px;padding:1px 10px 2px 10px;cursor:pointer;}
 .page .favs .item .data{font-size:20px;margin-top:4px;margin-left:6px;color:#888;}
@@ -26,6 +27,7 @@ a:active{text-decoration:underline;color:#a00}
 .page .favs .item .text .addr{color:#888;margin-left:16px}
 .page .favs .item:hover{background-color:#f0f4ff}
 .page .social{margin-top:8px;overflow-y:hidden;overflow-x:hidden;height:25px}
+.page .socbtn{padding:0 4px}
 .page .b-stations .stlist{margin-top:12px;margin-bottom:12px;}
 .page .b-stations .stlist .star{margin:12px 2px 0 6px;float:right;cursor:pointer;font-size:22px;}
 .page .b-stations .stlist .star .glyphicon-star{color:#fa2;text-shadow:1px 1px 1px rgba(0,0,0,0.3)}

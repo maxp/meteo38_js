@@ -17,9 +17,9 @@ block content
                     style="margin: 0 6px 0 1px; position: relative; top: 2px;" )
                 span.hhmm #{hhmm}
 
-            button.pull-left.btn.btn-info.btn-xs.btn_help(onclick="window.location.href='/help'")
+            button.pull-left.btn.btn-default.btn-xs.btn_help(onclick="window.location.href='/help'")
                 span.glyphicon.glyphicon-question-sign(
-                    style="margin: 0 6px 0 6px; position: relative; top: 2px;" )
+                    style="margin: 0 6px 0 6px; position: relative; top: 2px; color: #4a2;" )
             .clearfix
 
         .favs.col-md-8.col-md-offset-2#fav_items
@@ -80,6 +80,11 @@ block content
 
         table(style="margin: 0 auto;"): tr
             td.socbtn
+                #vk_like
+            td.socbtn
+                a(href="https://twitter.com/share" class="twitter-share-button" 
+                    data-via="mpenzin" data-hashtags="meteo38") Tweet
+            td.socbtn
                 #fb-root
                 .fb-like(
                     data-href="http://meteo38.ru/"
@@ -88,15 +93,6 @@ block content
                     data-show-faces="true" 
                     data-share="false"
                 )
-
-                
-
-            td.socbtn
-                #vk_like
-
-            td.socbtn
-                a(href="https://twitter.com/share" class="twitter-share-button" 
-                    data-via="mpenzin" data-hashtags="meteo38") Tweet
 
         .clearfix
 

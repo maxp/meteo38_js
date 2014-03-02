@@ -54,10 +54,6 @@
     st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE]);
     if (!st_list.length) {
       st_list = ST_LIST_DEFAULT;
-      res.cookie(ST_LIST_COOKIE, st_list, {
-        expires: new Date("2101-01-01"),
-        httponly: false
-      });
     }
     return fetch_sts(st_list, function(data) {
       return res.render("app/main", {

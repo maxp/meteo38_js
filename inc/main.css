@@ -27,7 +27,7 @@ a:active{text-decoration:underline;color:#a00}
 .page .favs .item .text .addr{color:#888;margin-left:16px}
 .page .favs .item:hover{background-color:#f0f4ff}
 .page .social{margin-top:8px;overflow-y:hidden;overflow-x:hidden;height:25px}
-.page .socbtn{padding:0 4px}
+.page .socbtn{width:120px;padding:0 4px;vertical-align:top}
 .page .b-stations .stlist{margin-top:12px;margin-bottom:12px;}
 .page .b-stations .stlist .star{margin:12px 2px 0 6px;float:right;cursor:pointer;font-size:22px;}
 .page .b-stations .stlist .star .glyphicon-star{color:#fa2;text-shadow:1px 1px 1px rgba(0,0,0,0.3)}

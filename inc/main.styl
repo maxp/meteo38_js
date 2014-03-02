@@ -148,35 +148,57 @@ a:active
         vertical-align: top
 
 .page
-    .b-stations
-        .stlist
-            margin-top: 12px
-            margin-bottom: 12px
-            .star
-                margin: 12px 2px 0 6px
-                float: right
-                cursor: pointer
+    .tab_pane#pane_opts
+        margin-top: 12px
+        margin-bottom: 12px
+        .star
+            margin: 12px 2px 0 6px
+            float: right
+            cursor: pointer
+            font-size: 22px
+            .glyphicon-star
+                color: #fa2
+                text-shadow: 1px 1px 1px rgba(0,0,0,0.3)
+            .glyphicon-star-empty
+                color: #acd
+
+        .item
+            margin-bottom: 4px
+            background-color: #f9fafc
+            border-radius: 4px
+            padding: 1px 10px 2px 10px
+            .title
                 font-size: 22px
-                .glyphicon-star
-                    color: #fa2
-                    text-shadow: 1px 1px 1px rgba(0,0,0,0.3)
-                .glyphicon-star-empty
-                    color: #acd
+            .addr
+                color: #888
+                margin-left: 16px
 
-            .item
-                margin-bottom: 4px
-                background-color: #f9fafc
-                border-radius: 4px
-                padding: 1px 10px 2px 10px
-                .title
-                    font-size: 22px
-                .addr
-                    color: #888
-                    margin-left: 16px
+        .item:hover
+            background-color: #f0f4ff
 
-            .item:hover
-                background-color: #f0f4ff
-                            
+.page
+    .b-tabs
+        margin-top: 6px
+
+        .tablink
+            cursor: pointer
+            color: #05c
+
+            .glyphicon
+                margin-left: 4px
+
+        .tab_pane
+            display: none
+
+    .loading
+        position: relative
+        top: 8px
+        left: 12px
+        color: #aac
+
+    .loading:before
+        content: "Загрузка ..."
+                                
 .page
     .map
         border: 1px solid #ccc
@@ -187,12 +209,6 @@ a:active
         margin-top: 10px
         margin-bottom: 10px
         position: relative
-
-        .loading
-            position: absolute
-            top: 8px
-            left: 12px
-            color: #99b
             
         .map_coords
             position: absolute

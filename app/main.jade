@@ -19,7 +19,7 @@ block content
 
             button.pull-left.btn.btn-default.btn-xs.btn_help(onclick="window.location.href='/help'")
                 span.glyphicon.glyphicon-question-sign(
-                    style="margin: 0 6px 0 6px; position: relative; top: 2px; color: #4a2;" )
+                    style="margin: 0 1px; position: relative; top: 2px; color: #4a2;" )
             .clearfix
 
         .favs.col-md-8.col-md-offset-2#fav_items
@@ -36,67 +36,71 @@ block content
             script window.fav_ids = !{JSON.stringify(st_list)};
 
 
-    //- .buttons
-        | show map
+    .row
+        .b-tabs.col-md-8.col-md-offset-2
+            .nav.nav-tabs
+                li: a.tablink(data-pane="graph") Графики
+                    span.glyphicon.glyphicon-stats
+                li: a.tablink(data-pane="map"  ) Карта
+                    span.glyphicon.glyphicon-map-marker
+                li: a.tablink(data-pane="opts" ) Настройки
+                    span.glyphicon.glyphicon-cog
 
-    //- .adv
+            .tab_pane#pane_graph
+                .loading
+                br
+                br
+                .text-center В разработке 
+                br
+                br
 
-    //- .mapblock
+            .tab_pane#pane_map
+                .loading
+                br
+                br
+                .text-center В разработке 
+                br
+                br
 
-    hr(style="margin: 9px 0 12px 0") 
+            .tab_pane#pane_opts
+                .loading
 
     .row
-        .b-stations.col-md-8.col-md-offset-2
-            button.btn.btn-primary.btn-sm#btn_stlist Метеостанции
-                span.glyphicon.glyphicon-cog(
-                    style="margin-left: 9px; position: relative; top: 2px;" )
+        .social.col-md-8.col-md-offset-2
+            //- hr(style="margin: 0 0 12px 0") 
 
-            .stlist(id="stlist")
+            //- https://developers.facebook.com/docs/plugins/like-button/
+            //- https://vk.com/dev/Like
+            //- https://developers.google.com/+/web/+1button/
+            //- http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656#
 
-    //- .row
-        .col-md-8.col-md-offset-2
-            button.btn.btn-primary.btn-sm#btn_help Информация
-                span.glyphicon.glyphicon-question-sign(
-                    style="margin-left: 9px; position: relative; top: 2px;" )
-            div#help-text
+            //- .pull-right(style="margin-left: 10px;"): .g-plusone(data-size="medium")
+                // window.___gcfg = {lang: 'ru'};
+                // (function(){
+                //   var po = document.createElement('script'); 
+                //    po.type = 'text/javascript'; po.async = true;
+                //    po.src = 'https://apis.google.com/js/platform.js';
+                //    var s = document.getElementsByTagName('script')[0]; 
+                //    s.parentNode.insertBefore(po, s);
+                // })();
 
-    hr(style="margin: 0 0 12px 0") 
+            table(style="margin: 0 auto;"): tr
+                td.socbtn
+                    #vk_like
+                td.socbtn
+                    a(href="https://twitter.com/share" class="twitter-share-button" 
+                        data-via="mpenzin" data-hashtags="meteo38") Tweet
+                td.socbtn
+                    #fb-root
+                    .fb-like(
+                        data-href="http://meteo38.ru/"
+                        data-layout="button_count" 
+                        data-action="like" 
+                        data-show-faces="true" 
+                        data-share="false"
+                    )
 
-    .social.col-md-8.col-md-offset-2
-        //- https://developers.facebook.com/docs/plugins/like-button/
-        //- https://vk.com/dev/Like
-        //- https://developers.google.com/+/web/+1button/
-        //- http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656#
-
-        //- .pull-right(style="margin-left: 10px;"): .g-plusone(data-size="medium")
-            // window.___gcfg = {lang: 'ru'};
-            // (function(){
-            //   var po = document.createElement('script'); 
-            //    po.type = 'text/javascript'; po.async = true;
-            //    po.src = 'https://apis.google.com/js/platform.js';
-            //    var s = document.getElementsByTagName('script')[0]; 
-            //    s.parentNode.insertBefore(po, s);
-            // })();
-
-        table(style="margin: 0 auto;"): tr
-            td.socbtn
-                #vk_like
-            td.socbtn
-                a(href="https://twitter.com/share" class="twitter-share-button" 
-                    data-via="mpenzin" data-hashtags="meteo38") Tweet
-            td.socbtn
-                #fb-root
-                .fb-like(
-                    data-href="http://meteo38.ru/"
-                    data-layout="button_count" 
-                    data-action="like" 
-                    data-show-faces="true" 
-                    data-share="false"
-                )
-
-        .clearfix
-
-    //- social
+        //- social
 
 
 //-

@@ -109,10 +109,11 @@ star_click = (evt) ->
 #-
 
 load_stlist = () ->
-    $btn_stlist.prop("disabled", 1)
+    $stlist = $("#pane_opts")
+    $stlist.html("<div class='loading'></div>")
     $.getJSON("/st_list", (data) ->
+        $stlist.html("")
         return alert("Ошибка при загрузке данных!") if not data.st_list
-        $("#stlist").html("")
         $.each( data.st_list, (i,v) ->
             item = $("<div class='item'></div>")  #.attr("id",v._id)
             $star = $("<div class='star'></div>").click(star_click)
@@ -127,23 +128,44 @@ load_stlist = () ->
             item.append( $star )
             item.append( $("<div class='title'></div>").text(v.title) )
             item.append( $("<div class='addr'></div>").text(v.addr or v.descr) )
-            $("#stlist").append(item)
+            $stlist.append(item)
         )
-    ).always () -> $btn_stlist.removeProp("disabled")
+    )
 #-
+
+tab_load_fn = {
+    graph: () ->
+        console.log("load graph")
+    map: () ->
+        console.log("load map")
+    opts: load_stlist
+}
+
+#--- bind controls
 
 $("#btn_refresh").click () -> refresh_data(0)
 
-$btn_stlist.click (evt) ->
-    $b = $(evt.target)
-    if $b.data("open")
-        $b.data("open", 0)
-        $("#stlist").html("")      
-    else
-        $b.data("open", 1)
-        load_stlist()
-    #
-#-    
+$("a.tablink").each( (i, a) -> $(a).click( () ->
+    $li = $(this).parent()
+    return false if $li.hasClass("active")
+    $("a.tablink").parent().removeClass("active")
+    $li.addClass("active")
+    $(".tab_pane").hide()
+    pane = $(this).data("pane")
+    $("#pane_"+pane).show()
+    tab_load_fn[pane].call()
+))
+
+# $btn_stlist.click (evt) ->
+#     $b = $(evt.target)
+#     if $b.data("open")
+#         $b.data("open", 0)
+#         $("#stlist").html("")      
+#     else
+#         $b.data("open", 1)
+#         load_stlist()
+#     #
+# #-    
 
 # $("#btn_help").click (evt) ->
 #     $b = $(evt.target)

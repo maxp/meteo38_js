@@ -37,8 +37,8 @@ a:active{text-decoration:underline;color:#a00}
 .page .tab_pane#pane_opts .item .addr{color:#888;margin-left:16px}
 .page .tab_pane#pane_opts .item:hover{background-color:#f0f4ff}
 .page .b-tabs{margin-top:6px;}
-.page .b-tabs .tablink{cursor:pointer;color:#05c;}
-.page .b-tabs .tablink .glyphicon{margin-left:4px}
+.page .b-tabs .nav-tabs .tablink{cursor:pointer;color:#05c;padding:6px 10px;}
+.page .b-tabs .nav-tabs .tablink .glyphicon{margin-left:4px}
 .page .b-tabs .tab_pane{display:none}
 .page .loading{position:relative;top:8px;left:12px;color:#aac}
 .page .loading:before{content:"Загрузка ..."}

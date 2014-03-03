@@ -133,13 +133,40 @@ load_stlist = () ->
     )
 #-
 
-tab_load_fn = {
-    graph: () ->
-        console.log("load graph")
-    map: () ->
-        console.log("load map")
-    opts: load_stlist
-}
+init_map = () ->
+
+#-
+
+show_map = () ->
+    if not window.map
+        window.ymaps_onload = () ->
+            $("#pane_map").html("<div class='map' id='map'></div>")
+
+            # TODO: center or first station in list
+            window.map = map = new ymaps.Map("map", {center: [104.3, 52.28], zoom: 12});
+            map.controls.add("zoomControl", {noTips:true, top:7, left:7})
+            map.controls.add 'typeSelector'    
+            # map.controls.add "scaleLine"
+
+            # window.markers = new ymaps.GeoObjectCollection()
+            # window.map.geoObjects.add window.markers
+
+            # place_marker(obj) for obj in _objs
+            show_map()
+        #-
+        $.getScript("//api-maps.yandex.ru/2.0-stable/?lang=ru-RU"+
+            "&load=package.standard&coordorder=longlat&onload=ymaps_onload")
+        return
+    #
+
+    # TODO: readd mrkers
+
+#-
+
+show_graph = () ->
+    console.log("load graph")
+#-
+
 
 #--- bind controls
 
@@ -153,31 +180,12 @@ $("a.tablink").each( (i, a) -> $(a).click( () ->
     $(".tab_pane").hide()
     pane = $(this).data("pane")
     $("#pane_"+pane).show()
-    tab_load_fn[pane].call()
+    {graph:show_graph, map:show_map, opts:load_stlist}[pane].call()
 ))
 
-# $btn_stlist.click (evt) ->
-#     $b = $(evt.target)
-#     if $b.data("open")
-#         $b.data("open", 0)
-#         $("#stlist").html("")      
-#     else
-#         $b.data("open", 1)
-#         load_stlist()
-#     #
-# #-    
-
-# $("#btn_help").click (evt) ->
-#     $b = $(evt.target)
-#     if $b.data("open")
-#         $b.data("open", 0)
-#         $("#help-text").html("")      
-#     else
-#         $b.data("open", 1)
-#         $("#help-text").load("/help")
-#     #
-# #-    
-
-$( () -> refresh_data(REFRESH_INTERVAL) )
+$( () -> 
+    $("a.tablink")[0].click()
+    refresh_data(REFRESH_INTERVAL) 
+)
 
 #.

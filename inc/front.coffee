@@ -178,7 +178,7 @@ show_map = () ->
         window.ymaps_onload = () ->
             $("#pane_map").html("<div class='map' id='map'></div>")
             window.map = map = new ymaps.Map("map", {center: CENTER_INIT, zoom: ZOOM_INIT});
-            map.controls.add('zoomControl', {noTips:true, top:7, left:7})
+            map.controls.add(new ymaps.control.ZoomControl({noTips:true}), {top:7, left:7})
             map.controls.add('typeSelector')    
             map.geoObjects.add(markers = new ymaps.GeoObjectCollection())
             show_map()

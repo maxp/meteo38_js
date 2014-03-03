@@ -221,8 +221,9 @@
           center: CENTER_INIT,
           zoom: ZOOM_INIT
         });
-        map.controls.add('zoomControl', {
-          noTips: true,
+        map.controls.add(new ymaps.control.ZoomControl({
+          noTips: true
+        }), {
           top: 7,
           left: 7
         });

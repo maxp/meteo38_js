@@ -4,9 +4,17 @@
 
 lib = window.util
 
+# globals
+#
+# window.fav_ids: [] - inited in main html
+# window.st_data: {} - inited in main html
+window.map = map = null
+
 $btn_stlist = $("#btn_stlist")
 
 REFRESH_INTERVAL = 4*60*1000
+
+ZOOM_INIT = 13
 
 # duplicated in main.coffe
 #
@@ -44,6 +52,7 @@ refresh_data = (delay) ->
             $.getJSON( "/st_data", 
                 {st_list:st_list.join(','), ts:lib.now()}
                 (resp) ->
+                    window.st_data = resp.data or {}
                     if not resp.ok
                         alert "Ошибка при обращении к серверу."
                         return
@@ -66,7 +75,6 @@ refresh_data = (delay) ->
 #-
 
 save_favs = (favs) ->
-    #? update cookie locally
     window.util.post("/st_favs", {favs:favs}, (data) -> )
     refresh_data(500)
 #-
@@ -76,7 +84,7 @@ favs_add = (st, title, addr) ->
         window.fav_ids.push(st)
 
         # duplicated in main.jade
-        $item = $("<div class='item'></div>").attr("id", "favst_"+st)
+        $item = $("<div class='item'></div>").attr("id", "favst_"+st).data("st",st)
         $item.append( "<div class='data pull-right'></div>" )
         $item.append( $("<div class='text'></div>")
             .append( $("<div class='title'></div>").text(title) )
@@ -91,6 +99,20 @@ favs_remove = (st) ->
     $("#favst_#{st}").remove()
     window.fav_ids = (id for id in window.fav_ids when id isnt st)
     save_favs(window.fav_ids)
+#-
+
+
+ll2coords = (ll) -> return [ll[1], ll[0]] if ll?.length is 2
+
+fav_item_click = (evt) ->
+    st = window.st_data?[$(this).data("st")]
+    return if not st?.ll or not window.map
+
+    zoom = map.getZoom()
+    map.setCenter(
+        ll2coords(st.ll),  
+        if zoom < ZOOM_INIT then ZOOM_INIT+1 else zoom
+    )
 #-
 
 star_click = (evt) ->
@@ -133,20 +155,16 @@ load_stlist = () ->
     )
 #-
 
-init_map = () ->
-
-#-
 
 show_map = () ->
     if not window.map
         window.ymaps_onload = () ->
             $("#pane_map").html("<div class='map' id='map'></div>")
-
-            # TODO: center or first station in list
-            window.map = map = new ymaps.Map("map", {center: [104.3, 52.28], zoom: 12});
-            map.controls.add("zoomControl", {noTips:true, top:7, left:7})
-            map.controls.add 'typeSelector'    
-            # map.controls.add "scaleLine"
+            st0 = $($("#fav_items .item").get(0)).data("st")
+            center = ll2coords(window.st_data[st0]?.ll) or [52.27,104.26]
+            window.map = map = new ymaps.Map("map", {center: center, zoom: ZOOM_INIT});
+            map.controls.add('zoomControl', {noTips:true, top:7, left:7})
+            map.controls.add('typeSelector')    
 
             # window.markers = new ymaps.GeoObjectCollection()
             # window.map.geoObjects.add window.markers
@@ -154,8 +172,9 @@ show_map = () ->
             # place_marker(obj) for obj in _objs
             show_map()
         #-
-        $.getScript("//api-maps.yandex.ru/2.0-stable/?lang=ru-RU"+
-            "&load=package.standard&coordorder=longlat&onload=ymaps_onload")
+        $.getScript(
+            "//api-maps.yandex.ru/2.0-stable/?lang=ru-RU&load=package.standard&onload=ymaps_onload"
+        )
         return
     #
 
@@ -184,6 +203,7 @@ $("a.tablink").each( (i, a) -> $(a).click( () ->
 ))
 
 $( () -> 
+    $("#fav_items").on("click", ".item", fav_item_click)
     $("a.tablink")[0].click()
     refresh_data(REFRESH_INTERVAL) 
 )

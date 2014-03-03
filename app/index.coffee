@@ -41,8 +41,8 @@ x.fetch_sts = (st_list, cb) ->
 x.fetch_data = (st_list, cb) ->
     res = {}
     db.coll_st().find(
-            {_id:{$in:st_list}, pub:1, ts:{$gte:new Date(lib.now()-DATA_FRESH)}},
-            {_id:1,last:1,trends:1} 
+            {_id:{$in:st_list},pub:1,ts:{$gte:new Date(lib.now()-DATA_FRESH)}},
+            {_id:1,ll:1,last:1,trends:1} 
         ).each (err, item) ->
             warn "app.fetch_data:", err if err
             return cb(res) if not item

@@ -6,7 +6,7 @@ append head_scripts
 append page_scripts
     script(src="/inc/util.js")
     script(src="/inc/front.js")
-    script(src="/inc/social.js")
+    //-### script(src="/inc/social.js")
 
 block content
 
@@ -27,14 +27,16 @@ block content
                 - var st = data[s];
                 if st
                     //- duplicated in inc/front.coffee
-                    .item(id="favst_#{st._id}")
+                    .item(id="favst_#{st._id}",data-st="#{st._id}")
                         .data.pull-right
                             .t!= format_t(st.last, st.trends)
                         .text
                             .title #{st.title}
                             .addr #{st.descr || st.addr}
-            script window.fav_ids = !{JSON.stringify(st_list)};
-
+            script.
+                window.fav_ids = !{JSON.stringify(st_list)};
+                window.st_data = !{JSON.stringify(data)};
+            //-
 
     .row
         .b-tabs.col-md-8.col-md-offset-2
@@ -65,7 +67,7 @@ block content
             .tab_pane#pane_opts
                 .loading
 
-    .row
+    //-### .row
         .social.col-md-8.col-md-offset-2
             //- hr(style="margin: 0 0 12px 0") 
 

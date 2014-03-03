@@ -9,11 +9,14 @@ lib = window.util
 # window.fav_ids: [] - inited in main html
 # window.st_data: {} - inited in main html
 window.map = map = null
+markers = null
+
 
 $btn_stlist = $("#btn_stlist")
 
 REFRESH_INTERVAL = 4*60*1000
 
+CENTER_INIT = [52.27, 104.26]
 ZOOM_INIT = 13
 
 # duplicated in main.coffe
@@ -43,6 +46,13 @@ format_t = (last, trends) ->
             "<span class='arr #{acls}'>#{tr}</span>"
 #-
 
+update_stdata = (v) ->
+    return if not v._id
+    d = window.st_data[v._id]
+    return (window.st_data[v._id] = v) if not d
+    d[k] = v[k] for k in v
+#-
+
 refresh_data = (delay) ->
     clearTimeout(window.refresh_tout) if window.refresh_tout
     window.refresh_tout = setTimeout(
@@ -52,11 +62,11 @@ refresh_data = (delay) ->
             $.getJSON( "/st_data", 
                 {st_list:st_list.join(','), ts:lib.now()}
                 (resp) ->
-                    window.st_data = resp.data or {}
                     if not resp.ok
                         alert "Ошибка при обращении к серверу."
                         return
                     #
+                    update_stdata(v) for k,v of resp.data
                     for s in st_list
                         d = resp.data[s]
                         if d 
@@ -82,7 +92,6 @@ save_favs = (favs) ->
 favs_add = (st, title, addr) ->
     if st not in window.fav_ids
         window.fav_ids.push(st)
-
         # duplicated in main.jade
         $item = $("<div class='item'></div>").attr("id", "favst_"+st).data("st",st)
         $item.append( "<div class='data pull-right'></div>" )
@@ -137,6 +146,7 @@ load_stlist = () ->
         $stlist.html("")
         return alert("Ошибка при загрузке данных!") if not data.st_list
         $.each( data.st_list, (i,v) ->
+            update_stdata(v)        
             item = $("<div class='item'></div>")  #.attr("id",v._id)
             $star = $("<div class='star'></div>").click(star_click)
                 .data({st:v._id, title:v.title, addr:v.addr or v.descr})
@@ -155,21 +165,22 @@ load_stlist = () ->
     )
 #-
 
+add_marker = (d) ->
+    return if not (c = ll2coords(d.ll))
+    markers.add( new ymaps.Placemark(c, 
+        {iconContent: d.title},
+        {preset: 'twirl#greyStretchyIcon'}
+    ))
+#-    
 
 show_map = () ->
     if not window.map
         window.ymaps_onload = () ->
             $("#pane_map").html("<div class='map' id='map'></div>")
-            st0 = $($("#fav_items .item").get(0)).data("st")
-            center = ll2coords(window.st_data[st0]?.ll) or [52.27,104.26]
-            window.map = map = new ymaps.Map("map", {center: center, zoom: ZOOM_INIT});
+            window.map = map = new ymaps.Map("map", {center: CENTER_INIT, zoom: ZOOM_INIT});
             map.controls.add('zoomControl', {noTips:true, top:7, left:7})
             map.controls.add('typeSelector')    
-
-            # window.markers = new ymaps.GeoObjectCollection()
-            # window.map.geoObjects.add window.markers
-
-            # place_marker(obj) for obj in _objs
+            map.geoObjects.add(markers = new ymaps.GeoObjectCollection())
             show_map()
         #-
         $.getScript(
@@ -178,8 +189,10 @@ show_map = () ->
         return
     #
 
-    # TODO: readd mrkers
-
+    markers.removeAll()
+    st0 = $($("#fav_items .item").get(0)).data("st")
+    map.setCenter( ll2coords(window.st_data[st0]?.ll) or CENTER_INIT )
+    add_marker(v) for k,v of window.st_data
 #-
 
 show_graph = () ->

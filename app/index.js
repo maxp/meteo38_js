@@ -80,7 +80,6 @@
       }
     }, {
       _id: 1,
-      ll: 1,
       last: 1,
       trends: 1
     }).each(function(err, item) {

@@ -192,7 +192,7 @@ show_map = () ->
     markers.removeAll()
     st0 = $($("#fav_items .item").get(0)).data("st")
     map.setCenter( ll2coords(window.st_data[st0]?.ll) or CENTER_INIT )
-    add_marker(v) for k,v of window.st_data
+    add_marker(window.st_data[k]) for k in window.fav_ids
 #-
 
 show_graph = () ->

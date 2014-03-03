@@ -213,7 +213,7 @@
   };
 
   show_map = function() {
-    var k, st0, v, _ref, _ref1, _results;
+    var k, st0, _i, _len, _ref, _ref1, _results;
     if (!window.map) {
       window.ymaps_onload = function() {
         $("#pane_map").html("<div class='map' id='map'></div>");
@@ -237,11 +237,11 @@
     markers.removeAll();
     st0 = $($("#fav_items .item").get(0)).data("st");
     map.setCenter(ll2coords((_ref = window.st_data[st0]) != null ? _ref.ll : void 0) || CENTER_INIT);
-    _ref1 = window.st_data;
+    _ref1 = window.fav_ids;
     _results = [];
-    for (k in _ref1) {
-      v = _ref1[k];
-      _results.push(add_marker(v));
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      k = _ref1[_i];
+      _results.push(add_marker(window.st_data[k]));
     }
     return _results;
   };

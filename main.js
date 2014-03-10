@@ -18,32 +18,36 @@
 
   app = express();
 
-  app.configure(function() {
-    app.set("views", __dirname);
-    app.set("view engine", 'jade');
-    app.enable("trust proxy");
-    app.use(express.favicon(__dirname + '/inc/img/favicon.ico'));
-    app.use(express.compress());
-    app.use(express.cookieParser());
-    app.use(express.json());
-    app.use(app.router);
-    if (config.env === "development") {
-      app.use('/inc', express["static"](__dirname + "/inc"));
-      app.use(express.errorHandler({
-        dumpExceptions: true,
-        showStack: true
-      }));
-      app.locals.pretty = true;
-      return app.locals.cache = false;
-    } else {
-      app.use('/inc', express["static"](__dirname + "/inc", {
-        maxAge: 1 * 24 * 3600 * 1000
-      }));
-      app.use(express.errorHandler());
-      app.locals.pretty = false;
-      return app.locals.cache = true;
-    }
-  });
+  app.set("views", __dirname);
+
+  app.set("view engine", 'jade');
+
+  app.enable("trust proxy");
+
+  app.use(express.compress());
+
+  app.use(express.cookieParser());
+
+  app.use(express.json());
+
+  app.use(app.router);
+
+  if (config.env === "development") {
+    app.use('/inc', express["static"](__dirname + "/inc"));
+    app.use(express.errorHandler({
+      dumpExceptions: true,
+      showStack: true
+    }));
+    app.locals.pretty = true;
+    app.locals.cache = false;
+  } else {
+    app.use('/inc', express["static"](__dirname + "/inc", {
+      maxAge: 1 * 24 * 3600 * 1000
+    }));
+    app.use(express.errorHandler());
+    app.locals.pretty = false;
+    app.locals.cache = true;
+  }
 
   ST_LIST_COOKIE = "st_list";
 
@@ -161,8 +165,14 @@
     });
   });
 
+  app.get('/favicon.ico', express["static"](__dirname + '/inc/img'));
+
   app.get('/yandex_6f489466c2955c1a.txt', function(req, res) {
     return res.send("ok");
+  });
+
+  app.get('/google527c56f2996a48ae.html', function(req, res) {
+    return res.send("google-site-verification: google527c56f2996a48ae.html");
   });
 
   info("Listen - " + config.server.host + ":" + config.server.port);

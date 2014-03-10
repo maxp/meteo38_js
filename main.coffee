@@ -26,35 +26,35 @@ express = require 'express'
 
 app = express()
 
-app.configure ->
-    app.set "views", __dirname      # +"/jade"
-    app.set "view engine", 'jade'
+#app.configure ->
+app.set "views", __dirname      # +"/jade"
+app.set "view engine", 'jade'
 
-    app.enable "trust proxy"
+app.enable "trust proxy"
 
-    app.use express.favicon(__dirname+'/inc/img/favicon.ico')
+#app.use express.favicon(__dirname+'/inc/img/favicon.ico')
 
-    app.use express.compress()
-    app.use express.cookieParser()
-    # app.use sess.middleware()
+app.use express.compress()
+app.use express.cookieParser()
+# app.use sess.middleware()
 
-    # app.use express.urlencoded()
-    app.use express.json()
+# app.use express.urlencoded()
+app.use express.json()
 
-    # app.use auth.middleware()
-    app.use app.router
+# app.use auth.middleware()
+app.use app.router
 
-    if config.env is "development"
-        app.use '/inc', express.static __dirname+"/inc"
-        app.use express.errorHandler {dumpExceptions: true, showStack: true}
-        app.locals.pretty = true
-        app.locals.cache = false
-    else
-        app.use '/inc', express.static __dirname+"/inc", {maxAge: 1*24*3600*1000}
-        app.use express.errorHandler()
-        app.locals.pretty = false
-        app.locals.cache = true
-    #
+if config.env is "development"
+    app.use '/inc', express.static __dirname+"/inc"
+    app.use express.errorHandler {dumpExceptions: true, showStack: true}
+    app.locals.pretty = true
+    app.locals.cache = false
+else
+    app.use '/inc', express.static __dirname+"/inc", {maxAge: 1*24*3600*1000}
+    app.use express.errorHandler()
+    app.locals.pretty = false
+    app.locals.cache = true
+#
 #-
 
 ST_LIST_COOKIE = "st_list"
@@ -150,8 +150,12 @@ app.get "/help", (req, res) -> res.render("app/help", title: "Вопросы и 
 
 # app.get "/ico", (req, res) -> res.render "app/ico"
 
-app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
+app.get '/favicon.ico', express.static(__dirname+'/inc/img')
 
+app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
+app.get '/google527c56f2996a48ae.html', (req, res) -> 
+    res.send "google-site-verification: google527c56f2996a48ae.html"
+#
 
 
 

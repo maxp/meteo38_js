@@ -22,7 +22,8 @@ lib    = require '../lib'
 x.st_list_cleanup = (s) ->
     return [] if not s?.length
     s = (""+s).split(',').slice(0, ST_LIST_MAX)
-    return (t.replace(/[^0-9a-zA-Z\-_]/g,'').substring(0, ST_ID_MAX_LEN) for t in s)
+    res = (t.replace(/[^0-9a-zA-Z\-_]/g,'').substring(0, ST_ID_MAX_LEN) for t in s)
+    return (s for s in res when s)
 #-
 
 
@@ -64,5 +65,6 @@ x.get_stlist = (cb) ->
             cb(data)
     #-
 #-
+
 
 #.

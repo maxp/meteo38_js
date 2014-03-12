@@ -4,6 +4,7 @@
 
 config = require './lib/config'
 lib = require './lib'
+db = require './lib/db'
 
 TRENDS_INTERVAL = 60*60*1000
 
@@ -71,7 +72,6 @@ ST_LIST_DEFAULT = [
 #
 
 app.get '/', (req, res) ->
-
     st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
     if not st_list.length
         st_list = ST_LIST_DEFAULT 
@@ -122,7 +122,7 @@ app.post '/st_favs', (req, res) ->
 
 app.get '/st_data', (req, res) ->
     st_list = st_list_cleanup((req.query.st_list or "").split(','))
-    return {err:"badreq"} if not st_list.length
+    return res.json({err:"badreq"}) if not st_list.length
     fetch_data( st_list, (data) -> 
         return res.json {ok:1, data:data, hhmm:lib.hhmm(new Date())} 
     )
@@ -132,16 +132,41 @@ GRAPH_DAYS = 3
 
 app.get '/st_graph', (req, res) ->
     st_list = st_list_cleanup((req.query.st_list or "").split(','))
-    return {err:"badreq"} if not st_list.length
+    return res.json({err:"badreq"}) if not st_list.length
+
+    console.log "st_list:", st_list
 
     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
     t1.add("days", lib.int(req.query.day) + 1)
 
     t0 = moment(t1).subtract("days", GRAPH_DAYS)
 
-    # db.dat.find({st:$in:[], ts:{$gte:t0.toDate(), $lt:t1.toDate()}})
-    # graph_data
-    res.json {err:"nimp"}
+
+    db.coll_dat().aggregate(
+        [
+            {$match:{st:{$in:st_list},ts:{$gte:t0.toDate(),$lt:t1.toDate()}}},
+            # {$project:{}}
+            {$group:{
+                _id:{
+                    st:"$st",
+                    y:{$year:"$ts"},
+                    m:{$month:"$ts"},
+                    d:{$dayOfMonth:"$ts"},
+                    h:{$hour:"$ts"}                    
+                },
+                t_min:{$min:"$t"},
+                t_max:{$max:"$t"},
+                t_avg:{$avg:"$t"}
+            }}
+        ]
+        (err, data) ->
+            console.log "data:", data
+            if err
+                warn "st_graph:", err
+                return res.json {err:"db"}
+            #
+            return res.json {ok:1, graph_data:data}
+    )
 #-
 
 app.get "/exp/t.js", exp.t_js

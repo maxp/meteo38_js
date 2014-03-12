@@ -21,17 +21,28 @@
   _ref = require('../lib/logger'), debug = _ref.debug, info = _ref.info, warn = _ref.warn;
 
   x.st_list_cleanup = function(s) {
-    var t;
+    var res, t;
     if (!(s != null ? s.length : void 0)) {
       return [];
     }
     s = ("" + s).split(',').slice(0, ST_LIST_MAX);
-    return (function() {
+    res = (function() {
       var _i, _len, _results;
       _results = [];
       for (_i = 0, _len = s.length; _i < _len; _i++) {
         t = s[_i];
         _results.push(t.replace(/[^0-9a-zA-Z\-_]/g, '').substring(0, ST_ID_MAX_LEN));
+      }
+      return _results;
+    })();
+    return (function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = res.length; _i < _len; _i++) {
+        s = res[_i];
+        if (s) {
+          _results.push(s);
+        }
       }
       return _results;
     })();

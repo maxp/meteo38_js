@@ -7,6 +7,8 @@ lib = require './lib'
 
 TRENDS_INTERVAL = 60*60*1000
 
+moment = require 'moment'
+
 # init logging and database
 #
 {debug, info, warn} = require './lib/logger'
@@ -126,10 +128,18 @@ app.get '/st_data', (req, res) ->
     )
 #-
 
+GRAPH_DAYS = 3
+
 app.get '/st_graph', (req, res) ->
-    # req.query.st
-    # ? req.query.ts
-    #
+    st_list = st_list_cleanup((req.query.st_list or "").split(','))
+    return {err:"badreq"} if not st_list.length
+
+    t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
+    t1.add("days", lib.int(req.query.day) + 1)
+
+    t0 = moment(t1).subtract("days", GRAPH_DAYS)
+
+    # db.dat.find({st:$in:[], ts:{$gte:t0.toDate(), $lt:t1.toDate()}})
     # graph_data
     res.json {err:"nimp"}
 #-

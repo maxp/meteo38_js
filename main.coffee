@@ -128,24 +128,30 @@ app.get '/st_data', (req, res) ->
     )
 #-
 
-GRAPH_DAYS = 3
+
+DAYNUM_MAX = 10
 
 app.get '/st_graph', (req, res) ->
+    # ?d=0, n=3, st[]=stid1&st[]=stid2
     st_list = st_list_cleanup((req.query.st_list or "").split(','))
-    return res.json({err:"badreq"}) if not st_list.length
-
-    console.log "st_list:", st_list
+    return res.json({err:"badreq",msg:"?d=0,n=3,st[]=..."}) if not st_list.length
 
     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
-    t1.add("days", lib.int(req.query.day) + 1)
+    t1.add("days", lib.int(req.query.d) + 1)
 
-    t0 = moment(t1).subtract("days", GRAPH_DAYS)
-
+    n = lib.int(req.query.n)
+    n = DAYNUM_MAX if n > DAYNUM_MAX
+    n = 1 if n < 1
 
     db.coll_dat().aggregate(
         [
-            {$match:{st:{$in:st_list},ts:{$gte:t0.toDate(),$lt:t1.toDate()}}},
-            # {$project:{}}
+            {$match:{
+                st:{$in:st_list},
+                ts:{
+                    $gte: moment(t1).subtract("days", n).toDate()
+                    $lt:  t1.toDate()
+                }
+            }},
             {$group:{
                 _id:{
                     st:"$st",
@@ -154,18 +160,40 @@ app.get '/st_graph', (req, res) ->
                     d:{$dayOfMonth:"$ts"},
                     h:{$hour:"$ts"}                    
                 },
-                t_min:{$min:"$t"},
-                t_max:{$max:"$t"},
-                t_avg:{$avg:"$t"}
-            }}
-        ]
+                ts0: {$min:"$ts"},
+                t_m:{$min:"$t"},
+                t_x:{$max:"$t"},
+                t_a:{$avg:"$t"},
+                p_m:{$min:"$p"},
+                p_x:{$max:"$p"},
+                p_a:{$avg:"$p"},
+                h_m:{$min:"$h"},
+                h_x:{$max:"$h"},
+                h_a:{$avg:"$h"},
+                w_m:{$min:"$w"},
+                w_a:{$avg:"$w"},
+                w_x:{$max:"$g"}
+            }},
+            {$sort:{ts0:1}}
+        ],
         (err, data) ->
-            console.log "data:", data
             if err
                 warn "st_graph:", err
                 return res.json {err:"db"}
             #
-            return res.json {ok:1, graph_data:data}
+            for d in data
+                d.st = d._id.st
+                delete d._id
+                delete d.w_x if d.w_x is null
+                for v in ['t','p','h','w']
+                    if d[v+'_m'] is null
+                        delete d[v+'_m']
+                        delete d[v+'_x']
+                        delete d[v+'_a']
+                    #
+                #
+            #
+            return res.json {ok:1, data:data}
     )
 #-
 

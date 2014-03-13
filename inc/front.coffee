@@ -196,7 +196,15 @@ show_map = () ->
 #-
 
 show_graph = () ->
-    console.log("load graph")
+    $gpane = $("#pane_graph")
+    $gpane.html("<div class='loading'></div>")
+    $.getJSON("/st_graph", {d:0, n:3, st:["uiii","npsd","markova"]}, (data) ->
+        $gpane.html("").append(
+            canv = $("<canvas></canvas>").addClass("graph_canv")
+        )
+        # canv.
+        #
+    )
 #-
 
 

@@ -247,7 +247,17 @@
   };
 
   show_graph = function() {
-    return console.log("load graph");
+    var $gpane;
+    $gpane = $("#pane_graph");
+    $gpane.html("<div class='loading'></div>");
+    return $.getJSON("/st_graph", {
+      d: 0,
+      n: 3,
+      st: ["uiii", "npsd", "markova"]
+    }, function(data) {
+      var canv;
+      return $gpane.html("").append(canv = $("<canvas></canvas>").addClass("graph_canv"));
+    });
   };
 
   $("#btn_refresh").click(function() {

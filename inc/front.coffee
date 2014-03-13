@@ -196,14 +196,23 @@ show_map = () ->
 #-
 
 show_graph = () ->
+    if not window.Flotr
+        return $.getScript("/inc/js/flotr2.min.js").done () ->
+            return show_graph() # assert(window.Flotr)
+    #
+
     $gpane = $("#pane_graph")
     $gpane.html("<div class='loading'></div>")
-    $.getJSON("/st_graph", {d:0, n:3, st:["uiii","npsd","markova"]}, (data) ->
-        $gpane.html("").append(
-            canv = $("<canvas></canvas>").addClass("graph_canv")
-        )
-        # canv.
-        #
+    $.getJSON("/st_graph", {d:0, n:3, st:["uiii","npsd","markova"]}, (resp) ->
+        return alert("Ошибка при загрузке данных!") if not resp.ok
+
+        $gpane.html("<div class='flotr' id='flotr'></div>")
+        window.Flotr.draw(document.getElementById("flotr"), [ resp.data ], {
+            yaxis : {
+              max : 20,
+              min : -20
+            }
+        });        
     )
 #-
 

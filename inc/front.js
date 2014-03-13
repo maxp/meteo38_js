@@ -248,15 +248,28 @@
 
   show_graph = function() {
     var $gpane;
+    if (!window.Flotr) {
+      return $.getScript("/inc/js/flotr2.min.js").done(function() {
+        return show_graph();
+      });
+    }
     $gpane = $("#pane_graph");
     $gpane.html("<div class='loading'></div>");
     return $.getJSON("/st_graph", {
       d: 0,
       n: 3,
       st: ["uiii", "npsd", "markova"]
-    }, function(data) {
-      var canv;
-      return $gpane.html("").append(canv = $("<canvas></canvas>").addClass("graph_canv"));
+    }, function(resp) {
+      if (!resp.ok) {
+        return alert("Ошибка при загрузке данных!");
+      }
+      $gpane.html("<div class='flotr' id='flotr'></div>");
+      return window.Flotr.draw(document.getElementById("flotr"), [resp.data], {
+        yaxis: {
+          max: 20,
+          min: -20
+        }
+      });
     });
   };
 

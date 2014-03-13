@@ -132,8 +132,8 @@ app.get '/st_data', (req, res) ->
 DAYNUM_MAX = 10
 
 app.get '/st_graph', (req, res) ->
-    # ?d=0, n=3, st[]=stid1&st[]=stid2
-    st_list = st_list_cleanup((req.query.st_list or "").split(','))
+    # ?d=0, n=3, st[]=stid1, st[]=stid2
+    st_list = st_list_cleanup(req.query.st)
     return res.json({err:"badreq",msg:"?d=0,n=3,st[]=..."}) if not st_list.length
 
     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)

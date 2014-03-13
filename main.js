@@ -146,7 +146,7 @@
 
   app.get('/st_graph', function(req, res) {
     var n, st_list, t1;
-    st_list = st_list_cleanup((req.query.st_list || "").split(','));
+    st_list = st_list_cleanup(req.query.st);
     if (!st_list.length) {
       return res.json({
         err: "badreq",

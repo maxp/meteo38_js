@@ -260,11 +260,34 @@
       n: 3,
       st: ["uiii", "npsd", "markova"]
     }, function(resp) {
+      var d, k, s, sts, v, _i, _len, _ref;
       if (!resp.ok) {
         return alert("Ошибка при загрузке данных!");
       }
       $gpane.html("<div class='flotr' id='flotr'></div>");
-      return window.Flotr.draw(document.getElementById("flotr"), [resp.data], {
+      sts = {};
+      _ref = resp.data;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        d = _ref[_i];
+        s = sts[d.st];
+        if (!s) {
+          sts[d.st] = (s = []);
+        }
+        s.push([new Date(d.ts0), d.t_a]);
+      }
+      console.log("sts:", sts);
+      return window.Flotr.draw(document.getElementById("flotr"), (function() {
+        var _results;
+        _results = [];
+        for (k in sts) {
+          v = sts[k];
+          _results.push(v);
+        }
+        return _results;
+      })(), {
+        xaxis: {
+          mode: "time"
+        },
         yaxis: {
           max: 20,
           min: -20

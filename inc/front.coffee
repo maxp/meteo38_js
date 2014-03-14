@@ -207,12 +207,27 @@ show_graph = () ->
         return alert("Ошибка при загрузке данных!") if not resp.ok
 
         $gpane.html("<div class='flotr' id='flotr'></div>")
-        window.Flotr.draw(document.getElementById("flotr"), [ resp.data ], {
-            yaxis : {
-              max : 20,
-              min : -20
-            }
-        });        
+
+        sts = {}
+        for d in resp.data
+            s = sts[d.st]
+            (sts[d.st] = (s = [])) if not s
+            s.push([new Date(d.ts0), d.t_a])
+        #
+
+        console.log "sts:", sts
+
+        window.Flotr.draw(document.getElementById("flotr"), 
+            (v for k,v of sts), 
+            {
+                xaxis: {
+                    mode: "time"
+                },
+                yaxis : {
+                  max : 20,
+                  min : -20
+                }
+            });        
     )
 #-
 

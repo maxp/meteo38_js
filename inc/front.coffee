@@ -196,9 +196,10 @@ show_map = () ->
 #-
 
 show_graph = () ->
-    if not window.Flotr
-        return $.getScript("/inc/js/flotr2.min.js").done () ->
-            return show_graph() # assert(window.Flotr)
+    if not window.jq_graph
+        return $.getScript("/inc/jst/jquery.spariline.min.js").done () ->
+            window.jq_graph = true
+            return show_graph()
     #
 
     $gpane = $("#pane_graph")
@@ -214,18 +215,25 @@ show_graph = () ->
             (sts[d.st] = (s = [])) if not s
             s.push([new Date(d.ts0), d.t_a])
         #
-
-        console.log "sts:", sts
-
-        window.Flotr.draw(document.getElementById("flotr"), 
+        window.Flotr.draw(
+            document.getElementById("flotr"), 
             (v for k,v of sts), 
             {
                 xaxis: {
-                    mode: "time"
+                    mode: "time",
+                    timeMode: "local",
+                    #timeFormat: null,
+                    #timeUnit: "hour"
                 },
                 yaxis : {
-                  max : 20,
-                  min : -20
+                    tickDecimals: 0
+                    minorTickFreq: 5
+                    autoscale: true
+                    autoscaleMargin: 0.1
+                },
+                mouse: {
+                    track: true,
+                    relative: true,
                 }
             });        
     )

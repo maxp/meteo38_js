@@ -248,8 +248,9 @@
 
   show_graph = function() {
     var $gpane;
-    if (!window.Flotr) {
-      return $.getScript("/inc/js/flotr2.min.js").done(function() {
+    if (!window.jq_graph) {
+      return $.getScript("/inc/jst/jquery.spariline.min.js").done(function() {
+        window.jq_graph = true;
         return show_graph();
       });
     }
@@ -275,7 +276,6 @@
         }
         s.push([new Date(d.ts0), d.t_a]);
       }
-      console.log("sts:", sts);
       return window.Flotr.draw(document.getElementById("flotr"), (function() {
         var _results;
         _results = [];
@@ -286,11 +286,18 @@
         return _results;
       })(), {
         xaxis: {
-          mode: "time"
+          mode: "time",
+          timeMode: "local"
         },
         yaxis: {
-          max: 20,
-          min: -20
+          tickDecimals: 0,
+          minorTickFreq: 5,
+          autoscale: true,
+          autoscaleMargin: 0.1
+        },
+        mouse: {
+          track: true,
+          relative: true
         }
       });
     });

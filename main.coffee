@@ -132,9 +132,9 @@ app.get '/st_data', (req, res) ->
 DAYNUM_MAX = 10
 
 app.get '/st_graph', (req, res) ->
-    # ?d=0, n=3, st[]=stid1, st[]=stid2
-    st_list = st_list_cleanup(req.query.st)
-    return res.json({err:"badreq",msg:"?d=0,n=3,st[]=..."}) if not st_list.length
+    # ?d=0, n=3, st=stid
+    st = lib.str(req.query.st)
+    return res.json({err:"badreq",msg:"?d=0,n=3,st=..."}) if not st
 
     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
     t1.add("days", lib.int(req.query.d) + 1)
@@ -143,24 +143,19 @@ app.get '/st_graph', (req, res) ->
     n = DAYNUM_MAX if n > DAYNUM_MAX
     n = 1 if n < 1
 
+    t0 = moment(t1).subtract("days", n)
+
     db.coll_dat().aggregate(
         [
-            {$match:{
-                st:{$in:st_list},
-                ts:{
-                    $gte: moment(t1).subtract("days", n).toDate()
-                    $lt:  t1.toDate()
-                }
-            }},
+            {$match:{st:st, ts:{$gte:t0.toDate(), $lt:t1.toDate()}}},
             {$group:{
                 _id:{
-                    st:"$st",
                     y:{$year:"$ts"},
                     m:{$month:"$ts"},
                     d:{$dayOfMonth:"$ts"},
                     h:{$hour:"$ts"}                    
                 },
-                ts0: {$min:"$ts"},
+                ts0:{$min:"$ts"},
                 t_m:{$min:"$t"},
                 t_x:{$max:"$t"},
                 t_a:{$avg:"$t"},
@@ -182,7 +177,6 @@ app.get '/st_graph', (req, res) ->
                 return res.json {err:"db"}
             #
             for d in data
-                d.st = d._id.st
                 delete d._id
                 delete d.w_x if d.w_x is null
                 for v in ['t','p','h','w']
@@ -193,9 +187,76 @@ app.get '/st_graph', (req, res) ->
                     #
                 #
             #
-            return res.json {ok:1, data:data}
+            return res.json {ok:1, st:st, data:data}
     )
 #-
+
+
+# app.get '/st_graph', (req, res) ->
+#     # ?d=0, n=3, st[]=stid1, st[]=stid2
+#     st_list = st_list_cleanup(req.query.st)
+#     return res.json({err:"badreq",msg:"?d=0,n=3,st[]=..."}) if not st_list.length
+
+#     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
+#     t1.add("days", lib.int(req.query.d) + 1)
+
+#     n = lib.int(req.query.n)
+#     n = DAYNUM_MAX if n > DAYNUM_MAX
+#     n = 1 if n < 1
+
+#     db.coll_dat().aggregate(
+#         [
+#             {$match:{
+#                 st:{$in:st_list},
+#                 ts:{
+#                     $gte: moment(t1).subtract("days", n).toDate()
+#                     $lt:  t1.toDate()
+#                 }
+#             }},
+#             {$group:{
+#                 _id:{
+#                     st:"$st",
+#                     y:{$year:"$ts"},
+#                     m:{$month:"$ts"},
+#                     d:{$dayOfMonth:"$ts"},
+#                     h:{$hour:"$ts"}                    
+#                 },
+#                 ts0:{$min:"$ts"},
+#                 t_m:{$min:"$t"},
+#                 t_x:{$max:"$t"},
+#                 t_a:{$avg:"$t"},
+#                 p_m:{$min:"$p"},
+#                 p_x:{$max:"$p"},
+#                 p_a:{$avg:"$p"},
+#                 h_m:{$min:"$h"},
+#                 h_x:{$max:"$h"},
+#                 h_a:{$avg:"$h"},
+#                 w_m:{$min:"$w"},
+#                 w_a:{$avg:"$w"},
+#                 w_x:{$max:"$g"}
+#             }},
+#             {$sort:{ts0:1}}
+#         ],
+#         (err, data) ->
+#             if err
+#                 warn "st_graph:", err
+#                 return res.json {err:"db"}
+#             #
+#             for d in data
+#                 d.st = d._id.st
+#                 delete d._id
+#                 delete d.w_x if d.w_x is null
+#                 for v in ['t','p','h','w']
+#                     if d[v+'_m'] is null
+#                         delete d[v+'_m']
+#                         delete d[v+'_x']
+#                         delete d[v+'_a']
+#                     #
+#                 #
+#             #
+#             return res.json {ok:1, data:data}
+#     )
+# #-
 
 app.get "/exp/t.js", exp.t_js
 app.get "/exp/", (req, res) -> 
@@ -213,7 +274,7 @@ app.get "/help", (req, res) -> res.render("app/help", title: "Вопросы и 
 
 # app.get "/ico", (req, res) -> res.render "app/ico"
 
-app.get '/favicon.ico', express.static(__dirname+'/inc/img')
+app.get '/favicon.ico', express.static(__dirname+'/inc/img', {maxAge: 30 * 24*3600*1000})
 
 app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
 app.get '/google527c56f2996a48ae.html', (req, res) -> 

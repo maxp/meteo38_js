@@ -145,12 +145,12 @@
   DAYNUM_MAX = 10;
 
   app.get('/st_graph', function(req, res) {
-    var n, st_list, t1;
-    st_list = st_list_cleanup(req.query.st);
-    if (!st_list.length) {
+    var n, st, t0, t1;
+    st = lib.str(req.query.st);
+    if (!st) {
       return res.json({
         err: "badreq",
-        msg: "?d=0,n=3,st[]=..."
+        msg: "?d=0,n=3,st=..."
       });
     }
     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0);
@@ -162,21 +162,19 @@
     if (n < 1) {
       n = 1;
     }
+    t0 = moment(t1).subtract("days", n);
     return db.coll_dat().aggregate([
       {
         $match: {
-          st: {
-            $in: st_list
-          },
+          st: st,
           ts: {
-            $gte: moment(t1).subtract("days", n).toDate(),
+            $gte: t0.toDate(),
             $lt: t1.toDate()
           }
         }
       }, {
         $group: {
           _id: {
-            st: "$st",
             y: {
               $year: "$ts"
             },
@@ -245,7 +243,6 @@
       }
       for (_i = 0, _len = data.length; _i < _len; _i++) {
         d = data[_i];
-        d.st = d._id.st;
         delete d._id;
         if (d.w_x === null) {
           delete d.w_x;
@@ -262,6 +259,7 @@
       }
       return res.json({
         ok: 1,
+        st: st,
         data: data
       });
     });
@@ -288,7 +286,9 @@
     });
   });
 
-  app.get('/favicon.ico', express["static"](__dirname + '/inc/img'));
+  app.get('/favicon.ico', express["static"](__dirname + '/inc/img', {
+    maxAge: 30 * 24 * 3600 * 1000
+  }));
 
   app.get('/yandex_6f489466c2955c1a.txt', function(req, res) {
     return res.send("ok");

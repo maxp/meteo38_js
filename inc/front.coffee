@@ -89,16 +89,18 @@ save_favs = (favs) ->
     refresh_data(500)
 #-
 
-favs_add = (st, title, addr) ->
+favs_add = (st, title, descr, addr) ->
     if st not in window.fav_ids
         window.fav_ids.push(st)
         # duplicated in main.jade
         $item = $("<div class='item'></div>").attr("id", "favst_"+st).data("st",st)
-        $item.append( "<div class='data pull-right'></div>" )
+        $item.append("<div class='data pull-right'></div>")
         $item.append( $("<div class='text'></div>")
             .append( $("<div class='title'></div>").text(title) )
+            .append( $("<div class='descr'></div>").text(descr) )                
             .append( $("<div class='addr'></div>").text(addr) )
         )
+        $item.append("<div class='graph'></div>")
         $("#fav_items").append($item)
         save_favs(window.fav_ids)
     #
@@ -115,13 +117,20 @@ ll2coords = (ll) -> return [ll[1], ll[0]] if ll?.length is 2
 
 fav_item_click = (evt) ->
     st = window.st_data?[$(this).data("st")]
-    return if not st?.ll or not window.map
+    return if not st
 
-    zoom = map.getZoom()
-    map.setCenter(
-        ll2coords(st.ll),  
-        if zoom < ZOOM_INIT then ZOOM_INIT+1 else zoom
-    )
+    if st.ll and window.map
+        zoom = map.getZoom()
+        map.setCenter(
+            ll2coords(st.ll),  
+            if zoom < ZOOM_INIT then ZOOM_INIT+1 else zoom
+        )
+    #
+
+    return
+    if $().sparkline
+        $(".graph", "#favst_#{st._id}").html( (g = $("<div class='bar'></div>")) )
+        g.sparkline([4,3,5,6])
 #-
 
 star_click = (evt) ->
@@ -135,7 +144,7 @@ star_click = (evt) ->
         $this.data("fav", 1)
         $this.children(".glyphicon")
             .removeClass("glyphicon-star-empty").addClass("glyphicon-star")
-        favs_add($this.data("st"),$this.data("title"),$this.data("addr"))
+        favs_add($this.data("st"),$this.data("title"), $this.data("descr"), $this.data("addr"))
     #
 #-
 
@@ -149,7 +158,7 @@ load_stlist = () ->
             update_stdata(v)        
             item = $("<div class='item'></div>")  #.attr("id",v._id)
             $star = $("<div class='star'></div>").click(star_click)
-                .data({st:v._id, title:v.title, addr:v.addr or v.descr})
+                .data({st:v._id, title:v.title, descr:v.descr, addr:v.addr})
             if v._id in window.fav_ids
                 $star.data("fav",1).append(
                     "<span class='glyphicon glyphicon-star'></span>")
@@ -159,16 +168,31 @@ load_stlist = () ->
             #
             item.append( $star )
             item.append( $("<div class='title'></div>").text(v.title) )
-            item.append( $("<div class='addr'></div>").text(v.addr or v.descr) )
+            item.append( $("<div class='descr'></div>").text(v.descr) )
+            item.append( $("<div class='addr'></div>").text(v.addr) )
             $stlist.append(item)
         )
     )
 #-
 
+title_t = (d) ->
+    t = d.last?.t
+    return d.title if not t?
+    t = Math.round(t)
+    if t > 0
+        t = ("+"+t) 
+        cls = "pos"
+    else if t < 0
+        cls = "neg"
+    else
+        cls = "zer"
+    return d.title+" <b class='#{cls}'>"+t+"</b>&deg;"
+#-
+
 add_marker = (d) ->
     return if not (c = ll2coords(d.ll))
     markers.add( new ymaps.Placemark(c, 
-        {iconContent: d.title},
+        {iconContent: title_t(d)},
         {preset: 'twirl#greyStretchyIcon'}
     ))
 #-    
@@ -195,49 +219,49 @@ show_map = () ->
     add_marker(window.st_data[k]) for k in window.fav_ids
 #-
 
-show_graph = () ->
-    if not window.jq_graph
-        return $.getScript("/inc/jst/jquery.spariline.min.js").done () ->
-            window.jq_graph = true
-            return show_graph()
-    #
+# show_graph = () ->
+#     if not window.jq_graph
+#         return $.getScript("/inc/jst/jquery.spakline.min.js").done () ->
+#             window.jq_graph = true
+#             return show_graph()
+#     #
 
-    $gpane = $("#pane_graph")
-    $gpane.html("<div class='loading'></div>")
-    $.getJSON("/st_graph", {d:0, n:3, st:["uiii","npsd","markova"]}, (resp) ->
-        return alert("Ошибка при загрузке данных!") if not resp.ok
+#     $gpane = $("#pane_graph")
+#     $gpane.html("<div class='loading'></div>")
+#     $.getJSON("/st_graph", {d:0, n:3, st:["uiii","npsd","markova"]}, (resp) ->
+#         return alert("Ошибка при загрузке данных!") if not resp.ok
 
-        $gpane.html("<div class='flotr' id='flotr'></div>")
+#         $gpane.html("<div class='flotr' id='flotr'></div>")
 
-        sts = {}
-        for d in resp.data
-            s = sts[d.st]
-            (sts[d.st] = (s = [])) if not s
-            s.push([new Date(d.ts0), d.t_a])
-        #
-        window.Flotr.draw(
-            document.getElementById("flotr"), 
-            (v for k,v of sts), 
-            {
-                xaxis: {
-                    mode: "time",
-                    timeMode: "local",
-                    #timeFormat: null,
-                    #timeUnit: "hour"
-                },
-                yaxis : {
-                    tickDecimals: 0
-                    minorTickFreq: 5
-                    autoscale: true
-                    autoscaleMargin: 0.1
-                },
-                mouse: {
-                    track: true,
-                    relative: true,
-                }
-            });        
-    )
-#-
+#         sts = {}
+#         for d in resp.data
+#             s = sts[d.st]
+#             (sts[d.st] = (s = [])) if not s
+#             s.push([new Date(d.ts0), d.t_a])
+#         #
+#         window.Flotr.draw(
+#             document.getElementById("flotr"), 
+#             (v for k,v of sts), 
+#             {
+#                 xaxis: {
+#                     mode: "time",
+#                     timeMode: "local",
+#                     #timeFormat: null,
+#                     #timeUnit: "hour"
+#                 },
+#                 yaxis : {
+#                     tickDecimals: 0
+#                     minorTickFreq: 5
+#                     autoscale: true
+#                     autoscaleMargin: 0.1
+#                 },
+#                 mouse: {
+#                     track: true,
+#                     relative: true,
+#                 }
+#             });        
+#     )
+# #-
 
 
 #--- bind controls
@@ -252,13 +276,19 @@ $("a.tablink").each( (i, a) -> $(a).click( () ->
     $(".tab_pane").hide()
     pane = $(this).data("pane")
     $("#pane_"+pane).show()
-    {graph:show_graph, map:show_map, opts:load_stlist}[pane].call()
+    {
+        # graph:show_graph, 
+        map: show_map, 
+        opts:load_stlist
+    }[pane].call()
 ))
 
 $( () -> 
     $("#fav_items").on("click", ".item", fav_item_click)
     $("a.tablink")[0].click()
     refresh_data(REFRESH_INTERVAL) 
+    $.getScript("/inc/js/jquery.sparkline.min.js").done () ->
 )
+
 
 #.

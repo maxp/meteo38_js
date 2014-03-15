@@ -32,7 +32,9 @@ block content
                             .t!= format_t(st.last, st.trends)
                         .text
                             .title #{st.title}
-                            .addr #{st.descr || st.addr}
+                            .descr #{st.descr}
+                            .addr  #{st.addr}
+                        .graph
             script.
                 window.fav_ids = !{JSON.stringify(st_list)};
                 window.st_data = !{JSON.stringify(data)};
@@ -41,14 +43,14 @@ block content
     .row
         .b-tabs.col-md-8.col-md-offset-2
             .nav.nav-tabs
-                li: a.tablink(data-pane="graph") График
+                //- li: a.tablink(data-pane="graph") График
                     span.glyphicon.glyphicon-stats
                 li: a.tablink(data-pane="map"  ) Карта
                     span.glyphicon.glyphicon-map-marker
-                li: a.tablink(data-pane="opts" ) Станции
+                li: a.tablink(data-pane="opts" ) Список станций
                     span.glyphicon.glyphicon-list-alt
 
-            .tab_pane#pane_graph: .loading
+            //- .tab_pane#pane_graph: .loading
             .tab_pane#pane_map:   .loading
             .tab_pane#pane_opts:  .loading
 

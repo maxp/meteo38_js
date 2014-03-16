@@ -179,7 +179,7 @@
           type: "bar",
           barColor: "red",
           negBarColor: "blue",
-          barWidth: 4,
+          barWidth: 3,
           disableInteraction: true
         });
       });

@@ -135,7 +135,7 @@ fav_item_click = (evt) ->
                 (Math.round(t.t_a) for t in resp.data), 
                 {
                     type:"bar", 
-                    barColor:"red", negBarColor:"blue", barWidth:4, 
+                    barColor:"red", negBarColor:"blue", barWidth:3, 
                     disableInteraction:true
                 }
             )

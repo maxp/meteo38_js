@@ -156,10 +156,33 @@
       zoom = map.getZoom();
       map.setCenter(ll2coords(st.ll), zoom < ZOOM_INIT ? ZOOM_INIT + 1 : zoom);
     }
-    return;
     if ($().sparkline) {
       $(".graph", "#favst_" + st._id).html((g = $("<div class='bar'></div>")));
-      return g.sparkline([4, 3, 5, 6]);
+      return $.getJSON("/st_graph", {
+        st: st._id,
+        n: 3
+      }).done(function(resp) {
+        var t;
+        if (!resp.ok) {
+          return alert("Ошибка при обращении к серверу!");
+        }
+        return g.sparkline((function() {
+          var _i, _len, _ref1, _results;
+          _ref1 = resp.data;
+          _results = [];
+          for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+            t = _ref1[_i];
+            _results.push(Math.round(t.t_a));
+          }
+          return _results;
+        })(), {
+          type: "bar",
+          barColor: "red",
+          negBarColor: "blue",
+          barWidth: 4,
+          disableInteraction: true
+        });
+      });
     }
   };
 

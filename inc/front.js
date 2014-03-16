@@ -160,7 +160,7 @@
       $(".graph", "#favst_" + st._id).html((g = $("<div class='bar'></div>")));
       return $.getJSON("/st_graph", {
         st: st._id,
-        n: 3
+        n: 2
       }).done(function(resp) {
         var t;
         if (!resp.ok) {

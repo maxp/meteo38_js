@@ -129,7 +129,7 @@ fav_item_click = (evt) ->
 
     if $().sparkline
         $(".graph", "#favst_#{st._id}").html( (g = $("<div class='bar'></div>")) )
-        $.getJSON("/st_graph", {st:st._id,n:3}).done (resp) ->
+        $.getJSON("/st_graph", {st:st._id,n:2}).done (resp) ->
             return alert("Ошибка при обращении к серверу!") if not resp.ok
             g.sparkline( 
                 (Math.round(t.t_a) for t in resp.data), 

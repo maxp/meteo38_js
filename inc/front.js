@@ -273,7 +273,6 @@
     }
     return markers.each(function(m) {
       if (m.properties.get("st") === st) {
-        console.log("remove marker:", st);
         markers.remove(m);
         return false;
       }
@@ -340,6 +339,12 @@
   $(function() {
     $("#fav_items").on("click", ".item", fav_item_click);
     $("a.tablink")[0].click();
+    if (window.localStorage && !window.localStorage.getItem("help_seen")) {
+      $(".help_banner .glyphicon-remove").click(function() {
+        return $(".help_banner").hide("fast");
+      });
+      $(".help_banner").show("fast");
+    }
     refresh_data(REFRESH_INTERVAL);
     return $.getScript("/inc/js/jquery.sparkline.min.js").done(function() {});
   });

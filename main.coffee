@@ -271,7 +271,7 @@ app.get "/exp/", (req, res) ->
     
 app.get "/exp", (req, res) -> res.redirect "/exp/"
 
-app.get "/help", (req, res) -> res.render("app/help", title: "Вопросы и ответы")
+app.get "/help", (req, res) -> res.render("app/help", title:"Вопросы и ответы")
 
 # app.get "/ico", (req, res) -> res.render "app/ico"
 

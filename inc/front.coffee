@@ -214,7 +214,6 @@ remove_marker = (st) ->
     return if not markers or not st
     markers.each( (m) ->
         if m.properties.get("st") is st
-            console.log "remove marker:", st
             markers.remove(m)
             return false
         #
@@ -310,6 +309,12 @@ $("a.tablink").each( (i, a) -> $(a).click( () ->
 $( () -> 
     $("#fav_items").on("click", ".item", fav_item_click)
     $("a.tablink")[0].click()
+
+    if window.localStorage and not window.localStorage.getItem("help_seen")
+        $(".help_banner .glyphicon-remove").click () -> $(".help_banner").hide("fast")
+        $(".help_banner").show("fast")
+    #
+
     refresh_data(REFRESH_INTERVAL) 
     $.getScript("/inc/js/jquery.sparkline.min.js").done () ->
 )

@@ -156,7 +156,7 @@
       zoom = map.getZoom();
       map.setCenter(ll2coords(st.ll), zoom < ZOOM_INIT ? ZOOM_INIT + 1 : zoom);
       remove_marker(st._id);
-      add(marker(st));
+      add_marker(st);
     }
     if ($().sparkline) {
       $(".graph", "#favst_" + st._id).html((g = $("<div class='bar'></div>")));
@@ -272,7 +272,7 @@
       return;
     }
     return markers.each(function(m) {
-      if (m.get("st") === st) {
+      if (m.properties.get("st") === st) {
         console.log("remove marker:", st);
         markers.remove(m);
         return false;

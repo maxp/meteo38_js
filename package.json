@@ -11,10 +11,9 @@
         "url": "https://github.com/maxp/meteo38"
     },
     "dependencies": {
-        "async": "0.2",
+        "async": "0.x",
         "body-parser": "1.x",
         "compression": "1.x",
-        "coffee-script": "1.x",
         "cookie-parser": "1.x",
         "cron": "1.x",
         "errorhandler": "1.x",
@@ -22,12 +21,15 @@
         "moment": "2.x",
         "mongodb": "1.x",
         "express": "4.x",
-        "jade": "0.35",
+        "jade": "1.x",
         "serve-static": "1.x",
-        "stylus": "0.40",
+        "stylus": "0.x",
         "underscore": "1.x",
         "underscore.string": "2.x",
-        "winston": "0.7"
+        "winston": "0.x"
+    },
+    "devDependencies": {
+        "coffee-script": "1.x"
     },
     "scripts": {
         "deploy": "./deploy.sh",

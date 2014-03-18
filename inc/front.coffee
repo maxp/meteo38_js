@@ -126,7 +126,7 @@ fav_item_click = (evt) ->
             if zoom < ZOOM_INIT then ZOOM_INIT+1 else zoom
         )
         remove_marker(st._id)
-        add marker(st)
+        add_marker(st)
     #
 
     if $().sparkline
@@ -213,7 +213,7 @@ add_marker = (d) ->
 remove_marker = (st) ->
     return if not markers or not st
     markers.each( (m) ->
-        if m.get("st") is st
+        if m.properties.get("st") is st
             console.log "remove marker:", st
             markers.remove(m)
             return false

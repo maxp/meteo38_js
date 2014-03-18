@@ -125,6 +125,8 @@ fav_item_click = (evt) ->
             ll2coords(st.ll),  
             if zoom < ZOOM_INIT then ZOOM_INIT+1 else zoom
         )
+        remove_marker(st._id)
+        add marker(st)
     #
 
     if $().sparkline
@@ -200,11 +202,23 @@ title_t = (d) ->
 #-
 
 add_marker = (d) ->
-    return if not (c = ll2coords(d.ll))
+    return if not (c = ll2coords(d.ll)) or not markers
     markers.add( new ymaps.Placemark(c, 
         {iconContent: title_t(d)},
         {preset: 'twirl#greyStretchyIcon'}
+        {st: d._id}
     ))
+#-    
+
+remove_marker = (st) ->
+    return if not markers or not st
+    markers.each( (m) ->
+        if m.get("st") is st
+            console.log "remove marker:", st
+            markers.remove(m)
+            return false
+        #
+    )
 #-    
 
 show_map = () ->

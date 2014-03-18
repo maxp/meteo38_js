@@ -24,37 +24,38 @@ exp = require "./app/exp"
 # auth = require './app/auth'
 # user = require './app/user'
 
+body_parser = require 'body-parser'
+compress = require 'compression'
+cookie_parser = require 'cookie-parser'
+error_handler = require 'errorhandler'
+serve_static = require 'serve-static'
 #multipart = require 'connect-multiparty'
-express = require 'express'
 
+express = require 'express'
 app = express()
 
-#app.configure ->
 app.set "views", __dirname      # +"/jade"
 app.set "view engine", 'jade'
 
 app.enable "trust proxy"
 
-#app.use express.favicon(__dirname+'/inc/img/favicon.ico')
+app.use compress()
+app.use cookie_parser()
+app.use body_parser({limit:10*1024*1024})
 
-app.use express.compress()
-app.use express.cookieParser()
 # app.use sess.middleware()
-
-# app.use express.urlencoded()
-app.use express.json()
-
 # app.use auth.middleware()
-app.use app.router
+
+# app.use app.router
 
 if config.env is "development"
-    app.use '/inc', express.static __dirname+"/inc"
-    app.use express.errorHandler {dumpExceptions: true, showStack: true}
+    app.use '/inc', serve_static(__dirname+"/inc")
+    app.use error_handler {dumpExceptions: true, showStack: true}
     app.locals.pretty = true
     app.locals.cache = false
 else
-    app.use '/inc', express.static __dirname+"/inc", {maxAge: 1*24*3600*1000}
-    app.use express.errorHandler()
+    app.use '/inc', serve_static(__dirname+"/inc", {maxAge: 1*24*3600*1000})
+    app.use error_handler()
     app.locals.pretty = false
     app.locals.cache = true
 #
@@ -274,7 +275,7 @@ app.get "/help", (req, res) -> res.render("app/help", title: "Вопросы и 
 
 # app.get "/ico", (req, res) -> res.render "app/ico"
 
-app.get '/favicon.ico', express.static(__dirname+'/inc/img', {maxAge: 30 * 24*3600*1000})
+app.get '/favicon.ico', serve_static(__dirname+'/inc/img', {maxAge: 30 * 24*3600*1000})
 
 app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
 app.get '/google527c56f2996a48ae.html', (req, res) -> 

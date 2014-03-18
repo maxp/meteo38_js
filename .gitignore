@@ -18,6 +18,8 @@
 .pydevproject
 .idea
 
+/node_modules/
+
 # temp
 .DS_Store/
 /tmp/

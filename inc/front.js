@@ -387,6 +387,9 @@
     $("a.tablink")[0].click();
     if (window.localStorage && !window.localStorage.getItem("help_seen")) {
       $(".help_banner .glyphicon-remove").click(function() {
+        if (window.localStorage) {
+          window.localStorage.setItem("help_seen", 1);
+        }
         return $(".help_banner").hide("fast");
       });
       $(".help_banner").show("fast");

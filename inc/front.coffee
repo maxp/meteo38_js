@@ -343,7 +343,10 @@ $( () ->
     $("a.tablink")[0].click()
 
     if window.localStorage and not window.localStorage.getItem("help_seen")
-        $(".help_banner .glyphicon-remove").click () -> $(".help_banner").hide("fast")
+        $(".help_banner .glyphicon-remove").click () -> 
+            window.localStorage.setItem("help_seen", 1) if window.localStorage
+            $(".help_banner").hide("fast")
+        #-
         $(".help_banner").show("fast")
     #
 

@@ -22,6 +22,14 @@ ZOOM_INIT = 13
 # duplicated in main.coffe
 #
 TRENDS_INTERVAL = 60*60*1000
+
+HPA_MMHG = 1.3332239
+
+wind_nesw = (b) ->
+    return "" if b >= 360 or b < 0
+    return ["С","СВ","В","ЮВ","Ю","ЮЗ","З","СЗ"][(Math.floor((b+22)/45)) % 8]
+#-
+
 #
 format_t = (last, trends) ->
     return "" if not last.t?
@@ -44,6 +52,26 @@ format_t = (last, trends) ->
     #
     return " <span class='#{cls}'>#{sign}<i>#{t}</i></span>&deg;"+
             "<span class='arr #{acls}'>#{tr}</span>"
+#-
+format_p = (last) ->
+    p = (Math.round(last.p/HPA_MMHG)+" мм" if last.p?) or ""
+    h = (Math.round(last.h)+"%" if last.h?) or ""
+    return if p and h then p+", "+h else p+h
+#-
+format_w = (last) ->
+    if last.w? or last.g?
+        s = if last.w? then ""+Math.round(last.w) else ""
+        if last.g? and (Math.round(last.g) > Math.round(last.w))
+            s += "-" if s
+            s += Math.round(last.g)
+        #-
+        s += " м/с" if s
+        if last.b? and (Math.round(last.w) > 0)
+            d = wind_nesw(Math.round(last.b))
+            s += ", "+d if d
+        return s
+    else
+        return ""
 #-
 
 update_stdata = (v) ->
@@ -70,7 +98,10 @@ refresh_data = (delay) ->
                     for s in st_list
                         d = resp.data[s]
                         if d 
-                            $("#favst_#{d._id} .data").html(format_t(d.last, d.trends)) 
+                            $("#favst_#{d._id} .data")
+                                .html(format_t(d.last, d.trends))
+                                .append( $("<div class='p'></<div>").html(format_p(d.last)) )
+                                .append( $("<div class='w'></<div>").html(format_w(d.last)) )
                         else
                             $("#favst_#{s} .data").html("")
                     #
@@ -101,6 +132,7 @@ favs_add = (st, title, descr, addr) ->
             .append( $("<div class='addr'></div>").text(addr) )
         )
         $item.append("<div class='graph'></div>")
+        $item.append("<div class='clearfix'></div>")
         $("#fav_items").append($item)
         save_favs(window.fav_ids)
     #

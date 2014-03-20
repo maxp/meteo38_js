@@ -36,11 +36,15 @@ block content
                     .item(id="favst_#{st._id}",data-st="#{st._id}")
                         .data.pull-right
                             .t!= format_t(st.last, st.trends)
+                            .p!= format_p(st.last)
+                            .w!= format_w(st.last)
+                            .clearfix
                         .text
                             .title #{st.title}
                             .descr #{st.descr}
                             .addr  #{st.addr}
                         .graph
+                        .clearfix
             script.
                 window.fav_ids = !{JSON.stringify(st_list)};
                 window.st_data = !{JSON.stringify(data)};

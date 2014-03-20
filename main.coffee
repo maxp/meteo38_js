@@ -43,6 +43,7 @@ app.use compress()
 app.use cookie_parser()
 app.use body_parser({limit:10*1024*1024})
 
+
 # app.use sess.middleware()
 # app.use auth.middleware()
 
@@ -72,11 +73,17 @@ ST_LIST_DEFAULT = [
 #   urls
 #
 
+HPA_MMHG = 1.3332239
+
+wind_nesw = (b) ->
+    return "" if b >= 360 or b < 0
+    return ["С","СВ","В","ЮВ","Ю","ЮЗ","З","СЗ"][(Math.floor((b+22)/45)) % 8]
+#-
+
+
 app.get '/', (req, res) ->
     st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
-    if not st_list.length
-        st_list = ST_LIST_DEFAULT 
-        # res.cookie ST_LIST_COOKIE, st_list, {expires: new Date("2101-01-01"), httponly: false}
+    st_list = ST_LIST_DEFAULT if not st_list.length
     #
     fetch_sts( st_list, (data) ->
         res.render "app/main", {
@@ -84,6 +91,8 @@ app.get '/', (req, res) ->
             st_list: st_list
             data: data
             hhmm: lib.hhmm(new Date())
+
+            # code duplicated in inc/front.coffee
             format_t: (last, trends) ->
                 return "" if not last.t?
                 t = Math.round(last.t)
@@ -105,6 +114,26 @@ app.get '/', (req, res) ->
                 #
                 return " <span class='#{cls}'>#{sign}<i>#{t}</i></span>&deg;"+
                         "<span class='arr #{acls}'>#{tr}</span>"
+            format_p: (last) ->
+                p = (Math.round(last.p/HPA_MMHG)+" мм" if last.p?) or ""
+                h = (Math.round(last.h)+"%" if last.h?) or ""
+                return if p and h then p+", "+h else p+h
+            #-
+            format_w: (last) ->
+                if last.w? or last.g?
+                    s = if last.w? then ""+Math.round(last.w) else ""
+                    if last.g? and (Math.round(last.g) > Math.round(last.w))
+                        s += "-" if s
+                        s += Math.round(last.g)
+                    #-
+                    s += " м/с" if s
+                    if last.b? and (Math.round(last.w) > 0)
+                        d = wind_nesw(Math.round(last.b))
+                        s += ", "+d if d
+                    return s
+                else
+                    return ""
+            #-
         }
     )
 #-

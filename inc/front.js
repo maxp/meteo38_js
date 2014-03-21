@@ -135,7 +135,7 @@
           s = st_list[_i];
           d = resp.data[s];
           if (d) {
-            $("#favst_" + d._id + " .data").html(format_t(d.last, d.trends)).append($("<div class='p'></<div>").html(format_p(d.last))).append($("<div class='w'></<div>").html(format_w(d.last)));
+            $("#favst_" + d._id + " .data").html(format_t(d.last, d.trends)).append($("<div class='w'></<div>").html(format_w(d.last))).append($("<div class='p'></<div>").html(format_p(d.last)));
           } else {
             $("#favst_" + s + " .data").html("");
           }

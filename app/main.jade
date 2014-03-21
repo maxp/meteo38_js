@@ -36,8 +36,8 @@ block content
                     .item(id="favst_#{st._id}",data-st="#{st._id}")
                         .data.pull-right
                             .t!= format_t(st.last, st.trends)
-                            .p!= format_p(st.last)
                             .w!= format_w(st.last)
+                            .p!= format_p(st.last)
                             .clearfix
                         .text
                             .title #{st.title}

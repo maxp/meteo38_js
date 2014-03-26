@@ -301,6 +301,9 @@
 
   add_marker = function(d) {
     var c;
+    if (!d) {
+      return;
+    }
     if (!(c = ll2coords(d.ll)) || !markers) {
       return;
     }

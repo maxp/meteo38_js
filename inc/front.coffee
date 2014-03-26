@@ -234,6 +234,7 @@ title_t = (d) ->
 #-
 
 add_marker = (d) ->
+    return if not d
     return if not (c = ll2coords(d.ll)) or not markers
     markers.add( new ymaps.Placemark(c, 
         {iconContent: title_t(d)},

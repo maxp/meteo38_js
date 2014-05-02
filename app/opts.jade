@@ -1,0 +1,46 @@
+extends layout
+
+append head_scripts
+    //- script(src="/inc/objs.js")
+
+append page_scripts
+    script(src="/inc/util.js")
+    script(src="/inc/front.js")
+
+block content
+
+    script.
+        window.fav_ids = !{JSON.stringify(fav_ids)};
+
+    .row
+        .page-opts.col-md-8.col-md-offset-2
+
+            h2.text-center Настройки
+
+            .st_opts.col-md-10.col-md-offset-1#st_list_opts
+                each f in fav_ids
+                    - st = st_f[f]
+                    - if(st)
+                        .item(id="st_#{st._id}",data-st="#{st._id}")
+                            .move
+                                span.arrow.glyphicon.glyphicon-chevron-up.move-up(title="Поднять вверх")
+                                span.arrow.glyphicon.glyphicon-chevron-down.move-down(title="Опустить вниз")
+                            input.check(type="checkbox",checked="1")
+                            .text
+                                .title #{st.title}
+                                .descr #{st.descr}
+                                .addr  #{st.addr}
+                each st in st_n
+                    .item(id="st_#{st._id}",data-st="#{st._id}")
+                        .move
+                            span.arrow.glyphicon.glyphicon-chevron-up.move-up(title="Поднять вверх")
+                            span.arrow.glyphicon.glyphicon-chevron-down.move-down(title="Опустить вниз")
+                        input.check(type="checkbox")
+                        .text
+                            .title #{st.title}
+                            .descr #{st.descr}
+                            .addr  #{st.addr}
+                //-
+            //-
+
+//-

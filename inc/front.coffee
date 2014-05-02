@@ -115,34 +115,52 @@ refresh_data = (delay) ->
     )
 #-
 
-save_favs = (favs) ->
-    window.util.post("/st_favs", {favs:favs}, (data) -> )
-    refresh_data(500)
-#-
+# save_favs = (favs) ->
+#     window.util.post("/st_favs", {favs:favs}, (data) -> )
+#     refresh_data(500)
+# #-
 
-favs_add = (st, title, descr, addr) ->
-    if st not in window.fav_ids
-        window.fav_ids.push(st)
-        # duplicated in main.jade
-        $item = $("<div class='item'></div>").attr("id", "favst_"+st).data("st",st)
-        $item.append("<div class='data pull-right'></div>")
-        $item.append( $("<div class='text'></div>")
-            .append( $("<div class='title'></div>").text(title) )
-            .append( $("<div class='descr'></div>").text(descr) )                
-            .append( $("<div class='addr'></div>").text(addr) )
-        )
-        $item.append("<div class='graph'></div>")
-        $item.append("<div class='clearfix'></div>")
-        $("#fav_items").append($item)
-        save_favs(window.fav_ids)
-    #
-#-
+_save_favs_timeout = null
 
-favs_remove = (st) ->
-    $("#favst_#{st}").remove()
-    window.fav_ids = (id for id in window.fav_ids when id isnt st)
-    save_favs(window.fav_ids)
-#-
+save_favs_delayed = (delay=1000) ->
+    clearTimeout(_save_favs_timeout) if _save_favs_timeout
+    _save_favs_timeout = setTimeout(
+        () ->
+            favs = []
+            $(".item", "#st_list_opts").each (i, v) ->
+                $v = $(v)
+                favs.push($v.data("st")) if $v.find(".check").prop("checked")
+                return true
+            #-
+            window.util.post("/st_favs", {favs:favs}, (data) -> )
+        #-
+        delay
+    )
+#-    
+
+# favs_add = (st, title, descr, addr) ->
+#     if st not in window.fav_ids
+#         window.fav_ids.push(st)
+#         # duplicated in main.jade
+#         $item = $("<div class='item'></div>").attr("id", "favst_"+st).data("st",st)
+#         $item.append("<div class='data pull-right'></div>")
+#         $item.append( $("<div class='text'></div>")
+#             .append( $("<div class='title'></div>").text(title) )
+#             .append( $("<div class='descr'></div>").text(descr) )                
+#             .append( $("<div class='addr'></div>").text(addr) )
+#         )
+#         $item.append("<div class='graph'></div>")
+#         $item.append("<div class='clearfix'></div>")
+#         $("#fav_items").append($item)
+#         save_favs(window.fav_ids)
+#     #
+# #-
+
+# favs_remove = (st) ->
+#     $("#favst_#{st}").remove()
+#     window.fav_ids = (id for id in window.fav_ids when id isnt st)
+#     save_favs(window.fav_ids)
+# #-
 
 
 ll2coords = (ll) -> return [ll[1], ll[0]] if ll?.length is 2
@@ -177,47 +195,69 @@ fav_item_click = (evt) ->
         #-
 #-
 
-star_click = (evt) ->
-    $this = $(this)
-    if $this.data("fav")
-        $this.data("fav", 0)
-        $this.children(".glyphicon")
-            .removeClass("glyphicon-star").addClass("glyphicon-star-empty")
-        favs_remove($this.data("st"))
-    else
-        $this.data("fav", 1)
-        $this.children(".glyphicon")
-            .removeClass("glyphicon-star-empty").addClass("glyphicon-star")
-        favs_add($this.data("st"),$this.data("title"), $this.data("descr"), $this.data("addr"))
+st_opts_arrow_click = (evt) ->
+    $et = $(evt.target)
+    $item = $et.closest(".item")
+    if $et.hasClass('move-up')
+        $prev = $item.prev(".item")
+        if $prev.length
+            $item.detach().insertBefore($prev) 
+            save_favs_delayed()
+        #
+        return false
     #
+    if $et.hasClass('move-down')
+        $next = $item.next(".item")
+        if $next.length
+            $item.detach().insertAfter($next) 
+            save_favs_delayed()
+        #
+        return false
+    #
+    return false    
 #-
 
-load_stlist = () ->
-    $stlist = $("#pane_opts")
-    $stlist.html("<div class='loading'></div>")
-    $.getJSON("/st_list", (data) ->
-        $stlist.html("")
-        return alert("Ошибка при загрузке данных!") if not data.st_list
-        $.each( data.st_list, (i,v) ->
-            update_stdata(v)        
-            item = $("<div class='item'></div>")  #.attr("id",v._id)
-            $star = $("<div class='star'></div>").click(star_click)
-                .data({st:v._id, title:v.title, descr:v.descr, addr:v.addr})
-            if v._id in window.fav_ids
-                $star.data("fav",1).append(
-                    "<span class='glyphicon glyphicon-star'></span>")
-            else
-               $star.data("fav",0).append(
-                    "<span class='glyphicon glyphicon-star-empty'></span>")
-            #
-            item.append( $star )
-            item.append( $("<div class='title'></div>").text(v.title) )
-            item.append( $("<div class='descr'></div>").text(v.descr) )
-            item.append( $("<div class='addr'></div>").text(v.addr) )
-            $stlist.append(item)
-        )
-    )
-#-
+# star_click = (evt) ->
+#     $this = $(this)
+#     if $this.data("fav")
+#         $this.data("fav", 0)
+#         $this.children(".glyphicon")
+#             .removeClass("glyphicon-star").addClass("glyphicon-star-empty")
+#         favs_remove($this.data("st"))
+#     else
+#         $this.data("fav", 1)
+#         $this.children(".glyphicon")
+#             .removeClass("glyphicon-star-empty").addClass("glyphicon-star")
+#         favs_add($this.data("st"),$this.data("title"), $this.data("descr"), $this.data("addr"))
+#     #
+# #-
+
+# load_stlist = () ->
+#     $stlist = $("#pane_opts")
+#     $stlist.html("<div class='loading'></div>")
+#     $.getJSON("/st_list", (data) ->
+#         $stlist.html("")
+#         return alert("Ошибка при загрузке данных!") if not data.st_list
+#         $.each( data.st_list, (i,v) ->
+#             update_stdata(v)        
+#             item = $("<div class='item'></div>")  #.attr("id",v._id)
+#             $star = $("<div class='star'></div>").click(star_click)
+#                 .data({st:v._id, title:v.title, descr:v.descr, addr:v.addr})
+#             if v._id in window.fav_ids
+#                 $star.data("fav",1).append(
+#                     "<span class='glyphicon glyphicon-star'></span>")
+#             else
+#                $star.data("fav",0).append(
+#                     "<span class='glyphicon glyphicon-star-empty'></span>")
+#             #
+#             item.append( $star )
+#             item.append( $("<div class='title'></div>").text(v.title) )
+#             item.append( $("<div class='descr'></div>").text(v.descr) )
+#             item.append( $("<div class='addr'></div>").text(v.addr) )
+#             $stlist.append(item)
+#         )
+#     )
+# #-
 
 title_t = (d) ->
     t = d.last?.t
@@ -324,33 +364,37 @@ show_map = () ->
 
 $("#btn_refresh").click () -> refresh_data(0)
 
-$("a.tablink").each( (i, a) -> $(a).click( () ->
-    $li = $(this).parent()
-    return false if $li.hasClass("active")
-    $("a.tablink").parent().removeClass("active")
-    $li.addClass("active")
-    $(".tab_pane").hide()
-    pane = $(this).data("pane")
-    $("#pane_"+pane).show()
-    {
-        # graph:show_graph, 
-        map: show_map, 
-        opts:load_stlist
-    }[pane].call()
-))
+# $("a.tablink").each( (i, a) -> $(a).click( () ->
+#     $li = $(this).parent()
+#     return false if $li.hasClass("active")
+#     $("a.tablink").parent().removeClass("active")
+#     $li.addClass("active")
+#     $(".tab_pane").hide()
+#     pane = $(this).data("pane")
+#     $("#pane_"+pane).show()
+#     {
+#         # graph:show_graph, 
+#         map: show_map, 
+#         opts:load_stlist
+#     }[pane].call()
+# ))
 
 $( () -> 
     $("#fav_items").on("click", ".item", fav_item_click)
-    $("a.tablink")[0].click()
+    $("#st_list_opts").on("click", ".item .check", save_favs_delayed)
+    $("#st_list_opts").on("click", ".item .arrow", st_opts_arrow_click)
+#    $("a.tablink")[0].click()
 
-    if window.localStorage and not window.localStorage.getItem("help_seen")
-        $(".help_banner .glyphicon-remove").click () -> 
-            window.localStorage.setItem("help_seen", 1) if window.localStorage
-            $(".help_banner").hide("fast")
-        #-
-        $(".help_banner").show("fast")
-    #
+    # if window.localStorage and not window.localStorage.getItem("help_seen")
+    #     $(".help_banner .glyphicon-remove").click () -> 
+    #         window.localStorage.setItem("help_seen", 1) if window.localStorage
+    #         $(".help_banner").hide("fast")
+    #     #-
+    #     $(".help_banner").show("fast")
+    # #
 
+    show_map()
+    
     refresh_data(REFRESH_INTERVAL) 
     $.getScript("/inc/js/jquery.sparkline.min.js").done () ->
 )

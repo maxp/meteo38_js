@@ -138,6 +138,22 @@ app.get '/', (req, res) ->
     )
 #-
 
+app.get "/opts", (req, res) ->
+    fav_ids = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
+    get_stlist( (data) -> 
+        st_f = {}
+        st_n = []
+        for st in data
+            if st._id in fav_ids
+                st_f[st._id] = st
+            else
+                st_n.push(st)
+        #
+        res.render "app/opts", {fav_ids:fav_ids, st_f:st_f, st_n:st_n}
+    )
+#-
+
+# deprecated
 app.get '/st_list', (req, res) ->
     # ?filter by ll
     st_fav = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
@@ -220,6 +236,7 @@ app.get '/st_graph', (req, res) ->
             return res.json {ok:1, st:st, data:data}
     )
 #-
+
 
 
 # app.get '/st_graph', (req, res) ->

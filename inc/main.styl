@@ -90,29 +90,32 @@ a:active
 
 .page
     
-    .help_banner
-        display: none
-        border-radius: 3px
-        border: 1px solid #6b6
-        background-color: #cfe
-        padding: 4px 8px
-        margin: 4px 6px 6px 6px
+    // .help_banner
+    //     display: none
+    //     border-radius: 3px
+    //     border: 1px solid #6b6
+    //     background-color: #cfe
+    //     padding: 4px 8px
+    //     margin: 4px 6px 6px 6px
 
-        .glyphicon-arrow-down
-            float: left
-            margin: 3px 6px 0 0
+    //     .glyphicon-arrow-down
+    //         float: left
+    //         margin: 3px 6px 0 0
 
-        .glyphicon-remove
-            float: right
-            cursor: pointer
-            color: #aaa
-            margin: 3px -2px 2px 6px
+    //     .glyphicon-remove
+    //         float: right
+    //         cursor: pointer
+    //         color: #aaa
+    //         margin: 3px -2px 2px 6px
+
+    .btn_opts
+        margin-left: 8px
 
     .btn_refresh
         margin-right: 8px
 
     .btn_help
-        margin-left: 8px
+        margin-right: 10px
 
     .favs
         margin-top: 10px
@@ -176,20 +179,60 @@ a:active
         .item:hover
             background-color: #f0f4ff
 
-.page
-    .social
-        margin-top: 12px
-        margin-bottom: 8px
-        overflow-y: hidden
-        overflow-x: hidden
-        height: 100px
+// .page
+//     .social
+//         margin-top: 12px
+//         margin-bottom: 8px
+//         overflow-y: hidden
+//         overflow-x: hidden
+//         height: 100px
 
-    .socbtn
-        margin-top: 6px
-        height: 20px
-        // width: 100px
-        // padding: 0 2px
-        // vertical-align: top
+//     .socbtn
+//         margin-top: 6px
+//         height: 20px
+//         // width: 100px
+//         // padding: 0 2px
+//         // vertical-align: top
+
+.page 
+    .page-opts
+        h2
+            margin-top: 8px
+
+    .st_opts
+        margin-bottom: 12px
+        .item
+            margin-bottom: 4px
+            background-color: #f9fafc
+            border-radius: 4px
+            padding: 1px 10px 2px 30px
+            position: relative
+            .move
+                float: right
+                margin: 7px -2px 2px 4px
+                .arrow
+                    margin: 0 6px
+                    color: #57c
+                    cursor: pointer
+                .arrow:hover
+                    color: #c44
+            .check
+                position: absolute
+                top: 5px
+                left: 9px
+                cursor: pointer
+
+            .title
+                font-size: 22px
+            .descr
+                color: #888
+                margin-left: 16px
+            .addr
+                color: #888
+                margin-left: 16px
+
+        .item:hover
+            background-color: #f0f4ff
 
 .page
     .tab_pane#pane_opts

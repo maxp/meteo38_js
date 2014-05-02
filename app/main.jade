@@ -13,19 +13,24 @@ block content
     .row
         .col-md-8.col-md-offset-2
 
-            .help_banner
+            //- .help_banner
                 span.glyphicon.glyphicon-remove
                 span.glyphicon.glyphicon-arrow-down
                 | Как пользоваться сайтом!
+
+            button.pull-left.btn.btn-default.btn-xs.btn_opts(onclick="window.location.href='/opts'")
+                | Настройки
+                span.glyphicon.glyphicon-cog(
+                    style="margin-left: 4px; position: relative; right: -1px; top: 2px; color: #4a2;" )
 
             button.pull-right.btn.btn-default.btn-xs.btn_refresh#btn_refresh
                 span.glyphicon.glyphicon-refresh(
                     style="margin: 0 6px 0 1px; position: relative; top: 2px;" )
                 span.hhmm #{hhmm}
 
-            button.pull-left.btn.btn-default.btn-xs.btn_help(onclick="window.location.href='/help'")
+            button.pull-right.btn.btn-default.btn-xs.btn_help(onclick="window.location.href='/help'")
                 span.glyphicon.glyphicon-question-sign(
-                    style="margin: 0 1px; position: relative; top: 2px; color: #4a2;" )
+                    style="margin: 0 2px; position: relative; top: 2px; color: #4a2;" )
             .clearfix
 
         .favs.col-md-8.col-md-offset-2#fav_items
@@ -51,8 +56,11 @@ block content
             //-
 
     .row
-        .b-tabs.col-md-8.col-md-offset-2
-            .nav.nav-tabs
+        .col-md-8.col-md-offset-2
+            #pane_map:   .loading
+                
+        //- .b-tabs.col-md-8.col-md-offset-2
+            //- .nav.nav-tabs
                 //- li: a.tablink(data-pane="graph") График
                     span.glyphicon.glyphicon-stats
                 li: a.tablink(data-pane="map"  ) Карта
@@ -61,8 +69,8 @@ block content
                     span.glyphicon.glyphicon-list-alt
 
             //- .tab_pane#pane_graph: .loading
-            .tab_pane#pane_map:   .loading
-            .tab_pane#pane_opts:  .loading
+            //- .tab_pane#pane_map:   .loading
+            //- .tab_pane#pane_opts:  .loading
 
     .row
         .social.col-md-8.col-md-offset-2

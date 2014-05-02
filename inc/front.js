@@ -332,9 +332,9 @@
     $("#fav_items").on("click", ".item", fav_item_click);
     $("#st_list_opts").on("click", ".item .check", save_favs_delayed);
     $("#st_list_opts").on("click", ".item .arrow", st_opts_arrow_click);
-    show_map();
     refresh_data(REFRESH_INTERVAL);
-    return $.getScript("/inc/js/jquery.sparkline.min.js").done(function() {});
+    $.getScript("/inc/js/jquery.sparkline.min.js").done(function() {});
+    return show_map();
   });
 
 }).call(this);

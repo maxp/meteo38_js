@@ -383,20 +383,10 @@ $( () ->
     $("#fav_items").on("click", ".item", fav_item_click)
     $("#st_list_opts").on("click", ".item .check", save_favs_delayed)
     $("#st_list_opts").on("click", ".item .arrow", st_opts_arrow_click)
-#    $("a.tablink")[0].click()
 
-    # if window.localStorage and not window.localStorage.getItem("help_seen")
-    #     $(".help_banner .glyphicon-remove").click () -> 
-    #         window.localStorage.setItem("help_seen", 1) if window.localStorage
-    #         $(".help_banner").hide("fast")
-    #     #-
-    #     $(".help_banner").show("fast")
-    # #
-
-    show_map()
-    
     refresh_data(REFRESH_INTERVAL) 
     $.getScript("/inc/js/jquery.sparkline.min.js").done () ->
+    show_map()
 )
 
 

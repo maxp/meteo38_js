@@ -66,7 +66,7 @@
 
   ST_LIST_COOKIE = "st_list";
 
-  ST_LIST_DEFAULT = ["irgp", "uiii", "rlux120", "iood", "sokr"];
+  ST_LIST_DEFAULT = ["irgp", "uiii", "rlux120", "iood", "istok"];
 
   HPA_MMHG = 1.3332239;
 

@@ -66,7 +66,7 @@
 
   ST_LIST_COOKIE = "st_list";
 
-  ST_LIST_DEFAULT = ["asbtv", "npsd", "uiii", "istok", "kovcheg", "bgkgs2", "zbereg", "soln", "axti", "olha"];
+  ST_LIST_DEFAULT = ["asbtv", "npsd", "uiii", "istok", "kovcheg", "bgkgs2", "zbereg", "soln", "irk2", "olha"];
 
   HPA_MMHG = 1.3332239;
 

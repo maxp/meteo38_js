@@ -64,7 +64,8 @@ else
 
 ST_LIST_COOKIE = "st_list"
 ST_LIST_DEFAULT = [
-    "irgp", "uiii", "rlux120", "iood", "istok"
+#    "irgp", "uiii", "rlux120", "iood", "istok"
+    "asbtv", "npsd", "uiii", "istok", "kovcheg", "bgkgs2", "zbereg", "soln", "axti", "olha"
 ]
 
 #ST_LIST_MAX    = 20

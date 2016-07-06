@@ -13,11 +13,6 @@ block content
     .row
         .col-md-8.col-md-offset-2
 
-            //- .help_banner
-                span.glyphicon.glyphicon-remove
-                span.glyphicon.glyphicon-arrow-down
-                | Как пользоваться сайтом!
-
             button.pull-left.btn.btn-default.btn-xs.btn_opts(onclick="window.location.href='/opts'")
                 | Настройки
                 span.glyphicon.glyphicon-cog(
@@ -32,6 +27,10 @@ block content
                 span.glyphicon.glyphicon-question-sign(
                     style="margin: 0 2px; position: relative; top: 2px; color: #4a2;" )
             .clearfix
+
+        div.text-center  Автоматическая рассылка в мессинджере Телеграм
+          a(href="https://telegram.me/meteo38bot?start=m38",target="_blank")
+            b telegram.me/meteo38bot
 
         .favs.col-md-8.col-md-offset-2#fav_items
             each s in st_list
@@ -58,7 +57,7 @@ block content
     .row
         .col-md-8.col-md-offset-2
             #pane_map:   .loading
-                
+
         //- .b-tabs.col-md-8.col-md-offset-2
             //- .nav.nav-tabs
                 //- li: a.tablink(data-pane="graph") График
@@ -71,46 +70,5 @@ block content
             //- .tab_pane#pane_graph: .loading
             //- .tab_pane#pane_map:   .loading
             //- .tab_pane#pane_opts:  .loading
-
-    .row
-        .social.col-md-8.col-md-offset-2
-            table(style="margin: 0 auto;"): tr
-                td(style="padding-right: 0px;")
-                    img(src="/inc/img/meteo38-qr-100.png",style="height:100px; width:100px;")
-                //- td(style="padding-left: 0px;")
-                    //- hr(style="margin: 0 0 12px 0") 
-
-                    //- https://developers.facebook.com/docs/plugins/like-button/
-                    //- https://vk.com/dev/Like
-                    //- https://developers.google.com/+/web/+1button/
-                    //- http://apiok.ru/wiki/pages/viewpage.action?pageId=42476656#
-
-                    //- .pull-right(style="margin-left: 10px;"): .g-plusone(data-size="medium")
-                        // window.___gcfg = {lang: 'ru'};
-                        // (function(){
-                        //   var po = document.createElement('script'); 
-                        //    po.type = 'text/javascript'; po.async = true;
-                        //    po.src = 'https://apis.google.com/js/platform.js';
-                        //    var s = document.getElementsByTagName('script')[0]; 
-                        //    s.parentNode.insertBefore(po, s);
-                        // })();
-
-                    //- .socbtn
-                        a(href="https://twitter.com/share" class="twitter-share-button" 
-                            data-via="mpenzin" data-hashtags="meteo38") Tweet
-                    //- .socbtn
-                        #fb-root
-                        .fb-like(
-                            data-href="http://meteo38.ru/"
-                            data-layout="button_count" 
-                            data-action="like" 
-                            data-show-faces="true" 
-                            data-share="false"
-                        )
-                    //- .socbtn
-                        #vk_like
-
-        //- social
-
 
 //-

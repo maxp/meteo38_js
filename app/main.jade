@@ -28,10 +28,6 @@ block content
                     style="margin: 0 2px; position: relative; top: 2px; color: #4a2;" )
             .clearfix
 
-        div.text-center  Автоматическая рассылка в мессинджере Телеграм
-          a(href="https://telegram.me/meteo38bot?start=m38",target="_blank")
-            b telegram.me/meteo38bot
-
         .favs.col-md-8.col-md-offset-2#fav_items
             each s in st_list
                 - var st = data[s];
@@ -53,6 +49,12 @@ block content
                 window.fav_ids = !{JSON.stringify(st_list)};
                 window.st_data = !{JSON.stringify(data)};
             //-
+
+    div.text-center
+      = Автоматическая рассылка в мессинджере Телеграм
+      br
+      a(href="https://telegram.me/meteo38bot?start=m38",target="_blank")
+        b telegram.me/meteo38bot
 
     .row
         .col-md-8.col-md-offset-2

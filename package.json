@@ -19,7 +19,7 @@
         "errorhandler": "1.x",
         "request": "2.x",
         "moment": "2.x",
-        "mongodb": "1.x",
+        "mongodb": "2.2.12",
         "express": "4.x",
         "jade": "1.x",
         "serve-static": "1.x",

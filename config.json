@@ -4,8 +4,8 @@
     },
 
     "logger": {
-        "all": "/var/log/www/meteo38.log",
-        "err": "/var/log/www/meteo38-err.log"
+        "all": "/www/log/meteo38.log",
+        "err": "/www/log/meteo38-err.log"
     },
 
     "server": {

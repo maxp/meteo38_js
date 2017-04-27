@@ -83,6 +83,7 @@ wind_nesw = (b) ->
 
 
 app.get '/', (req, res) ->
+    console.log "req:", req
     st_list = st_list_cleanup(req.params?.st_list)
     console.log "st_list_p:", st_list
     st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE]) if not st_list.length

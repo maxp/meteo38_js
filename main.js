@@ -79,13 +79,10 @@
 
   app.get('/', function(req, res) {
     var ref2, st_list;
-    console.log("req:", req);
-    st_list = st_list_cleanup((ref2 = req.params) != null ? ref2.st_list : void 0);
-    console.log("st_list_p:", st_list);
+    st_list = st_list_cleanup((ref2 = req.query) != null ? ref2.st_list : void 0);
     if (!st_list.length) {
       st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE]);
     }
-    console.log("st_list_q:", st_list);
     if (!st_list.length) {
       st_list = ST_LIST_DEFAULT;
     }

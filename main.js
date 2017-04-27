@@ -79,9 +79,9 @@
 
   app.get('/', function(req, res) {
     var ref2, st_list;
-    st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE]);
+    st_list = st_list_cleanup((ref2 = req.params) != null ? ref2.st_list : void 0);
     if (!st_list.length) {
-      st_list = st_list_cleanup((ref2 = req.params) != null ? ref2.st_list : void 0);
+      st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE]);
     }
     if (!st_list.length) {
       st_list = ST_LIST_DEFAULT;

@@ -83,8 +83,8 @@ wind_nesw = (b) ->
 
 
 app.get '/', (req, res) ->
-    st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
-    st_list = st_list_cleanup(req.params?.st_list) if not st_list.length
+    st_list = st_list_cleanup(req.params?.st_list)
+    st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE]) if not st_list.length
     st_list = ST_LIST_DEFAULT if not st_list.length
     #
     fetch_sts( st_list, (data) ->

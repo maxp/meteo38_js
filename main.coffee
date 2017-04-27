@@ -64,8 +64,8 @@ else
 
 ST_LIST_COOKIE = "st_list"
 ST_LIST_DEFAULT = [
-#    "irgp", "uiii", "rlux120", "iood", "istok"
-    "asbtv", "npsd", "uiii", "istok", "kovcheg", "basenet", "bgkgs2", "zbereg", "soln", "irk2", "olha"
+  "asbtv", "irgp", "npsd", "uiii", "basenet", "zbereg", "soln", "irk2", 
+  "olha", "lin_baik", "lin_list", "khomutovo"
 ]
 
 #ST_LIST_MAX    = 20
@@ -84,6 +84,7 @@ wind_nesw = (b) ->
 
 app.get '/', (req, res) ->
     st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
+    st_list = st_list_cleanup(req.params?.st_list) if not st_list.length
     st_list = ST_LIST_DEFAULT if not st_list.length
     #
     fetch_sts( st_list, (data) ->

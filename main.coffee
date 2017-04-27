@@ -64,7 +64,7 @@ else
 
 ST_LIST_COOKIE = "st_list"
 ST_LIST_DEFAULT = [
-  "asbtv", "irgp", "npsd", "uiii", "basenet", "zbereg", "soln", "irk2", 
+  "asbtv", "irgp", "npsd", "uiii", "basenet", "zbereg", "soln", "irk2",
   "olha", "lin_baik", "lin_list", "khomutovo"
 ]
 
@@ -84,7 +84,9 @@ wind_nesw = (b) ->
 
 app.get '/', (req, res) ->
     st_list = st_list_cleanup(req.params?.st_list)
+    console.log "st_list_p:", st_list
     st_list = st_list_cleanup(req.cookies[ST_LIST_COOKIE]) if not st_list.length
+    console.log "st_list_q:", st_list
     st_list = ST_LIST_DEFAULT if not st_list.length
     #
     fetch_sts( st_list, (data) ->
@@ -99,7 +101,7 @@ app.get '/', (req, res) ->
                 return "" if not last.t?
                 t = Math.round(last.t)
                 [cls,sign] = if t > 0 then ["pos","+"] else if t < 0 then ["neg","-"] else ["zer",""]
-                t = -t if t < 0 
+                t = -t if t < 0
 
                 tr = " &nbsp;"
                 acls = ""
@@ -107,10 +109,10 @@ app.get '/', (req, res) ->
                     tts = new Date(trends.ts).getTime()
                     if tts > lib.now() - TRENDS_INTERVAL
                         if trends.t.last >= trends.t.avg + 1
-                            tr = "&uarr;" 
+                            tr = "&uarr;"
                             acls = "pos"
                         if trends.t.last <= trends.t.avg - 1
-                            tr = "&darr;" 
+                            tr = "&darr;"
                             acls = "neg"
                     #
                 #
@@ -142,7 +144,7 @@ app.get '/', (req, res) ->
 
 app.get "/opts", (req, res) ->
     fav_ids = st_list_cleanup(req.cookies[ST_LIST_COOKIE])
-    get_stlist( (data) -> 
+    get_stlist( (data) ->
         st_f = {}
         st_n = []
         for st in data
@@ -171,8 +173,8 @@ app.post '/st_favs', (req, res) ->
 app.get '/st_data', (req, res) ->
     st_list = st_list_cleanup((req.query.st_list or "").split(','))
     return res.json({err:"badreq"}) if not st_list.length
-    fetch_data( st_list, (data) -> 
-        return res.json {ok:1, data:data, hhmm:lib.hhmm(new Date())} 
+    fetch_data( st_list, (data) ->
+        return res.json {ok:1, data:data, hhmm:lib.hhmm(new Date())}
     )
 #-
 
@@ -201,7 +203,7 @@ app.get '/st_graph', (req, res) ->
                     y:{$year:"$ts"},
                     m:{$month:"$ts"},
                     d:{$dayOfMonth:"$ts"},
-                    h:{$hour:"$ts"}                    
+                    h:{$hour:"$ts"}
                 },
                 ts0:{$min:"$ts"},
                 t_m:{$min:"$t"},
@@ -268,7 +270,7 @@ app.get '/st_graph', (req, res) ->
 #                     y:{$year:"$ts"},
 #                     m:{$month:"$ts"},
 #                     d:{$dayOfMonth:"$ts"},
-#                     h:{$hour:"$ts"}                    
+#                     h:{$hour:"$ts"}
 #                 },
 #                 ts0:{$min:"$ts"},
 #                 t_m:{$min:"$t"},
@@ -308,7 +310,7 @@ app.get '/st_graph', (req, res) ->
 # #-
 
 app.get "/exp/t.js", exp.t_js
-app.get "/exp/", (req, res) -> 
+app.get "/exp/", (req, res) ->
     get_stlist( (data) ->
         res.render "app/exp", {
             title: "Как установить информер на свой сайт"
@@ -316,7 +318,7 @@ app.get "/exp/", (req, res) ->
         }
     )
 #-
-    
+
 app.get "/exp", (req, res) -> res.redirect "/exp/"
 
 app.get "/help", (req, res) -> res.render("app/help", title:"Вопросы и ответы")
@@ -326,7 +328,7 @@ app.get "/help", (req, res) -> res.render("app/help", title:"Вопросы и �
 app.get '/favicon.ico', serve_static(__dirname+'/inc/img', {maxAge: 30 * 24*3600*1000})
 
 app.get '/yandex_6f489466c2955c1a.txt', (req, res) -> res.send "ok"
-app.get '/google527c56f2996a48ae.html', (req, res) -> 
+app.get '/google527c56f2996a48ae.html', (req, res) ->
     res.send "google-site-verification: google527c56f2996a48ae.html"
 #
 
@@ -351,4 +353,4 @@ app.listen config.server.port, config.server.host
 
 lib.watch_file __filename
 
-#.   
+#.

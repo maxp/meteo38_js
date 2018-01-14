@@ -15,7 +15,7 @@ MongoClient.connect config.db.url, (err, db) ->
         warn "db.err:", err
         process.exit 1
     #
-    info "db connected", db.databaseName
+    info "db connected", db
     #
     db_conn = db
     # indexes(db)

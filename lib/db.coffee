@@ -16,6 +16,8 @@ MongoClient.connect config.db.url, (err, db) ->
         process.exit 1
     #
     info "db connected", db
+
+    info "st-coll:", db.collection("st")
     #
     db_conn = db
 #-

@@ -16,8 +16,9 @@ MongoClient.connect config.db.url, (err, client) ->
       warn "db.err:", err
       process.exit 1
 
-  info "db connected", client.db()
-  db_conn = client.db()
+  info "config.db:", config.db
+  info "db connected", client.db(config.db.name)
+  db_conn = client.db(config.db.name)
 #-
 
 x.OID = x.ObjectID = ObjectID

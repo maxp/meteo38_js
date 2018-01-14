@@ -10,16 +10,14 @@ config = require './config'
 
 db_conn = null
 
-cli = MongoClient.connect(config.db.url)
+MongoClient.connect config.db.url, (err, client) ->
 
-cli.then (db) ->
-      info "db connected", db
-      db_conn = db
-  
-cli.catch (err) ->
+  if err
       warn "db.err:", err
       process.exit 1
-  
+
+  info "db connected", client.db()
+  db_conn = client.db()
 #-
 
 x.OID = x.ObjectID = ObjectID

@@ -219,6 +219,7 @@ app.get '/st_graph', (req, res) ->
             }},
             {$sort:{ts0:1}}
         ],
+        {cursor:{}},
         (err, data) ->
             if err
                 warn "st_graph:", err

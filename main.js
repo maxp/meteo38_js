@@ -313,7 +313,9 @@
           ts0: 1
         }
       }
-    ], function(err, data) {
+    ], {
+      cursor: {}
+    }, function(err, data) {
       var d, i, j, len, len1, ref2, v;
       if (err) {
         warn("st_graph:", err);

@@ -1,10 +1,16 @@
 {
-    "name":    "meteo38.ru",
-    "version": "0.4.0",
-    "author":  "m@penzin.ru",
+    "name": "meteo38.ru",
+    "version": "0.4.1",
+    "author": "m@penzin.ru",
     "description": "meteo38.ru weather data display",
     "homepage": "http://openirk.ru/",
-    "keywords": ["nodejs", "express", "maps", "geolocation","weather"],
+    "keywords": [
+        "nodejs",
+        "express",
+        "maps",
+        "geolocation",
+        "weather"
+    ],
     "license": "Artistic-2.0",
     "repository": {
         "type": "git",
@@ -19,8 +25,8 @@
         "errorhandler": "1.x",
         "request": "2.x",
         "moment": "2.x",
-        "mongodb": "2.2.16",
-        "express": "4.x",
+        "mongodb": "3.0.1",
+        "express": "4.16.2",
         "jade": "1.x",
         "serve-static": "1.x",
         "stylus": "0.x",
@@ -35,7 +41,7 @@
         "deploy": "./deploy.sh",
         "stylus": "stylus --include-css -c -w inc",
         "coffee": "coffee -cw .",
-        "dbtun":  "ssh -NL 22017:localhost:27017 mph",
+        "dbtun": "ssh -NL 22017:localhost:27017 mph",
         "devs": "while : ; do node main; sleep 1; done"
     },
     "engine": {

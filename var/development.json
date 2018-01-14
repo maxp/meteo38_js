@@ -5,6 +5,7 @@
         "err": "./tmp/logger-err.log"
     },
     "db": {
-        "url": "mongodb://localhost:22017/meteo?auto_reconnect=true,pool_size=10"
+        "url": "mongodb://localhost:22017/meteo?auto_reconnect=true,pool_size=10",
+        "name": "meteo"
     }
 }

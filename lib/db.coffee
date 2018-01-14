@@ -16,8 +16,7 @@ MongoClient.connect config.db.url, (err, client) ->
       warn "db.err:", err
       process.exit 1
 
-  info "config.db:", config.db
-  info "db connected", client.db(config.db.name)
+  info "db connected"
   db_conn = client.db(config.db.name)
 #-
 
@@ -43,8 +42,6 @@ x.str_id = str_id = (id) ->
 #-
 
 x.coll_dat = () -> db_conn.collection("dat")
-x.coll_st  = () -> 
-  info "st", db_conn
-  db_conn.collection("st")
+x.coll_st  = () -> db_conn.collection("st")
 
 #.

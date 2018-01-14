@@ -219,25 +219,27 @@ app.get '/st_graph', (req, res) ->
             }},
             {$sort:{ts0:1}}
         ],
-        {cursor:{}},
-        (err, data) ->
-            if err
-                warn "st_graph:", err
-                return res.json {err:"db"}
-            #
-            for d in data
-                delete d._id
-                delete d.w_x if d.w_x is null
-                for v in ['t','p','h','w']
-                    if d[v+'_m'] is null
-                        delete d[v+'_m']
-                        delete d[v+'_x']
-                        delete d[v+'_a']
+        {cursor:{}}
+        ).toArray(
+            (err, data) ->
+                if err
+                    warn "st_graph:", err
+                    return res.json {err:"db"}
+                #
+                for d in data
+                    delete d._id
+                    delete d.w_x if d.w_x is null
+                    for v in ['t','p','h','w']
+                        if d[v+'_m'] is null
+                            delete d[v+'_m']
+                            delete d[v+'_x']
+                            delete d[v+'_a']
+                        #
                     #
                 #
-            #
-            return res.json {ok:1, st:st, data:data}
-    )
+                return res.json {ok:1, st:st, data:data}
+        )
+
 #-
 
 

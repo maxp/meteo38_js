@@ -315,7 +315,7 @@
       }
     ], {
       cursor: {}
-    }, function(err, data) {
+    }).toArray(function(err, data) {
       var d, i, j, len, len1, ref2, v;
       if (err) {
         warn("st_graph:", err);

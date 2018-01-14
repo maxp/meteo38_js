@@ -2,31 +2,20 @@
 #	meteo38.ru gitignore
 #
 
+.*
+
 *.class
 *.ser
 *~
+*.swp
 *.bak
 *.old
 *.py[co]
 *.log
 
-# ide
-.settings
-.classpath
-.project
-.manager
-.pydevproject
-.idea
-
 /node_modules/
-
-# temp
-.DS_Store/
 /tmp/
 
-# scm
-.svn
-.CVS
-.hg*
+!.gitignore
 
 #.

@@ -18,16 +18,7 @@ MongoClient.connect config.db.url, (err, db) ->
     info "db connected", db
     #
     db_conn = db
-    # indexes(db)
 #-
-
-
-#indexes = (db) ->
-##-
-
-# x.trace = (data) ->
-#     db_conn.collection('trace').insert data, (err) -> warn "db.trace:", err if err
-# #-
 
 x.OID = x.ObjectID = ObjectID
 
@@ -39,7 +30,7 @@ x.make_oid = make_oid = (id) ->
         return ObjectID(id)
     catch err
         return null
-#-    
+#-
 
 x.str_id = str_id = (id) -> 
     return null if not id
@@ -48,22 +39,11 @@ x.str_id = str_id = (id) ->
         return ObjectID(id)
     catch err
         return ""+id
-#-    
+#-
 
 x.coll_dat = () -> db_conn.collection("dat")
-x.coll_st  = () -> db_conn.collection("st")
-
-# x.next_seq = (name, cb) ->
-#     db_conn.collection(SEQ).findAndModify(
-#         {_id:name}, null, {$inc:{val:1}}, {upsert:true, new:1},
-#         (err, data) -> 
-#             if err
-#                 warn "next_seq:", err
-#                 cb(null)
-#             else
-#                 cb(data.val)
-#     )
-# #-  
-
+x.coll_st  = () -> 
+  info "st", db_conn
+  db_conn.collection("st")
 
 #.

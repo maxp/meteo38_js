@@ -33,8 +33,8 @@ app.enable "trust proxy"
 
 app.use compress()
 app.use cookie_parser()
-app.use app.json()
-app.use app.urlencoded({extended:false})
+app.use express.json()
+app.use express.urlencoded({extended:false})
 
 if config.env is "development"
     app.use '/inc', serve_static(__dirname+"/inc")

@@ -18,18 +18,10 @@ moment = require 'moment'
 
 exp = require "./app/exp"
 
-
-# db   = require './lib/db'
-# sess = require './lib/sess'
-# auth = require './app/auth'
-# user = require './app/user'
-
-body_parser = require 'body-parser'
 compress = require 'compression'
 cookie_parser = require 'cookie-parser'
 error_handler = require 'errorhandler'
 serve_static = require 'serve-static'
-#multipart = require 'connect-multiparty'
 
 express = require 'express'
 app = express()
@@ -41,13 +33,8 @@ app.enable "trust proxy"
 
 app.use compress()
 app.use cookie_parser()
-app.use body_parser({limit:10*1024*1024})
-
-
-# app.use sess.middleware()
-# app.use auth.middleware()
-
-# app.use app.router
+app.use app.json()
+app.use app.urlencoded({extended:false})
 
 if config.env is "development"
     app.use '/inc', serve_static(__dirname+"/inc")
@@ -59,7 +46,6 @@ else
     app.use error_handler()
     app.locals.pretty = false
     app.locals.cache = true
-#
 #-
 
 ST_LIST_COOKIE = "st_list"

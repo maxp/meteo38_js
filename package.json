@@ -18,7 +18,6 @@
     },
     "dependencies": {
         "async": "2.6.0",
-        "body-parser": "1.x",
         "compression": "1.x",
         "cookie-parser": "1.x",
         "cron": "1.x",

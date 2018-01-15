@@ -41,9 +41,9 @@
 
   app.use(cookie_parser());
 
-  app.use(app.json());
+  app.use(express.json());
 
-  app.use(app.urlencoded({
+  app.use(express.urlencoded({
     extended: false
   }));
 

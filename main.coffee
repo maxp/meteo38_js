@@ -171,13 +171,13 @@ app.get '/st_graph', (req, res) ->
     return res.json({err:"badreq",msg:"?d=0,n=3,st=..."}) if not st
 
     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
-    t1.add("days", lib.int(req.query.d) + 1)
+    t1.add(lib.int(req.query.d) + 1, "days")
 
     n = lib.int(req.query.n)
     n = DAYNUM_MAX if n > DAYNUM_MAX
     n = 1 if n < 1
 
-    t0 = moment(t1).subtract("days", n)
+    t0 = moment(t1).subtract(n, "days")
 
     db.coll_dat().aggregate(
         [
@@ -236,7 +236,7 @@ app.get '/st_graph', (req, res) ->
 #     return res.json({err:"badreq",msg:"?d=0,n=3,st[]=..."}) if not st_list.length
 
 #     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0)
-#     t1.add("days", lib.int(req.query.d) + 1)
+#     t1.add(lib.int(req.query.d) + 1, 'days')
 
 #     n = lib.int(req.query.n)
 #     n = DAYNUM_MAX if n > DAYNUM_MAX
@@ -247,7 +247,7 @@ app.get '/st_graph', (req, res) ->
 #             {$match:{
 #                 st:{$in:st_list},
 #                 ts:{
-#                     $gte: moment(t1).subtract("days", n).toDate()
+#                     $gte: moment(t1).subtract(n, "days").toDate()
 #                     $lt:  t1.toDate()
 #                 }
 #             }},

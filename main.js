@@ -234,7 +234,7 @@
       });
     }
     t1 = moment().set('hour', 0).set('minute', 0).set('second', 0).set('millisecond', 0);
-    t1.add("days", lib.int(req.query.d) + 1);
+    t1.add(lib.int(req.query.d) + 1, "days");
     n = lib.int(req.query.n);
     if (n > DAYNUM_MAX) {
       n = DAYNUM_MAX;
@@ -242,7 +242,7 @@
     if (n < 1) {
       n = 1;
     }
-    t0 = moment(t1).subtract("days", n);
+    t0 = moment(t1).subtract(n, "days");
     return db.coll_dat().aggregate([
       {
         $match: {

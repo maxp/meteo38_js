@@ -17,7 +17,7 @@
         "url": "https://github.com/maxp/meteo38"
     },
     "dependencies": {
-        "async": "0.x",
+        "async": "2.6.0",
         "body-parser": "1.x",
         "compression": "1.x",
         "cookie-parser": "1.x",
@@ -31,7 +31,7 @@
         "serve-static": "1.x",
         "stylus": "0.x",
         "underscore": "1.x",
-        "underscore.string": "2.x",
+        "underscore.string": "3.3.4",
         "winston": "0.x"
     },
     "devDependencies": {

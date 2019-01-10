@@ -10,14 +10,14 @@ config = require './config'
 
 db_conn = null
 
-MongoClient.connect config.db.url, (err, client) ->
+MongoClient.connect config.db.url, {useNewUrlParser: true}, (err, client) ->
 
   if err
       warn "db.err:", err
       process.exit 1
 
   info "db connected"
-  db_conn = client.db(config.db.name)
+  db_conn = client.db()
 #-
 
 x.OID = x.ObjectID = ObjectID

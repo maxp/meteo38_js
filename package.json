@@ -1,6 +1,6 @@
 {
     "name": "meteo38.ru",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "author": "m@penzin.ru",
     "description": "meteo38.ru weather data display",
     "homepage": "http://openirk.ru/",
@@ -44,6 +44,6 @@
         "devs": "while : ; do node main; sleep 1; done"
     },
     "engine": {
-        "node": "0.10"
+        "node": "10"
     }
 }

@@ -60,13 +60,15 @@
         $gte: new Date(lib.now() - DATA_FRESH)
       }
     }, {
-      _id: 1,
-      title: 1,
-      last: 1,
-      descr: 1,
-      addr: 1,
-      ll: 1,
-      trends: 1
+      projection: {
+        _id: 1,
+        title: 1,
+        last: 1,
+        descr: 1,
+        addr: 1,
+        ll: 1,
+        trends: 1
+      }
     }).forEach(function(err, item) {
       if (err) {
         warn("app.fetch_sts:", err);
@@ -90,9 +92,11 @@
         $gte: new Date(lib.now() - DATA_FRESH)
       }
     }, {
-      _id: 1,
-      last: 1,
-      trends: 1
+      projection: {
+        _id: 1,
+        last: 1,
+        trends: 1
+      }
     }).forEach(function(err, item) {
       if (err) {
         warn("app.fetch_data:", err);
@@ -113,11 +117,13 @@
         $gte: new Date(fresh)
       }
     }, {
-      _id: 1,
-      title: 1,
-      addr: 1,
-      descr: 1,
-      ll: 1
+      projection: {
+        _id: 1,
+        title: 1,
+        addr: 1,
+        descr: 1,
+        ll: 1
+      }
     }).sort({
       title: 1
     }).toArray(function(err, data) {

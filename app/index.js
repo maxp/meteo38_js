@@ -69,13 +69,7 @@
         ll: 1,
         trends: 1
       }
-    }).forEach(function(err, item) {
-      if (err) {
-        warn("app.fetch_sts:", err);
-      }
-      if (!item) {
-        return cb(res);
-      }
+    }).forEach(function(item) {
       return res[item._id] = item;
     });
   };
@@ -97,13 +91,7 @@
         last: 1,
         trends: 1
       }
-    }).forEach(function(err, item) {
-      if (err) {
-        warn("app.fetch_data:", err);
-      }
-      if (!item) {
-        return cb(res);
-      }
+    }).forEach(function(item) {
       return res[item._id] = item;
     });
   };

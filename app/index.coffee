@@ -32,9 +32,12 @@ x.fetch_sts = (st_list, cb) ->
     db.coll_st().find(
             {_id:{$in:st_list}, pub:1, ts:{$gte:new Date(lib.now()-DATA_FRESH)}},
             {projection: {_id:1,title:1,last:1,descr:1,addr:1,ll:1,trends:1}}
-        ).forEach (item) ->
-            return cb(res) it not item
-            res[item._id] = item
+        ).forEach(
+            (item) ->
+              res[item._id] = item
+            () ->
+              return cb(res)
+        )
     #-
 #-
 
@@ -43,9 +46,12 @@ x.fetch_data = (st_list, cb) ->
     db.coll_st().find(
             {_id:{$in:st_list},pub:1,ts:{$gte:new Date(lib.now()-DATA_FRESH)}},
             {projection: {_id:1,last:1,trends:1}}
-        ).forEach (item) ->
-            return cb(res) it not item
-            res[item._id] = item
+        ).forEach(
+            (item) ->
+              res[item._id] = item
+            () ->
+              return cb(res)
+        )
     #-
 #-
 

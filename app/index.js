@@ -70,8 +70,9 @@
         trends: 1
       }
     }).forEach(function(item) {
-      return cb(res)(it(!item));
       return res[item._id] = item;
+    }, function() {
+      return cb(res);
     });
   };
 
@@ -93,8 +94,9 @@
         trends: 1
       }
     }).forEach(function(item) {
-      return cb(res)(it(!item));
       return res[item._id] = item;
+    }, function() {
+      return cb(res);
     });
   };
 

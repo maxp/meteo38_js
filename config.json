@@ -1,6 +1,6 @@
 {
     "__db": {
-        "url": "mongodb://localhost/meteo?auto_reconnect=true&poolSize=10"
+        "url": "mongodb://localhost/meteo?autoReconnect=true&poolSize=10"
     },
 
     "logger": {

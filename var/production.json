@@ -2,5 +2,11 @@
     "env": "production",
     "db": {
         "url": "mongodb://meteo:metaweb.19@dbm:4417/meteo?autoReconnect=true,poolSize=10"
+    },
+
+    "logger": {
+        "all": "../log/meteo38.log",
+        "err": "../log/meteo38-err.log"
     }
 }
+

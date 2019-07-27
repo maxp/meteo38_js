@@ -1,0 +1,7 @@
+name: "meteo38"
+script: "main.js"
+log_date_format: "YYYY-MM-DD HH:mm:ss"
+restart_delay: 1000
+env:
+  NODE_ENV: production
+  MONGODB_URL: mongodb://localhost:27017/bzcore

@@ -1,21 +1,71 @@
 #
-#	meteo38.ru gitignore
+#	 generic .gitignore
 #
 
+## no hiddens in scm
 .*
 
-*.class
-*.ser
+## editor backups
 *~
-*.swp
 *.bak
 *.old
-*.py[co]
+*.swp
+*.tmp
+
+## binary output
+*.[ao]
+*.l[ao]
+*.so
+*.apk
+*.app
+*.bin
+*.dex
+*.dll
+*.dylib
+*.elf
+*.exe
+*.lib
+*.[gp]ch
+*.py[cod]
+*.obj
+*.out
+
+## java
+*.class
+*.[jerw]ar
+*.ser
+
+## other
+*.dump
+*.iml
+*.lock
 *.log
+*.test
 
-/node_modules/
+## build dirs
+/bin/
+/build/
+/classes/
+/target/
+/pkg/
+/out/
 /tmp/
+/node_modules/
 
+/var/
+
+# explicit versions in package.json
+/package-lock.json
+
+## allow 
 !.gitignore
+!.dockerignore
+!.eslint*
+!.npmingore
+!yarn.lock
+
+# vscode java
+!.classpath
+!.project
 
 #.

@@ -25,7 +25,7 @@
         "express": "4.16.4",
         "jade": "1.x",
         "moment": "^2.23.0",
-        "mongodb": "3.1.10",
+        "mongodb": "3.1.13",
         "request": "2.88.0",
         "serve-static": "^1.13.2",
         "stylus": "0.x",

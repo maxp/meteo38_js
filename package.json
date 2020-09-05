@@ -1,6 +1,6 @@
 {
     "name": "meteo38.ru",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "author": "m@penzin.ru",
     "description": "meteo38.ru weather data display",
     "homepage": "http://openirk.ru/",
@@ -18,20 +18,20 @@
     },
     "dependencies": {
         "async": "2.6.1",
-        "compression": "1.7.3",
-        "cookie-parser": "1.x",
+        "compression": "1.7.4",
+        "cookie-parser": "1.4.5",
         "cron": "1.6.0",
-        "errorhandler": "1.x",
-        "express": "4.16.4",
+        "errorhandler": "1.5.1",
+        "express": "4.17.1",
         "jade": "1.x",
-        "moment": "^2.23.0",
-        "mongodb": "3.1.10",
-        "request": "2.88.0",
-        "serve-static": "^1.13.2",
-        "stylus": "0.x",
-        "underscore": "^1.9.1",
-        "underscore.string": "^3.3.5",
-        "winston": "0.x"
+        "moment": "^2.27.0",
+        "mongodb": "3.1.13",
+        "request": "2.88.2",
+        "serve-static": "^1.14.1",
+        "stylus": "0.54.8",
+        "underscore": "1.11.0",
+        "underscore.string": "3.3.5",
+        "winston": "0.9.0"
     },
     "devDependencies": {
         "coffee-script": "1.x"

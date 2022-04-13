@@ -17,7 +17,7 @@
         "url": "https://github.com/maxp/meteo38"
     },
     "dependencies": {
-        "async": "2.6.1",
+        "async": "3.2.2",
         "compression": "1.7.4",
         "cookie-parser": "1.4.5",
         "cron": "1.6.0",

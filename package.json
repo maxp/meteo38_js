@@ -22,7 +22,7 @@
         "cookie-parser": "1.4.5",
         "cron": "1.6.0",
         "errorhandler": "1.5.1",
-        "express": "4.17.1",
+        "express": "4.17.3",
         "jade": "1.x",
         "moment": "^2.29.1",
         "mongodb": "3.1.13",
